@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "wayou.vscode-todo-highlight",
+    "svelte.svelte-vscode",
+    "esbenp.prettier-vscode",
+    "yoavbls.pretty-ts-errors",
+  ]
+}

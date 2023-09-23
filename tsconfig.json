@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [
+      "DOM",
+      "ES6",
+      "ES2017",
+      "es2015.promise",
+      "ES2021"
+    ],
+    "allowJs": true,
+    "checkJs": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax":true,
+    "isolatedModules": false,
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "useUnknownInCatchVariables": true,
+    "exactOptionalPropertyTypes": true,
+    "module": "esnext",
+    "incremental": true,
+    "tsBuildInfoFile": "./buildcache",
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": false,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "@common/*": [
+        "common/*"
+      ]
+    },
+  },
+  "exclude": [
+    "*/dist/*",
+    "**/node_modules"
+  ],
+}

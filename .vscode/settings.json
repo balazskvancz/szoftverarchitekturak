@@ -1,0 +1,88 @@
+{
+  "editor.tabSize": 2,
+  "editor.tabCompletion": "onlySnippets",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs":"active",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+    "source.fixAll.prettier": true,
+    "source.removeUnusedImports": false
+  },
+  "files.associations": {
+    "*.test.ts": "typescript",
+    "*.test.js": "javascript",
+    "*.css": "css"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "node_modules": true,
+    "tsconfig.*.json": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.suggest.autoImports": false,
+  "typescript.suggest.completeJSDocs": true,
+  "javascript.suggest.autoImports": false,
+  "javascript.suggest.completeJSDocs": true,
+  "typescript.suggest.jsdoc.generateReturns": true,
+  "eslint.validate": [
+    "svelte",
+    "javascript",
+    "typescript",
+    "jade"
+  ],
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+    "TODO",
+    "HACK",
+    "FIXME"
+  ],
+  "todohighlight.defaultStyle": {
+    "color": "red",
+    "fontWeight": "bold",
+    "backgroundColor": "#ffab00",
+    "overviewRulerColor": "#ffab00",
+    "border": "1px solid #eee",
+    "borderRadius": "2px",
+    "isWholeLine": false
+  },
+  "todohighlight.include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.html",
+    "**/*.php",
+    "**/*.css",
+    "**/*.scss",
+    "**/*.go"
+  ],
+  "todohighlight.exclude": [
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.vscode/**",
+      "**/*.min.*",
+      "**/*.map",
+      "**/*.md",
+      "*.json"
+  ],
+  "todohighlight.maxFilesForSearch": 5120,
+  "todohighlight.toggleURI": false,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+}
