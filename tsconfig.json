@@ -42,8 +42,11 @@
     "paths": {
       "@common/*": [
         "common/*"
+      ],
+      "@root/*": [
+        "./*"
       ]
-    },
+    }
   },
   "exclude": [
     "*/dist/*",

@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "example:dev": "webpack --watch --mode development --progress --config ./backend/exampleService/webpack.config.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.14.199",
+    "@types/module-alias": "^2.0.2",
     "@types/mysql": "^2.15.21",
     "@types/node": "^20.6.3",
     "@types/webpack-env": "^1.18.1",
@@ -29,6 +30,7 @@
     "globals": "^13.22.0",
     "javascript-obfuscator": "^4.1.0",
     "jsdoc": "^4.0.2",
+    "module-alias": "^2.2.3",
     "nodemon-webpack-plugin": "^4.8.1",
     "sitemap-webpack-plugin": "^1.1.1",
     "ts-loader": "^9.4.4",
@@ -38,6 +40,9 @@
     "webpack-dev-server": "^4.15.1",
     "webpack-manifest-plugin": "^5.0.0",
     "webpack-obfuscator": "^3.5.1"
+  },
+  "_moduleAliases": {
+    "@root": "."
   },
   "dependencies": {
     "lodash": "^4.17.21",
