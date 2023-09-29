@@ -61,7 +61,7 @@ module.exports = {
   'no-shadow-restricted-names': 2,
   'no-sparse-arrays': 2,
   'no-this-before-super': 2,
-  'no-undef': [ 2, { typeof: true } ],
+  'no-undef': [ 0, { typeof: true } ],
   'no-unexpected-multiline': 2,
   'no-unreachable': 2,
   'no-unsafe-finally': 2,
