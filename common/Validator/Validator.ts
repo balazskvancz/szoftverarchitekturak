@@ -242,6 +242,31 @@ export default class Validator {
   }
 
   /**
+   * Megmondja az ismeretlen paraméterről, hogy az NULL-e.
+   * @param {unknown} param - Az ismeretlen paraméter.
+   */
+  public static isNull (param: unknown): param is null {
+    // eslint-disable-next-line no-restricted-syntax
+    return param === null
+  }
+
+  /**
+   * Megmondja egy ismeretlen paraméterről, hogy az undefined-e.
+   * @param param - Az ismeretlen paraméter.
+   */
+  public static isDefined<T> (param: T): param is Exclude<T, undefined> {
+    return Validator.getType(param) !== 'undefined'
+  }
+
+  /**
+   * Megmondja egy ismeretlen paraméterről, hogy boolean-e.
+   * @param param - Az ismeretlen paraméter.
+   */
+  public static isBoolean (param: unknown): param is boolean {
+    return Validator.getType(param) === 'boolean'
+  }
+
+  /**
    * Típus elkérése.
    * @param param - Az ismeretlen paraméter.
    */
