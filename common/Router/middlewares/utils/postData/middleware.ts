@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import type { IContext, TCallbackFunction } from '@common/RestRouter/definitions'
+import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 const DEFAULT_ENCODING = 'utf-8'
 

@@ -1,13 +1,13 @@
-# RestRouter
+# Router
 
-A REST architektúra igényeit kielégítő HTTP router. A csomag célja kiváltani a korábban használt `@common/Router/Router`, `@common/http/Response` és `@common/http/Request` osztályokat.
+A REST architektúra igényeit kielégítő HTTP router.
 
-## Inicializálás
+## Inicializálás
 
 Egy új Router egyed példányosítása az alábbiak szerint történik:
 
 ```typescript
-import Router from '@common/RestRouter/Router'
+import Router from '@common/Router/Router'
 
 const router = Router.getInstance({
   address: 8000,
@@ -54,7 +54,7 @@ Tehát, az összes olyan URL illeszkedni fog a fenti példában definiált végp
 A natív `callback signature` helyett – `(params: TAnyObject, req: http.IncomingMessage, res: http.ServerResponse): Promise<void>` - egy új, rövidebb függvény prototípus kapott helyet, ami az alábbi.
 
 ```typescript
-import { IContext, TCallbackFunction } from '@common/RestRouter/definitions'
+import { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 // Ennek a függvénynek meg van a típusa is, amely a „TCallbackFunction”.
 async function exampleCallback (ctx: IContext): Promise<void> {}
@@ -112,7 +112,7 @@ A globális Middleware-ek esetében nem szükséges minden egyes végponthoz exp
 Egy-egy Middleware függvény az alábbiak szerint épül fel.
 
 ```typescript
-import { IContext, TCallbackFunction } from '@common/RestRouter/definitions'
+import { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 export default async function exampleMiddleware (ctx: IContext, next: TCallbackFunction): Promise<void> {
   const isOk = await superHeavyTask.do()
@@ -146,7 +146,7 @@ export default function exampleMatcher (ctx: IContext): boolean {
 Így, hogy ismerjük a globális Middlewarek felépítését, már csak azok regisztrálása van hátra.
 
 ```typescript
-import { Middleware } from '@common/RestRouter/Middleware'
+import { Middleware } from '@common/Router/Middleware'
 
 const mw = new Middleware(exmapleMiddleware, matcher)
 

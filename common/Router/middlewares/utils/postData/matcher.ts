@@ -1,7 +1,7 @@
-import Validator from '@common/RestRouter/Validator'
+import Validator from '@common/Router/Validator'
 
-import { METHODS_WITH_POST_BODY } from '@common/RestRouter/definitions'
-import type { IContext } from '@common/RestRouter/definitions'
+import { METHODS_WITH_POST_BODY } from '@common/Router/definitions'
+import type { IContext } from '@common/Router/definitions'
 
 /**
  * Matcher, azaz mikor hívódjon meg a middleware.
