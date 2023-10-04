@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "authService:dev": "webpack --watch --mode development --progress --config ./backend/authService/webpack.config.js",
+    "distributorService:dev": "webpack --watch --mode development --progress --config ./backend/distributorService/webpack.config.js",
     "packageService:dev": "webpack --watch --mode development --progress --config ./backend/packageService/webpack.config.js",
     "userService:dev": "webpack --watch --mode development --progress --config ./backend/userService/webpack.config.js"
   },
