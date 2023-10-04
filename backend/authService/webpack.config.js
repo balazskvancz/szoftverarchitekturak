@@ -7,8 +7,8 @@ const { nodePaths } = require('@root/paths')
 
 const { WebpackConfigurator } = require('@root/webpack/Configurator')
 
-const ENTRY = path.join(nodePaths.root, 'backend', 'exampleService')
-const DIST  = path.join(nodePaths.dist, 'exampleService')
+const ENTRY = path.join(nodePaths.root, 'backend', 'authService')
+const DIST  = path.join(nodePaths.dist, 'authService')
 
 /**
  * Example.
@@ -24,7 +24,7 @@ module.exports = (env, argv) => {
   })
 
   wpc.setEntry({
-    main: path.join(__dirname, 'backend.ts')
+    main: path.join(__dirname, 'main.ts')
   })
 
   return wpc.getConfig()
