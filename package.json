@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "authService:dev": "webpack --watch --mode development --progress --config ./backend/authService/webpack.config.js"
+    "authService:dev": "webpack --watch --mode development --progress --config ./backend/authService/webpack.config.js",
+    "userService:dev": "webpack --watch --mode development --progress --config ./backend/userService/webpack.config.js"
   },
   "author": "",
   "license": "ISC",
