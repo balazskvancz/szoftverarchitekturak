@@ -127,7 +127,7 @@ export default class TreeNode {
     const foundNode = this.children.reduce((acc, curr) => {
       const node = curr.findRec(searchKeyRem, offset.isWildcard)
 
-      if (Validator.isNonEmptyObject(node)) {
+      if (!Validator.isNull(node)) {
         return node
       }
 
@@ -135,7 +135,7 @@ export default class TreeNode {
     }, null as TreeNode | null)
 
     // Ha éppen megtaláltuk a gyerekek között amit kerestünk, akkor meg is vagyunk.
-    if (Validator.isNonEmptyObject(foundNode)) {
+    if (!Validator.isNull(foundNode)) {
       return foundNode
     }
 

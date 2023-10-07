@@ -203,19 +203,19 @@ export default class Router implements IRouter {
 
     const tree = this.methodTrees.get(method)
 
-    if (!Validator.isNonEmptyObject(tree)) {
+    if (!Validator.isDefined(tree)) {
       return notFound
     }
 
     const route = tree.find(ctx.getCleanedUrl())
 
-    if (!Validator.isNonEmptyObject(route)) {
+    if (Validator.isNull(route)) {
       return notFound
     }
 
     const routeEndpoint = route.getValue()
 
-    if (!Validator.isNonEmptyObject(routeEndpoint)) {
+    if (Validator.isNull(routeEndpoint)) {
       return notFound
     }
 
