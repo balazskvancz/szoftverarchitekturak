@@ -10,7 +10,7 @@ export default class Validator {
   */
   public static isObject <T extends Object = Object> (param: unknown): param is T {
     return (
-      Validator.getType(param) === 'object' && !param
+      Validator.getType(param) === 'object' && !Validator.isNull(param)
     )
   }
 
