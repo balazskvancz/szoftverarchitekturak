@@ -3,6 +3,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 import type { IService } from '../../../../getServices'
 import Validator from '@common/Validator/Validator'
 import Error from '../../../../Error'
+import { EUserRole } from '../../../../definitions'
 
 /**
  * Adott azonosítóval rendelkező ügyfél soft törlését megvalósító végpont.
@@ -21,7 +22,7 @@ export default function deleteCustomer (services: IService): TCallbackFunction {
       return
     }
 
-    const isSuccessfull = await services.usersService.deleteCustomer(id)
+    const isSuccessfull = await services.usersService.deleteUser(id, EUserRole.Customer)
 
     if (!isSuccessfull) {
       ctx.sendError({

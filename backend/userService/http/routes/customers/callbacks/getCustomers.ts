@@ -1,6 +1,7 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import type { IService } from '../../../../getServices'
+import { EUserRole } from '../../../../definitions'
 
 /**
  * Az összes ügyfél lekérdezését megvalósító végpont.
@@ -8,7 +9,7 @@ import type { IService } from '../../../../getServices'
  */
 export default function getCustomers (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const users = await services.usersService.getCustomers()
+    const users = await services.usersService.getUsers(EUserRole.Customer)
 
     ctx.sendJson({
       users

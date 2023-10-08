@@ -2,7 +2,7 @@ import type { IError } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IRegisterUser } from '../../../../definitions'
+import { EUserRole, type IRegisterUser } from '../../../../definitions'
 import type { EUserRow } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
@@ -23,7 +23,7 @@ export async function updateCustomerHelper (services: IService,
   }
 
   const rowChangeData = userData[role]
-  const isSuccessfull = await services.usersService.updateCustomer(id, role, rowChangeData)
+  const isSuccessfull = await services.usersService.updateUser(id, role, rowChangeData, EUserRole.Customer)
 
   if (!isSuccessfull) {
     return {

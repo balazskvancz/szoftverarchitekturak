@@ -29,30 +29,15 @@ export default class UsersService extends BaseService {
     `)
   }
 
-  /** Lekérdezi az összes ügyfelet. */
-  public getCustomers (): Promise<IUser[]> {
+  /**
+   * Lekérdezi az összes felhasználót jogosultság alapján.
+   * @param role - A jogosultság.
+   */
+  public getUsers (role: EUserRole): Promise<IUser[]> {
     return this.db.getArray(`
     ${ this.getBaseSql() }
     WHERE deletedAt IS NULL
-    AND role = ${ EUserRole.Customer }
-    `)
-  }
-
-  /** Lekérdezi az összes admint. */
-  public getAdmins (): Promise<IUser[]> {
-    return this.db.getArray(`
-    ${ this.getBaseSql() }
-    WHERE deletedAt IS NULL
-    AND role = ${ EUserRole.Admin }
-    `)
-  }
-
-  /** Lekérdezi az összes futárt. */
-  public getCouriers (): Promise<IUser[]> {
-    return this.db.getArray(`
-    ${ this.getBaseSql() }
-    WHERE deletedAt IS NULL
-    AND role = ${ EUserRole.Courier }
+    AND role = ${ role }
     `)
   }
 
@@ -71,84 +56,16 @@ export default class UsersService extends BaseService {
   }
 
   /**
-   * Lekérdez egy adott azonosítójú ügyfelet.
-   * @param id - Az ügyfél azonosítója.
-   */
-  public getCustomer (id: number): Promise<IUser | null> {
-    return this.db.getRow(`
-      ${ this.getBaseSql() }
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ EUserRole.Customer }
-      `, [ id ])
-  }
-
-  /**
-   * Lekérdez egy adott azonosítójú admint.
-   * @param id - Az admin azonosítója.
-   */
-  public getAdmin (id: number): Promise<IUser | null> {
-    return this.db.getRow(`
-      ${ this.getBaseSql() }
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ EUserRole.Admin }
-      `, [ id ])
-  }
-
-  /**
-   * Lekérdez egy adott azonosítójú futárt.
-   * @param id - A futár azonosítója.
-   */
-  public getCourier (id: number): Promise<IUser | null> {
-    return this.db.getRow(`
-      ${ this.getBaseSql() }
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ EUserRole.Courier }
-      `, [ id ])
-  }
-
-  /**
-   * Kitörli az adott id-vel rendelkező ügyfelet.
+   * Soft töröl egy felhasználót jogosultság és id alapján.
    * @param id - Az id.
+   * @param role - A jogosultság.
    */
-  public async deleteCustomer (id: number): Promise<boolean> {
+  public async deleteUser (id: number, role: EUserRole): Promise<boolean> {
     const result = await this.db.exec(`
       UPDATE ${ this.tableName }
       SET deletedAt = NOW()
       WHERE id = ?
-      AND role = ${ EUserRole.Customer }
-    `, [ id ])
-
-    return this.db.hasChangedRows(result)
-  }
-
-  /**
-   * Kitörli az adott id-vel rendelkező admint.
-   * @param id - Az id.
-   */
-  public async deleteAdmin (id: number): Promise<boolean> {
-    const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET deletedAt = NOW()
-      WHERE id = ?
-      AND role = ${ EUserRole.Admin }
-    `, [ id ])
-
-    return this.db.hasChangedRows(result)
-  }
-
-  /**
-   * Kitörli az adott id-vel rendelkező futárt.
-   * @param id - Az id.
-   */
-  public async deleteCourier (id: number): Promise<boolean> {
-    const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET deletedAt = NOW()
-      WHERE id = ?
-      AND role = ${ EUserRole.Courier }
+      AND role = ${ role }
     `, [ id ])
 
     return this.db.hasChangedRows(result)
@@ -158,7 +75,7 @@ export default class UsersService extends BaseService {
    * Egy adott azonosítóval rendelkező felhasználó törlését visszaállítja.
    * @param id - Az id.
    */
-  public async deleteUndo (id: number): Promise<boolean> {
+  public async undoDelete (id: number): Promise<boolean> {
     const result = await this.db.exec(`
       UPDATE ${ this.tableName }
       SET deletedAt = NULL
@@ -218,6 +135,25 @@ export default class UsersService extends BaseService {
       WHERE deletedAt IS NULL
       AND id = ?
       AND role = ${ EUserRole.Courier }
+    `, [ data, id ])
+
+    return this.db.hasAffectedRows(result)
+  }
+
+  /**
+   * Frissíti egy adott azonosítóval és jogosultsággal rendelkező felhasználó egy adatát.
+   * @param id - A futár azonosítója.
+   * @param row - Melyik adatot kell módosítani.
+   * @param data - Mire kell módosítani.
+   * @param role - A jogosultság.
+   */
+  public async updateUser (id: number, row: string, data: string, role: EUserRole): Promise<boolean> {
+    const result = await this.db.exec(`
+      UPDATE ${ this.tableName }
+      SET ${ row } = ?
+      WHERE deletedAt IS NULL
+      AND id = ?
+      AND role = ${ role }
     `, [ data, id ])
 
     return this.db.hasAffectedRows(result)

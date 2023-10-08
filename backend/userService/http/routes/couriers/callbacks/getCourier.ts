@@ -3,6 +3,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 import type { IService } from '../../../../getServices'
 import Validator from '@common/Validator/Validator'
 import Error from '../../../../Error'
+import { EUserRole } from '../../../../definitions'
 
 /**
  * Egy futár azonosító alapján való lekérdezését megvalósító végpont.
@@ -21,7 +22,7 @@ export default function getCourier (services: IService): TCallbackFunction {
       return
     }
 
-    const user = await services.usersService.getCourier(id)
+    const user = await services.usersService.getUser(id, EUserRole.Courier)
 
     ctx.sendJson({
       user

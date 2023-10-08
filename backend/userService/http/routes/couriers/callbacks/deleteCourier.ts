@@ -3,6 +3,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 import type { IService } from '../../../../getServices'
 import Validator from '@common/Validator/Validator'
 import Error from '../../../../Error'
+import { EUserRole } from '../../../../definitions'
 
 /**
  * Adott azonosítóval rendelkező futár soft törlését  megvalósító végpont.
@@ -21,7 +22,7 @@ export default function deleteCourier (services: IService): TCallbackFunction {
       return
     }
 
-    const isSuccessfull = await services.usersService.deleteCourier(id)
+    const isSuccessfull = await services.usersService.deleteUser(id, EUserRole.Courier)
 
     if (!isSuccessfull) {
       ctx.sendError({

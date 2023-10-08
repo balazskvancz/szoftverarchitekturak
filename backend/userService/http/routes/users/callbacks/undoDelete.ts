@@ -22,7 +22,7 @@ export default function undoDelete (services: IService): TCallbackFunction {
       return
     }
 
-    const isSuccessfull = await services.usersService.deleteUndo(id)
+    const isSuccessfull = await services.usersService.undoDelete(id)
 
     if (!isSuccessfull) {
       ctx.sendError({
