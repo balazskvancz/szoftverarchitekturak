@@ -2,7 +2,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import { EUserRole, type IInsertUser, type IRegisterUser } from '../../../../definitions'
+import { EUserRole, type IInsertUser, type IRegisterCourier } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
@@ -13,9 +13,9 @@ import Error from '../../../../Error'
  */
 export default function register (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const postData = ctx.getBody<IRegisterUser>()
+    const userData = ctx.getBody<IRegisterCourier>()
 
-    if (!Validator.isDefined(postData)) {
+    if (!Validator.isDefined(userData)) {
       ctx.sendError({
         code: Error.codes.ERR_MISSING_BODY,
         message: Error.messages.ERR_MISSING_BODY
@@ -24,7 +24,7 @@ export default function register (services: IService): TCallbackFunction {
       return
     }
 
-    if (!Validator.isNonEmptyString(postData.name)) {
+    if (!Validator.isNonEmptyString(userData.name)) {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_POSTDATA,
         message: 'Hiányzó név!'
@@ -33,7 +33,7 @@ export default function register (services: IService): TCallbackFunction {
       return
     }
 
-    if (!Validator.isNonEmptyString(postData.email)) {
+    if (!Validator.isNonEmptyString(userData.email)) {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_POSTDATA,
         message: 'Hiányzó email!'
@@ -42,7 +42,7 @@ export default function register (services: IService): TCallbackFunction {
       return
     }
 
-    if (!Validator.isNonEmptyString(postData.password)) {
+    if (!Validator.isNonEmptyString(userData.password)) {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_POSTDATA,
         message: 'Hiányzó jelszó!'
@@ -51,16 +51,36 @@ export default function register (services: IService): TCallbackFunction {
       return
     }
 
+    if (!Validator.isNonEmptyString(userData.phoneNum)) {
+      ctx.sendError({
+        code: Error.codes.ERR_WRONG_POSTDATA,
+        message: 'Hiányzó telefonszám!'
+      })
+
+      return
+    }
+
     const insertUser: IInsertUser = {
-      name: postData.name,
-      email: postData.email,
-      password: postData.password,
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
       role: EUserRole.Customer
     }
 
     const insertedId = await services.usersService.insert(insertUser)
 
     if (insertedId <= 0) {
+      ctx.sendError({
+        code: Error.codes.ERR_DB_INSERT,
+        message: Error.messages.ERR_DB_INSERT
+      })
+
+      return
+    }
+
+    const isSuccessfull = await services.customersService.insert(insertedId, userData.phoneNum)
+
+    if (!isSuccessfull) {
       ctx.sendError({
         code: Error.codes.ERR_DB_INSERT,
         message: Error.messages.ERR_DB_INSERT

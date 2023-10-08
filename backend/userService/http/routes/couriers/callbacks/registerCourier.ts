@@ -77,7 +77,17 @@ export default function registerCourier (services: IService): TCallbackFunction 
 
       return
     }
-    // const insertedId = await services.usersService.registerCourier(postData)
+
+    const isSuccessfull = await services.couriersService.insert(insertedId, userData.phoneNum)
+
+    if (!isSuccessfull) {
+      ctx.sendError({
+        code: Error.codes.ERR_DB_INSERT,
+        message: Error.messages.ERR_DB_INSERT
+      })
+
+      return
+    }
 
     ctx.sendOk()
   }
