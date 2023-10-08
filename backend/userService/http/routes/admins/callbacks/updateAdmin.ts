@@ -7,20 +7,20 @@ import { EUserRow } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
-import { updateCustomerHelper } from './updateCustomerHelper'
+import { updateAdminHelper } from './updateAdminHelper'
 
 /**
- * Egy új felhasználó felvételét megvalósító végpont.
+ * Egy admin adatainak módosítását megvalósító végpont.
  * @param services - Services.
  */
-export default function insert (services: IService): TCallbackFunction {
+export default function updateAdmin (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const userData = ctx.getBody<IRegisterUser>()
 
     if (!Validator.isNonEmptyObject(userData)) {
       ctx.sendError({
-        code: Error.codes.ERR_MISSING_ID,
-        message: Error.messages.ERR_MISSING_ID
+        code: Error.codes.ERR_MISSING_BODY,
+        message: Error.messages.ERR_MISSING_BODY
       })
 
       return
@@ -28,8 +28,8 @@ export default function insert (services: IService): TCallbackFunction {
 
     if (Object.keys(userData).length > 1) {
       ctx.sendError({
-        code: Error.codes.ERR_MISSING_BODY,
-        message: Error.messages.ERR_MISSING_BODY
+        code: Error.codes.ERR_INVALID_BODY,
+        message: Error.messages.ERR_INVALID_BODY
       })
 
       return
@@ -39,17 +39,17 @@ export default function insert (services: IService): TCallbackFunction {
 
     if (!Validator.isPositiveNumber(id)) {
       ctx.sendError({
-        code: Error.codes.ERR_DB_DELETE,
-        message: 'Érvénytelen id!'
+        code: Error.codes.ERR_INVALID_ID,
+        message: Error.messages.ERR_INVALID_ID
       })
 
       return
     }
 
     const errors = await Promise.all([
-      updateCustomerHelper(services, userData, id, EUserRow.name),
-      updateCustomerHelper(services, userData, id, EUserRow.email),
-      updateCustomerHelper(services, userData, id, EUserRow.password)
+      updateAdminHelper(services, userData, id, EUserRow.name),
+      updateAdminHelper(services, userData, id, EUserRow.email),
+      updateAdminHelper(services, userData, id, EUserRow.password)
     ])
 
     if (errors.some((e) => Validator.isNull(e))) {

@@ -5,10 +5,10 @@ import Validator from '@common/Validator/Validator'
 import Error from '../../../../Error'
 
 /**
- * Az összes ügyfél lekérdezése.
+ * Adott azonosítóval rendelkező futár soft törlését  megvalósító végpont.
  * @param services - Services.
  */
-export default function getCostumers (services: IService): TCallbackFunction {
+export default function deleteCourier (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const { id } = ctx.getRouteParams()
 
@@ -21,10 +21,15 @@ export default function getCostumers (services: IService): TCallbackFunction {
       return
     }
 
-    const users = await services.usersService.getCustomer(id)
+    const isSuccessfull = await services.usersService.deleteCourier(id)
 
-    ctx.sendJson({
-      users
-    })
+    if (!isSuccessfull) {
+      ctx.sendError({
+        code: Error.codes.ERR_DB_DELETE,
+        message: Error.messages.ERR_DB_DELETE
+      })
+    }
+
+    ctx.sendOk()
   }
 }

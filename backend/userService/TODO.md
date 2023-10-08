@@ -6,6 +6,7 @@
 - Felhasználók adatainak módosítása.
 - Felhasználók és címek összerendelése.
 - Felhasználó(k) törlése.
+- new -> undo delete
 
 ## Végpontok
 
@@ -20,7 +21,8 @@
 - GET /api/user/admins/:id -> admin elkérése azonosító szerint
 - GET /api/user/couriers -> futárok lekérdezése
 - POST /api/user/couriers -> új futár felvétele
-- PUT /api/user/couriers/details/:id-> futár módosítása
+- PUT /api/user/couriers/:id-> futár módosítása
 - GET /api/user/couriers/:id-> futár elkérése azonosító szerint
 - DELETE /api/user/couriers/:id-> futár lekérdezése
 - PUT /api/user/couriers/set-working-day -> futár munkavállalásának módosítása
+- PUT /api/user/undo-delete/:id -> törlés visszaállítása

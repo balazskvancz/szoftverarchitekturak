@@ -2,7 +2,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IRegisterUser } from '../../../../definitions'
+import { EUserRole, type IInsertUser, type IRegisterUser } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
@@ -42,7 +42,23 @@ export default function register (services: IService): TCallbackFunction {
       return
     }
 
-    const insertedId = await services.usersService.registration(postData)
+    if (!Validator.isNonEmptyString(postData.password)) {
+      ctx.sendError({
+        code: Error.codes.ERR_WRONG_POSTDATA,
+        message: 'Hiányzó jelszó!'
+      })
+
+      return
+    }
+
+    const insertUser: IInsertUser = {
+      name: postData.name,
+      email: postData.email,
+      password: postData.password,
+      role: EUserRole.Customer
+    }
+
+    const insertedId = await services.usersService.insert(insertUser)
 
     if (insertedId <= 0) {
       ctx.sendError({
