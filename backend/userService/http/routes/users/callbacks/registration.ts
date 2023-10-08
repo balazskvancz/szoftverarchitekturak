@@ -2,7 +2,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IInsertUser } from '../../../../definitions'
+import type { IRegisterUser } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
@@ -11,9 +11,9 @@ import Error from '../../../../Error'
  * Egy új felhasználó felvételét megvalósító végpont.
  * @param services - Services.
  */
-export default function insert (services: IService): TCallbackFunction {
+export default function register (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const postData = ctx.getBody<IInsertUser>()
+    const postData = ctx.getBody<IRegisterUser>()
 
     if (!Validator.isDefined(postData)) {
       ctx.sendError({
@@ -42,25 +42,7 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    if (!Validator.isNonEmptyString(postData.password)) {
-      ctx.sendError({
-        code: Error.codes.ERR_WRONG_POSTDATA,
-        message: 'Hiányzó jelszó!'
-      })
-
-      return
-    }
-
-    if (!Validator.isPositiveNumber(postData.role)) {
-      ctx.sendError({
-        code: Error.codes.ERR_WRONG_POSTDATA,
-        message: 'Hiányzó role!'
-      })
-
-      return
-    }
-
-    const insertedId = await services.usersService.insert(postData)
+    const insertedId = await services.usersService.registration(postData)
 
     if (insertedId <= 0) {
       ctx.sendError({
