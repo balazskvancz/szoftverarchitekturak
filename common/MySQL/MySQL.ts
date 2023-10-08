@@ -188,7 +188,7 @@ export default class MySql implements IMYSQLMethods {
   public getAffectedRows (results: TResults): number {
     const affectedRows = (
       Validator.isObject(results) &&
-      Validator.isObjectHaveJustKeys(results, [ 'affectedRows' ]) &&
+      Validator.isObjectHaveKeys(results, [ 'affectedRows' ]) &&
       Validator.isNumber(results.affectedRows)
     )
       ? results.affectedRows
@@ -205,7 +205,7 @@ export default class MySql implements IMYSQLMethods {
   public getChangedRows (results: TResults): number {
     const changedRows = (
       Validator.isObject(results) &&
-      Validator.isObjectHaveJustKeys(results, [ 'changedRows' ]) &&
+      Validator.isObjectHaveKeys(results, [ 'changedRows' ]) &&
       Validator.isNumber(results.changedRows)
     )
       ? results.changedRows
