@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  database:
+    image: custom-mariadb
+    container_name: authService.database
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=y
+      - MARIADB_DATABASE=authService
+    volumes:
+      - ./bin:/outer
