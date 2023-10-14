@@ -26,3 +26,10 @@
 - DELETE /api/user/couriers/:id-> futár lekérdezése
 - PUT /api/user/couriers/set-working-day -> futár munkavállalásának módosítása
 - PUT /api/user/undo-delete/:id -> törlés visszaállítása
+
+# Apróságok
+
+- A callbacks mappában ne legyen külön definitions, azok tartalmát tedd a közös definitions-be és onnan importáltad a típusokat – vagy enumokat.
+- Lehet használni helper függvényeket a callbackek mellett, viszont azokat ne közvetlenül a callbacks mappába tedd, hanem egy mellette lévő utils-ba. (Példaként megcsináltam az admins mappában.)
+- `http/routes/usersRoutes.ts` fájlt is szét kellene szedni: (usersRoutes, adminsRoutes, couriersRoutes), amik ugye az adott erőforrás végpontjait veszik fel. Majd ugye ezeket be kell húzni az `addRoutes.ts`-ben.
+- Függvényeknél pls TS-doc pótlás – ;) –

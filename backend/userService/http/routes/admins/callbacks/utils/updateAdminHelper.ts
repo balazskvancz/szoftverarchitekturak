@@ -2,14 +2,18 @@ import type { IError } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import { EUserRole, type IRegisterUser } from '../../../../definitions'
-import type { EUserRow } from '../../../../definitions'
+import { EUserRole, type IRegisterUser } from '../../../../../definitions'
+import type { EUserRow } from '../../../../../definitions'
 
-import type { IService } from '../../../../getServices'
-import Error from '../../../../Error'
+import type { IService } from '../../../../../getServices'
+import Error from '../../../../../Error'
 
-export async function updateAdminHelper (services: IService,
-  userData: IRegisterUser, id: number, role: EUserRow): Promise<IError | null> {
+export default async function updateAdminHelper (
+  services: IService,
+  userData: IRegisterUser,
+  id: number,
+  role: EUserRow
+): Promise<IError | null> {
   if (!Validator.isObjectHaveKeys(userData, [ role ])) {
     return {
       code: Error.codes.ERR_MISSING_KEY,

@@ -7,7 +7,8 @@ import { EUserRow } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
-import { updateAdminHelper } from './updateAdminHelper'
+
+import updateAdminHelper from './utils/updateAdminHelper'
 
 /**
  * Egy admin adatainak módosítását megvalósító végpont.
