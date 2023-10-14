@@ -7,10 +7,10 @@ import { EUserRow } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
-import { updateCourierHelper } from './updateCourierHelper'
+import { updateCourierHelper } from './utils/updateCourierHelper'
 
 /**
- * Egy futár adatainak módosítását megvalósító végpont.
+ * Egy futár egy adatmezőjének módosítását megvalósító végpont.
  * @param services - Services.
  */
 export default function updateCourier (services: IService): TCallbackFunction {

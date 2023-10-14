@@ -2,9 +2,9 @@ import BaseService from '@common/backend/BaseService'
 
 export default class CustomersService extends BaseService {
 /**
- * Egy új futár beszúrása.
- * @param id - A futár azonosítója.
- * @param phoneNum - A futár telefonszáma.
+ * Egy új ügyfél beszúrása.
+ * @param id - Az ügyfél azonosítója.
+ * @param phoneNum - Az ügyfél telefonszáma.
  */
   public async insert (id: number, phoneNum: string): Promise<boolean> {
     const result = await this.db.exec(`

@@ -9,13 +9,13 @@ import type { IService } from '../../../../../getServices'
 import Error from '../../../../../Error'
 
 /**
- * Frissíti egy admin egy adatát a megkapott sorban, ha érkezett hozzá valid adat.
+ * Frissíti egy ügyfél egy adatát a megkapott sorban, ha érkezett hozzá valid adat.
  * @param services  - Services.
  * @param userData  - Frissítő adathalmaz.
  * @param id        - Id.
  * @param dataRow   - Ezt a sort kell frissíteni.
  */
-export default async function updateAdminHelper (
+export async function updateCustomerHelper (
   services: IService,
   userData: IRegisterUser,
   id: number,
@@ -34,7 +34,7 @@ export default async function updateAdminHelper (
   }
 
   const rowChangeData = userData[dataRow]
-  const isSuccessfull = await services.usersService.updateUser(id, dataRow, rowChangeData, EUserRole.Admin)
+  const isSuccessfull = await services.usersService.updateUser(id, dataRow, rowChangeData, EUserRole.Customer)
 
   if (!isSuccessfull) {
     return {

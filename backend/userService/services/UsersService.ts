@@ -1,6 +1,6 @@
 import BaseService from '@common/backend/BaseService'
 
-import { EUserRole } from '../definitions'
+import type { EUserRole } from '../definitions'
 import type { IUser, IInsertUser } from '../definitions'
 
 export default class UsersService extends BaseService {
@@ -43,8 +43,8 @@ export default class UsersService extends BaseService {
 
   /**
    * Lekérdez egy felhasználót jogosultság és id alapján.
-   * @param id - Az id.
-   * @param role - A jogosultság.
+   * @param id    - Az id.
+   * @param role  - A jogosultság.
    */
   public getUser (id: number, role: EUserRole): Promise<IUser | null> {
     return this.db.getRow(`
@@ -57,8 +57,8 @@ export default class UsersService extends BaseService {
 
   /**
    * Soft töröl egy felhasználót jogosultság és id alapján.
-   * @param id - Az id.
-   * @param role - A jogosultság.
+   * @param id    - Az id.
+   * @param role  - A jogosultság.
    */
   public async deleteUser (id: number, role: EUserRole): Promise<boolean> {
     const result = await this.db.exec(`
@@ -87,65 +87,11 @@ export default class UsersService extends BaseService {
   }
 
   /**
-   * Frissíti egy adott azonosítóval rendelkező ügyfél egy adatát.
-   * @param id - Az ügyfél azonosítója.
-   * @param row - Melyik adatot kell módosítani.
-   * @param data - Mire kell módosítani.
-   */
-  public async updateCustomer (id: number, row: string, data: string): Promise<boolean> {
-    const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET ${ row } = ?
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ EUserRole.Customer }
-    `, [ data, id ])
-
-    return this.db.hasAffectedRows(result)
-  }
-
-  /**
-   * Frissíti egy adott azonosítóval rendelkező admin egy adatát.
-   * @param id - Az admin azonosítója.
-   * @param row - Melyik adatot kell módosítani.
-   * @param data - Mire kell módosítani.
-   */
-  public async updateAdmin (id: number, row: string, data: string): Promise<boolean> {
-    const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET ${ row } = ?
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ EUserRole.Admin }
-    `, [ data, id ])
-
-    return this.db.hasAffectedRows(result)
-  }
-
-  /**
-   * Frissíti egy adott azonosítóval rendelkező futár egy adatát.
-   * @param id - A futár azonosítója.
-   * @param row - Melyik adatot kell módosítani.
-   * @param data - Mire kell módosítani.
-   */
-  public async updateCourier (id: number, row: string, data: string): Promise<boolean> {
-    const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET ${ row } = ?
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ EUserRole.Courier }
-    `, [ data, id ])
-
-    return this.db.hasAffectedRows(result)
-  }
-
-  /**
    * Frissíti egy adott azonosítóval és jogosultsággal rendelkező felhasználó egy adatát.
-   * @param id - A futár azonosítója.
-   * @param row - Melyik adatot kell módosítani.
-   * @param data - Mire kell módosítani.
-   * @param role - A jogosultság.
+   * @param id    - A futár azonosítója.
+   * @param row   - Melyik adatot kell módosítani.
+   * @param data  - Mire kell módosítani.
+   * @param role  - A jogosultság.
    */
   public async updateUser (id: number, row: string, data: string, role: EUserRole): Promise<boolean> {
     const result = await this.db.exec(`

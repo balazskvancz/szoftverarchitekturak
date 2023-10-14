@@ -2,9 +2,9 @@ import BaseService from '@common/backend/BaseService'
 
 export default class CourierWorkingDaysService extends BaseService {
 /**
- * Egy új futár beszúrása.
- * @param id - A futár azonosítója.
- * @param day - A futár telefonszáma.
+ * Egy új munkanap beszúrása.
+ * @param id - A munkanaphoz tartozó futár azonosítója.
+ * @param day - A nap.
  */
   public async insert (id: number, day: string): Promise<boolean> {
     const result = await this.db.exec(`

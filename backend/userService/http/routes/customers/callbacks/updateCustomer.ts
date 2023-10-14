@@ -7,10 +7,10 @@ import { EUserRow } from '../../../../definitions'
 
 import type { IService } from '../../../../getServices'
 import Error from '../../../../Error'
-import { updateCustomerHelper } from './updateCustomerHelper'
+import { updateCustomerHelper } from './utils/updateCustomerHelper'
 
 /**
- * Egy felhasználó adatainak módosítását megvalósító végpont.
+ * Egy felhasználó egy adatmezőjének módosítását megvalósító végpont.
  * @param services - Services.
  */
 export default function updateCustomer (services: IService): TCallbackFunction {

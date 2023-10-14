@@ -11,7 +11,7 @@ import Error from '../../../../Error'
 import updateAdminHelper from './utils/updateAdminHelper'
 
 /**
- * Egy admin adatainak módosítását megvalósító végpont.
+ * Egy admin egy adatmezőjének módosítását megvalósító végpont.
  * @param services - Services.
  */
 export default function updateAdmin (services: IService): TCallbackFunction {
