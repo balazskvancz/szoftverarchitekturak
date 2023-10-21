@@ -42,6 +42,18 @@ export default class UsersService extends BaseService {
   }
 
   /**
+   * Lekérdez egy felhasználót azonosító szerint.
+   * @param id - A keresendő azonosító.
+   */
+  public getUserById (id: number): Promise<IUser | null> {
+    return this.db.getRow(`
+        ${ this.getBaseSql() }
+        WHERE deletedAt IS NULL
+        AND id = ?
+      `, [ id ])
+  }
+
+  /**
    * Lekérdez egy felhasználót jogosultság és id alapján.
    * @param id    - Az id.
    * @param role  - A jogosultság.
@@ -103,18 +115,6 @@ export default class UsersService extends BaseService {
     `, [ data, id ])
 
     return this.db.hasAffectedRows(result)
-  }
-
-  /**
-   * Lekérdez egy felhasználót azonosító szerint.
-   * @param id - A keresendő azonosító.
-   */
-  public getUserById (id: number): Promise<IUser | null> {
-    return this.db.getRow(`
-      ${ this.getBaseSql() }
-      WHERE deletedAt IS NULL
-      AND id = ?
-    `, [ id ])
   }
 
   /** Alap SQL lekérdezés. */

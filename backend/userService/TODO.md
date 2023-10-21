@@ -11,10 +11,11 @@
 ## Végpontok
 
 - POST /api/user/registration ->  regisztráció.
-- GET /api/user/customers -> felhasználók lekérdezése
+- GET /api/user/:id -> felhasználó lekérdezése
+- GET /api/user/customers -> ügyfelek lekérdezése
 - DELETE /api/user/customers/:id -> felhasználó törlése
-- PUT /api/user/customers/:id -> felhasználó módosítása
-- GET /api/user/customers/:id -> felhasználó elkérése azonosító szerint
+- PUT /api/user/customers/:id -> ügyfél módosítása
+- GET /api/user/customers/:id -> ügyfél elkérése azonosító szerint
 - GET /api/user/admins -> adminok lekérdezése
 - PUT /api/user/admins/:id -> admin módosítása
 - DELETE /api/user/admins/:id -> admin törlése
@@ -33,3 +34,10 @@
 - Lehet használni helper függvényeket a callbackek mellett, viszont azokat ne közvetlenül a callbacks mappába tedd, hanem egy mellette lévő utils-ba. (Példaként megcsináltam az admins mappában.)
 - `http/routes/usersRoutes.ts` fájlt is szét kellene szedni: (usersRoutes, adminsRoutes, couriersRoutes), amik ugye az adott erőforrás végpontjait veszik fel. Majd ugye ezeket be kell húzni az `addRoutes.ts`-ben.
 - Függvényeknél pls TS-doc pótlás – ;) –
+
+
+
+# AAA
+- név
+- email
+- role

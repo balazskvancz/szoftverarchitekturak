@@ -41,7 +41,8 @@ export enum EUsersRoute {
   GetAll =      '/api/user/users/get-all',
   Insert =      '/api/user/users/insert',
   Register =    '/api/user/registration',
-  UndoDelete =  '/api/user/undo-delete/:id'
+  UndoDelete =  '/api/user/undo-delete/:id',
+  GetUserById = '/api/user/:id'
 }
 
 /* eslint-disable no-shadow */
