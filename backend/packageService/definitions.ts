@@ -6,6 +6,7 @@ export type {
 
 /** Címek. */
 export interface IBaseAddress {
+  readonly userId: number
   readonly country: string
   readonly postalCode: string
   readonly city: string
@@ -16,6 +17,12 @@ export interface IBaseAddress {
 export interface IAddress extends IBaseAddress {
   readonly id: number
   readonly createdAt: string
+}
+
+export type TAddresses = readonly IAddress[]
+
+export interface IGetAddressByIdResponse {
+  readonly address: IAddress | null
 }
 
 /** Csomag dimenziók. */
@@ -83,4 +90,9 @@ export enum EDimensionsRoute {
   GetById = '/api/package/dimensions/:id',
   Insert  = '/api/package/dimensions',
   Update  = '/api/package/dimensions/:id'
+}
+
+export enum EAddressesRoute {
+  GetById = '/api/package/addresses/:id',
+  Insert  = '/api/package/addresses'
 }

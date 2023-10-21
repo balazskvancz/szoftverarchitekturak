@@ -1,6 +1,11 @@
 import BaseService from '@common/backend/BaseService'
 
-import type { IAddress, IBaseAddress } from '../definitions'
+import type {
+  IAddress,
+  TAddresses,
+  IBaseAddress
+
+} from '../definitions'
 
 export default class AddressesService extends BaseService {
   /**
@@ -9,8 +14,8 @@ export default class AddressesService extends BaseService {
    */
   public async insert (data: IBaseAddress): Promise<number> {
     const values = [
-      data.country, data.postalCode, data.city,
-      data.street, data.house
+      data.country, data.postalCode,
+      data.city, data.street, data.house
     ]
 
     const result = await this.db.exec(`
@@ -35,6 +40,19 @@ export default class AddressesService extends BaseService {
       ${ this.getBaseSql() }
       WHERE id = ?
     `, [ id ])
+  }
+
+  /**
+   * Visszaadja az összes olyan egyedet, amelynek az
+   * az azonosítója benne van a megadott tömbben.
+   * @param ids - A keresendő egyedek azonosítói.
+   * @returns
+   */
+  public getByIds (ids: number[]): Promise<TAddresses> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE id IN (${ ids.join(', ') })
+    `)
   }
 
   /** Alap SQL lekérdezés. */
