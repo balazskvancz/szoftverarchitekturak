@@ -24,6 +24,23 @@ export default class DimensionsService extends BaseService {
   }
 
   /**
+   * Egy egyed adatainak megváltoztatása.
+   * @param id    - Az egyed azonosítója.
+   * @param data  - A módosítandó adat.
+   */
+  public async update (id: number, data: IBaseDimension): Promise<boolean> {
+    const result = await this.db.exec(`
+      UPDATE ${ this.tableName } SET
+        length  = ?,
+        depth   = ?,
+        width   = ?
+      WHERE id = ?
+    `, [ data.length, data.depth, data.width, id ])
+
+    return this.db.hasAffectedRows(result)
+  }
+
+  /**
    * Elkér egy egyedet annak azonosítója alapján.
    * @param id - A keresendő egyed azonosítója.
    */

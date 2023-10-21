@@ -1,12 +1,8 @@
+/* eslint-disable no-shadow */
 export type {
   IConfig,
   IDatabaseConfig
 } from '@common/definitions'
-
-/* eslint-disable no-shadow */
-export enum EExampleResourcesRoute {
-  Todo = '/api/package/todo'
-}
 
 /** Címek. */
 export interface IBaseAddress {
@@ -35,6 +31,14 @@ export interface IDimension extends IBaseDimension {
 }
 
 export type TDimensions = readonly IDimension[]
+
+export interface IGetAllDimensionsResponse {
+  readonly dimensions: TDimensions
+}
+
+export interface IGetDimensionByIdResponse {
+  readonly dimension: IDimension | null
+}
 
 /** Csomagok. */
 export interface IBasePackage {
@@ -73,3 +77,10 @@ export interface IPackageLifecycle extends IBasePackageLifecycle {
 }
 
 export type TPackageLifecycles = readonly IPackageLifecycle[]
+
+export enum EDimensionsRoute {
+  GetAll  = '/api/package/dimensions',
+  GetById = '/api/package/dimensions/:id',
+  Insert  = '/api/package/dimensions',
+  Update  = '/api/package/dimensions/:id'
+}
