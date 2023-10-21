@@ -96,3 +96,7 @@ export enum EAddressesRoute {
   GetById = '/api/package/addresses/:id',
   Insert  = '/api/package/addresses'
 }
+
+export enum EPackagesRoute {
+  Insert = '/api/package/packages'
+}
