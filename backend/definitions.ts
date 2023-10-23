@@ -10,7 +10,7 @@ export interface ICrossRequestOptions {
 export type TMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 export const GATEWAY_HOST = 'localhost'
-export const GATEWAY_PORT = -1 // TODO:
+export const GATEWAY_PORT = 3000
 
 /** UserService. */
 export {

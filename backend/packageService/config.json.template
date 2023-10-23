@@ -1,6 +1,6 @@
 {
   "http": {
-    "port": 3000,
+    "port": 3003,
     "host": "localhost"
   },
   "db": {

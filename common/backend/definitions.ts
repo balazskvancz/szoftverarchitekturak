@@ -16,3 +16,8 @@ export interface IError <T extends TErrorFormat> {
   readonly codes: TErrorCodes<T>
   readonly messages: TErrorMessages<T>
 }
+
+// eslint-disable-next-line no-shadow
+export enum EGatewayRoute {
+  HealthCheck = '/api/status/health-check'
+}

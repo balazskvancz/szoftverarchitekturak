@@ -1,0 +1,48 @@
+{
+  "address": 3000,
+  "productionLevel": 0,
+  "middlewaresEnabled": 1,
+  "healthCheckInterval": "1m",
+  "secretKey": "",
+  "loggerConfig": {
+    "disabledLoggers": []
+  },
+  "services": [
+    {
+      "serviceType": 0,
+      "protocol": "http",
+      "name": "authService",
+      "host": "localhost",
+      "port": "3001",
+      "prefix": "/api/auth",
+      "timeOutSec": 5
+    },
+    {
+      "serviceType": 0,
+      "protocol": "http",
+      "name": "distributorService",
+      "host": "localhost",
+      "port": "3002",
+      "prefix": "/api/distributor",
+      "timeOutSec": 5
+    },
+    {
+      "serviceType": 0,
+      "protocol": "http",
+      "name": "packageService",
+      "host": "localhost",
+      "port": "3003",
+      "prefix": "/api/package",
+      "timeOutSec": 5
+    },
+    {
+      "serviceType": 0,
+      "protocol": "http",
+      "name": "userService",
+      "host": "localhost",
+      "port": "3004",
+      "prefix": "/api/user",
+      "timeOutSec": 5
+    }
+  ]
+}
