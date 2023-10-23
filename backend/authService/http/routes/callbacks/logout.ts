@@ -35,8 +35,8 @@ export default function logout (services: IService): TCallbackFunction {
       // A) nincs ilyen rekord || már le van zárva -> error
       if (Validator.isNull(session)) {
          ctx.sendError({
-            code: Error.codes.ERR_SESSION_NOT_FOUND,
-            message: Error.messages.ERR_SESSION_NOT_FOUND
+            code: Error.codes.ERR_INVALID_HASH,
+            message: Error.messages.ERR_INVALID_HASH
          })
 
          return
