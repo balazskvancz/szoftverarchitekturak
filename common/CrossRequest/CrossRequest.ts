@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable space-before-function-paren */
 /* eslint-disable no-console */
 
 import http from 'http'
@@ -17,7 +16,7 @@ export default class CrossRequest extends Request {
    * @param options - A beállítási lehetőségek.
    * @param data    - Bármilyen adat, amit küldeni szeretnénk.
    */
-  public static send<T extends Object = TAnyObject>(
+  public static send<T extends Object = TAnyObject> (
     options: http.RequestOptions,
     data: TData = null
   ): Promise<ICrossResponse<T>> {
