@@ -4,11 +4,10 @@ import type { IService } from '../../getServices'
 
 import { EAuthRoute } from '../../definitions'
 
-import getUser from './callbacks/getUser'
-import getRole from './callbacks/getRole'
-import login from './callbacks/login'
-import logout from './callbacks/logout'
-
+import getRole  from './callbacks/getRole'
+import getUser  from './callbacks/getUser'
+import login    from './callbacks/login'
+import logout   from './callbacks/logout'
 
 /**
  * Felveszi az összes autentikációval kapcsolatos végpontot.
