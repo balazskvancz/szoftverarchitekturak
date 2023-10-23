@@ -1,8 +1,11 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
-import type { IService } from '../../../../getServices'
 import Validator from '@common/Validator/Validator'
-import Error from '../../../../Error'
+
+import type { IService }  from '../../../../getServices'
+import Error              from '../../../../Error'
+
+import type { IGetUserByIdResponse } from '../../../../definitions'
 
 /**
  * Egy felhasználó lekérdezése id alapján.
@@ -23,8 +26,10 @@ export default function getUserById (services: IService): TCallbackFunction {
 
     const user = await services.usersService.getUserById(id)
 
-    ctx.sendJson({
+    const data: IGetUserByIdResponse = {
       user
-    })
+    }
+
+    ctx.sendJson(data)
   }
 }

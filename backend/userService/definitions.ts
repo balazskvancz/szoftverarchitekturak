@@ -36,6 +36,10 @@ export interface IRegisterCourier extends IRegisterUser {
   readonly phoneNum: string
 }
 
+export interface IGetUserByIdResponse {
+  readonly user: IUser | null
+}
+
 /* eslint-disable no-shadow */
 export enum EUsersRoute {
   GetAll =      '/api/user/users/get-all',
