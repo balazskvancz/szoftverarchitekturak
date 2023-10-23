@@ -6,8 +6,8 @@
   2. Visszakapjuk a User adatokat / hibát hogy nincs ilyen user
   3. user.id-val létezik a **sessions** táblában nyitott session?
 
-      Igen: return, (vagy bezárjuk az előzőt és újat nyitunk?)
-
+      // Igen: return, (vagy bezárjuk az előzőt és újat nyitunk?)
+      Vagy lehet mindenképpen újat nyitni, pl ha meg akarjuk engedni hogy a kliens egyszerre legyen bejelentkezve pl gépen és mobilon is.
       Nem: create session return loginHash
 
 - Kijelentkezés: érvényesség „kinullázása”. [loginHash]
