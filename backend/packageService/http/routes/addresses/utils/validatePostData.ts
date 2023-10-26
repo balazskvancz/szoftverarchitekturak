@@ -2,7 +2,7 @@ import type { IFormError } from '@common/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IBaseAddress } from '../../../../definitions'
+import type { IBaseAddress } from '@packageService/definitions'
 
 const ERROR_MESSAGE = 'A mező kitöltése kötelező!'
 

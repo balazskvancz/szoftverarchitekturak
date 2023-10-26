@@ -3,9 +3,9 @@ import type {
   TCallbackFunction
 } from '@common/Router/definitions'
 
-import type { IGetAllDimensionsResponse } from '../../../definitions'
+import type { IGetAllDimensionsResponse } from '@packageService/definitions'
 
-import type { IService } from '../../../getServices'
+import type { IService } from '@packageService/getServices'
 
 /**
  * Az összes felvett dimenzió lekérdezését megvalósító végpont.

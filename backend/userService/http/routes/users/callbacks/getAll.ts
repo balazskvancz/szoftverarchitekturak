@@ -1,6 +1,6 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
-import type { IService } from '../../../../getServices'
+import type { IService } from '@userService/getServices'
 
 /**
  * Az összes felhasználó lekérdezése.

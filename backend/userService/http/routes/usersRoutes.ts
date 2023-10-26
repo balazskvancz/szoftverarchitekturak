@@ -4,11 +4,11 @@ import type { IService } from '../../getServices'
 
 import { EUsersRoute } from '../../definitions'
 
-import getAll from './users/callbacks/getAll'
-import insert from './users/callbacks/insert'
+import getAll       from './users/callbacks/getAll'
+import getUserById  from './users/callbacks/getUserById'
+import insert       from './users/callbacks/insert'
 import registration from './users/callbacks/register'
-import undoDelete from './users/callbacks/undoDelete'
-import getUserById from './users/callbacks/getUserById'
+import undoDelete   from './users/callbacks/undoDelete'
 
 /**
  * Felveszi az összes felhasználókkal kapcsolatos végpontot.

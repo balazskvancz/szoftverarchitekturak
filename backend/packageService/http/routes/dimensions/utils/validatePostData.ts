@@ -2,7 +2,7 @@ import type { IFormError } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IBaseDimension } from '../../../../definitions'
+import type { IBaseDimension } from '@packageService/definitions'
 
 const ERROR_MESSAGE = 'A mező értékének pozitív számnak kell lennie!'
 

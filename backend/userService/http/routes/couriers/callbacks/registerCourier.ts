@@ -2,10 +2,10 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import { EUserRole, type IInsertUser, type IRegisterCourier } from '../../../../definitions'
+import { EUserRole, type IInsertUser, type IRegisterCourier } from '@userService/definitions'
 
-import type { IService } from '../../../../getServices'
-import Error from '../../../../Error'
+import type { IService } from '@userService/getServices'
+import Error from '@userService/Error'
 
 /**
  * Egy új futár felvételét megvalósító végpont.

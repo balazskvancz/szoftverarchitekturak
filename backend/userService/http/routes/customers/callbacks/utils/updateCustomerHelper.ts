@@ -2,11 +2,12 @@ import type { IError } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import { EUserRole, type IRegisterUser } from '../../../../../definitions'
-import type { EUserRow } from '../../../../../definitions'
+import Error from '@userService/Error'
 
-import type { IService } from '../../../../../getServices'
-import Error from '../../../../../Error'
+import { EUserRole } from '@userService/definitions'
+import type { EUserRow, IRegisterUser  } from '@userService/definitions'
+
+import type { IService } from '@userService/getServices'
 
 /**
  * Frissíti egy ügyfél egy adatát a megkapott sorban, ha érkezett hozzá valid adat.
@@ -15,7 +16,7 @@ import Error from '../../../../../Error'
  * @param id        - Id.
  * @param dataRow   - Ezt a sort kell frissíteni.
  */
-export async function updateCustomerHelper (
+export default async function updateCustomerHelper (
   services: IService,
   userData: IRegisterUser,
   id: number,

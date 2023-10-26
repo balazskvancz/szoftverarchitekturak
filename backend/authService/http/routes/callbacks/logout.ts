@@ -1,8 +1,11 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
+
 import Validator from '@common/Validator/Validator'
-import type { ILogoutRequest } from '../../../definitions'
-import type { IService } from '../../../getServices'
-import Error from '../../../Error'
+
+import Error from '@authService/Error'
+
+import type { ILogoutRequest }  from '@authService/definitions'
+import type { IService }        from '@authService/getServices'
 
 /**
  * A felhasználó adatainak lekérdezése.
@@ -30,10 +33,10 @@ export default function logout (services: IService): TCallbackFunction {
       return
     }
 
-      // lekérjük a hash alapján a rekordot
+    // lekérjük a hash alapján a rekordot
     const session = await services.sessions.getByHash(logoutData.loginHash)
 
-      // A) nincs ilyen rekord || már le van zárva -> error
+    // A) nincs ilyen rekord || már le van zárva -> error
     if (Validator.isNull(session)) {
       ctx.sendError({
         code: Error.codes.ERR_INVALID_HASH,
@@ -43,7 +46,7 @@ export default function logout (services: IService): TCallbackFunction {
       return
     }
 
-      // B) van ilyen rekord -> bezárás
+    // B) van ilyen rekord -> bezárás
     await services.sessions.delete(logoutData.loginHash)
 
     ctx.sendOk()

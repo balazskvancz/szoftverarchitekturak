@@ -2,10 +2,10 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import Error from '../../../Error'
+import Error from '@packageService/Error'
 
-import type { IBaseAddress }  from '../../../definitions'
-import type { IService }      from '../../../getServices'
+import type { IBaseAddress }  from '@packageService/definitions'
+import type { IService }      from '@packageService/getServices'
 
 import validatePostData from './utils/validatePostData'
 

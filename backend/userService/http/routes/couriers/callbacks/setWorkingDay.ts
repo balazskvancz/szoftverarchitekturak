@@ -2,8 +2,9 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IService } from '../../../../getServices'
-import Error from '../../../../Error'
+import Error from '@userService/Error'
+
+import type { IService } from '@userService/getServices'
 
 /**
  * Egy új futár felvételét megvalósító végpont.
@@ -22,6 +23,7 @@ export default function setWorkingDay (services: IService): TCallbackFunction {
       return
     }
 
+    // TODO: user azonosító elkérése + validálása.
     const isSuccessfull = await services.courierWorkingDaysService.insert(5, userData)
 
     if (!isSuccessfull) {

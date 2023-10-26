@@ -2,8 +2,9 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IService } from '../../../../getServices'
-import Error from '../../../../Error'
+import Error from '@userService/Error'
+
+import type { IService } from '@userService/getServices'
 
 /**
  * Egy adott azonosítóval rendelkező felhasználó törlésének visszaállítását megvalósító végpont.

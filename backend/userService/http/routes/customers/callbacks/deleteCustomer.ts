@@ -1,9 +1,11 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
-import type { IService } from '../../../../getServices'
 import Validator from '@common/Validator/Validator'
-import Error from '../../../../Error'
-import { EUserRole } from '../../../../definitions'
+
+import Error from '@userService/Error'
+
+import type { IService }  from '@userService/getServices'
+import { EUserRole }      from '@userService/definitions'
 
 /**
  * Adott azonosítóval rendelkező ügyfél soft törlését megvalósító végpont.

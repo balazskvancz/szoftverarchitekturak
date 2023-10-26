@@ -2,7 +2,7 @@ import type { IFormError } from '@common/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IBasePackage } from '../../../../definitions'
+import type { IBasePackage } from '@packageService/definitions'
 
 /**
  * Validálja a bejövő adatot.

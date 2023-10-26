@@ -1,7 +1,7 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
-import type { IService } from '../../../../getServices'
-import { EUserRole } from '../../../../definitions'
+import { EUserRole }      from '@userService/definitions'
+import type { IService }  from '@userService/getServices'
 
 /**
  * Az összes admin lekérdezését megvalósító végpont.

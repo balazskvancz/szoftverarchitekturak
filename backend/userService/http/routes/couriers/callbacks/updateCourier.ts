@@ -2,12 +2,14 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IRegisterUser } from '../../../../definitions'
-import { EUserRow } from '../../../../definitions'
+import Error from '@userService/Error'
 
-import type { IService } from '../../../../getServices'
-import Error from '../../../../Error'
-import { updateCourierHelper } from './utils/updateCourierHelper'
+import type { IRegisterUser } from '@userService/definitions'
+import { EUserRow }           from '@userService/definitions'
+
+import type { IService } from '@userService/getServices'
+
+import updateCourierHelper from './utils/updateCourierHelper'
 
 /**
  * Egy futár egy adatmezőjének módosítását megvalósító végpont.

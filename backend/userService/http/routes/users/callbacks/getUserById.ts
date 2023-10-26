@@ -2,10 +2,11 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IService }  from '../../../../getServices'
-import Error              from '../../../../Error'
+import Error from '@userService/Error'
 
-import type { IGetUserByIdResponse } from '../../../../definitions'
+import type { IGetUserByIdResponse } from '@userService/definitions'
+
+import type { IService }  from '@userService/getServices'
 
 /**
  * Egy felhasználó lekérdezése id alapján.

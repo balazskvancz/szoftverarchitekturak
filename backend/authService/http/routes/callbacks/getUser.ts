@@ -2,10 +2,11 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import Communicator from '../../../../Communicator/Communicator'
+import Communicator from '@backend/Communicator/Communicator'
 
-import type { IService }  from '../../../getServices'
-import Error              from '../../../Error'
+import Error from '@authService/Error'
+
+import type { IService }  from '@authService/getServices'
 
 /**
  * A felhasználó adatainak lekérdezése adott session alapján.
@@ -36,10 +37,11 @@ export default function getUser (services: IService): TCallbackFunction {
     }
 
     console.log(session.userId)
-      // van user : megkapom az adatokat
-    const user = Communicator.getUserById(session.userId)
+    // van user : megkapom az adatokat
+    // [Balázs]: szintúgy, mint a getRole esetében.
+    const user = await Communicator.getUserById(session.userId)
 
-      // nincs user: torlom a hash
+    // nincs user: torlom a hash
     if (Validator.isNull(user)) {
       await services.sessions.delete(loginhash)
 
@@ -51,7 +53,7 @@ export default function getUser (services: IService): TCallbackFunction {
       return
     }
 
-      // van user -> vissza adom
+    // van user -> vissza adom
     ctx.sendJson({
       user
     })

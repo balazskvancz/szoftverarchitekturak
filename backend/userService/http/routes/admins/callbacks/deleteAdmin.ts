@@ -2,11 +2,10 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator  from '@common/Validator/Validator'
 
-import type { IService } from '../../../../getServices'
+import type { IService } from '@userService/getServices'
 
-import { EUserRole } from '../../../../definitions'
-
-import Error      from '../../../../Error'
+import { EUserRole }  from '@userService/definitions'
+import Error          from '@userService/Error'
 
 /**
  * Adott azonosítóval rendelkező admin soft törlését  megvalósító végpont.

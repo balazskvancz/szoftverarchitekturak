@@ -43,6 +43,21 @@
       "@common/*": [
         "common/*"
       ],
+      "@backend/*": [
+        "backend/*"
+      ],
+      "@authService/*": [
+        "backend/authService/*"
+      ],
+      "@distributorService/*": [
+        "backend/distributorService/*"
+      ],
+      "@packageService/*": [
+        "backend/packageService/*"
+      ],
+      "@userService/*": [
+        "backend/userService/*"
+      ],
       "@root/*": [
         "./*"
       ]

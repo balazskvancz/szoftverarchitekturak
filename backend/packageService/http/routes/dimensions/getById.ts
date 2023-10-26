@@ -7,9 +7,9 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '../.../../../../Error'
 
-import type { IGetDimensionByIdResponse } from '../../../definitions'
+import type { IGetDimensionByIdResponse } from '@packageService/definitions'
 
-import type { IService } from '../../../getServices'
+import type { IService } from '@packageService/getServices'
 
 /**
  * Egy felvett dimenzió lekérdezését megvalósító végpont.

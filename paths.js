@@ -10,6 +10,18 @@ const tsPaths = {
   '@backend/*': [
     'backend/*'
   ],
+  '@authService/*': [
+    'backend/authService/*'
+  ],
+  '@distributorService/*': [
+    'backend/distributorService/*'
+  ],
+  '@packageService/*': [
+    'backend/packageService/*'
+  ],
+  '@userService/*': [
+    'backend/userService/*'
+  ],
   '@frontend/*': [
     'frontend/*'
   ]
@@ -22,6 +34,10 @@ module.exports.tsPaths = tsPaths
 const webpackPaths = {
   '@common': path.resolve(__dirname, 'common'),
   '@backend': path.resolve(__dirname, 'backend'),
+  '@authService': path.resolve(__dirname, 'backend', 'authService'),
+  '@distributorService': path.resolve(__dirname, 'backend', 'distributorService'),
+  '@packageService': path.resolve(__dirname, 'backend', 'packageService'),
+  '@userService': path.resolve(__dirname, 'backend', 'userService'),
   '@frontend': path.resolve(__dirname, 'frontend')
 }
 

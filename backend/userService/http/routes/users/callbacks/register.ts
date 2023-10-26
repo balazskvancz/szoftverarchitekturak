@@ -2,10 +2,12 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import { EUserRole, type IInsertUser, type IRegisterCourier } from '../../../../definitions'
+import Error from '@userService/Error'
 
-import type { IService } from '../../../../getServices'
-import Error from '../../../../Error'
+import { EUserRole } from '@userService/definitions'
+import type { IInsertUser, IRegisterCourier  } from '@userService/definitions'
+
+import type { IService } from '@userService/getServices'
 
 /**
  * Egy új felhasználó felvételét megvalósító végpont.
