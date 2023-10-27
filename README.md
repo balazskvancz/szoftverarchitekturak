@@ -18,6 +18,26 @@ A választott szerveroldali architektúra a `mikroszervíz` alapú tervezést k�
 
 Az egyes projektek indítási útmutatója megtalálható azok `README.md`-jében.
 
+### Konténerből futó adatbázis
+
+A `dockerfiles` mappában található `Dockerfile.mariadb` image az alábbiak szerinti lebuildelése:
+
+```bash
+docker build -t custom-mariadb .
+```
+
+Ezután a gyökérben lévő `docker-compose.yml` fájl indítása:
+
+```bash
+docker-compose up
+```
+
+Ekkor el fog indulni egy perzisztens adatokkal rendelkező `MariaDB` egyed, amelyre lehet kapcsolódni. Ebben kell létrehozni az egyes szolgáltatások `bin` mappájában található `db.sql` alapján a különböző adatbázisokat.
+
+A belépéshez szükséges adtok – mivel csak development környezetben van vagyunk:
+- felhasználónév: `root`,
+- jelszó: `` (üres sztring.)
+
 ### Gateway
 
 Az architektúrában szerepett kapott egy API Gateway is, amelynek a belépési pontja `/gateway/cmd` mappában található. A Gateway konfigurálása a `config.json` fájl alapján történik, amelyre található egy `template` az említett mappában – indítás előtt, létre kell hozni saját a konfigot, amely `gitignore`-os.
