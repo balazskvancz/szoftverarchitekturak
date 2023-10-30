@@ -85,4 +85,8 @@
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
+  "folder-path-color.folders": [
+    { "path": "backend/authService", "color": "blue" , "symbol": "🔑"},
+    { "path": "backend/userService", "symbol": "👤", "color": "magenta" }
+]
 }

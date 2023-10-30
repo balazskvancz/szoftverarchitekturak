@@ -3,3 +3,4 @@ node_modules
 _temp
 dist/
 db_data
+docker-compose.yml
