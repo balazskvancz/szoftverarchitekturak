@@ -16,7 +16,7 @@ export interface ILogoutRequest {
 
 export interface ILogin {
   readonly email: string
-  readonly passHash: string
+  readonly pass: string
 }
 
 /* eslint-disable no-shadow */

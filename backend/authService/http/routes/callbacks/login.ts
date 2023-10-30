@@ -41,7 +41,7 @@ export default function login (services: IService): TCallbackFunction {
       return
     }
 
-    if (!Validator.isNonEmptyString(loginData.passHash)) {
+    if (!Validator.isNonEmptyString(loginData.pass)) {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_POSTDATA,
         message: 'Hiányzó jelszó'

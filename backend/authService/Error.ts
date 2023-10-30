@@ -9,8 +9,7 @@ type TError = (
   'ERR_NON_EXISTING_USER' |
   'ERR_MISSING_BODY' |
   'ERR_WRONG_POSTDATA' |
-  'ERR_DB_INSERT' |
-  'ERR_SESSION_NOT_FOUND'
+  'ERR_DB_INSERT'
 )
 
 const ERROR_CODES: TErrorCodes<TError> = {
@@ -18,8 +17,7 @@ const ERROR_CODES: TErrorCodes<TError> = {
   ERR_NON_EXISTING_USER: 2,
   ERR_MISSING_BODY: 3,
   ERR_WRONG_POSTDATA: 4,
-  ERR_DB_INSERT: 5,
-  ERR_SESSION_NOT_FOUND: 6
+  ERR_DB_INSERT: 5
 }
 
 const ERROR_MESSAGES: TErrorMessages<TError> = {
@@ -27,8 +25,7 @@ const ERROR_MESSAGES: TErrorMessages<TError> = {
   ERR_NON_EXISTING_USER: 'A megadott felhasználó nem létezik',
   ERR_MISSING_BODY: 'Hiányzó Login adatok',
   ERR_WRONG_POSTDATA: 'Hiányzó adat',
-  ERR_DB_INSERT: 'Sikertelen Adatbázisművelet',
-  ERR_SESSION_NOT_FOUND: 'A megadott Session azonosító nem található'
+  ERR_DB_INSERT: 'Sikertelen Adatbázisművelet'
 }
 
 const Error: IError<TError | TCommonError> = {
