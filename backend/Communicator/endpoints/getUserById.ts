@@ -11,7 +11,7 @@ import sendRequest from './utils/sendRequest'
  */
 export default async function getUserById (userId: number): Promise<IUser | null> {
   const url = makeUrl(EUsersRoute.GetUserById, [ userId ])
-
+  console.log(url)
   const { data, isSuccess } = await sendRequest<IGetUserByIdResponse>('GET', url)
 
   if (!isSuccess) {

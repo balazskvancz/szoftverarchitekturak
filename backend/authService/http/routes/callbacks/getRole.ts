@@ -63,7 +63,7 @@ export default function getUser (services: IService): TCallbackFunction {
 
     // van user -> vissza adom a role-ját // TODO: user.role pontos syntax
     ctx.sendJson({
-      role: user.role
+      "role": user.role
     })
   }
 }

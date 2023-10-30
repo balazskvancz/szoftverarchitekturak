@@ -1,6 +1,7 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
+import { createHash } from '@common/utils/createHash'
 
 import Error from '@authService/Error'
 
@@ -50,6 +51,7 @@ export default function login (services: IService): TCallbackFunction {
       return
     }
 
+    console.log(loginData.email)
       /**
        * // TODO email+hash => userValidáció
        *  megkérdezni a userAuth-tól hogy helyesek-e a bejelentkezési adatok
@@ -68,7 +70,7 @@ export default function login (services: IService): TCallbackFunction {
     // TODO: kérlek ez a logikát szervezd ki egy függvénybe.
     // Ennek a helye lehet akár itt a saját szervízen belül is,
     // de teheted a @common/utils alá is.
-    const loginHash = `${ userId }-${ Date.now() }-${ [ ...Array(32) ].map(() => Math.random().toString(36)[2]).join('') }`
+    const loginHash = createHash(userId)
 
     const insertSuccess = await services.sessions.insert(loginHash, userId)
 
