@@ -4,7 +4,7 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import type {  ILogin } from '@userService/definitions'
+import type { ILogin, IGetUserByIdResponse } from '@userService/definitions'
 
 import type { IService }  from '@userService/getServices'
 
@@ -15,7 +15,6 @@ import type { IService }  from '@userService/getServices'
 export default function getIdByEmailPass (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const loginData = ctx.getBody<ILogin>()
-
     console.log('mukk')
     console.log(loginData)
 
