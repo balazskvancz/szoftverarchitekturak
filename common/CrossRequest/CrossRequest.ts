@@ -28,10 +28,7 @@ export default class CrossRequest extends Request {
 
         res.on(
           'data',
-          (
-            /** @type {string} */
-            chunk
-          ) => {
+          (chunk: string) => {
             body = body + chunk
           }
         )
@@ -52,9 +49,11 @@ export default class CrossRequest extends Request {
 
       if (
         (options?.method === 'POST' || options?.method === 'PUT') &&
-        (typeof data === 'string' || (typeof data === 'object' && !data))
+        (typeof data === 'string' || typeof data === 'object')
       ) {
-        const sendData = typeof data === 'object' ? JSON.stringify(data) : data
+        const sendData = typeof data === 'object'
+          ? JSON.stringify(data)
+          : data
 
         crossRequest.write(sendData)
       }

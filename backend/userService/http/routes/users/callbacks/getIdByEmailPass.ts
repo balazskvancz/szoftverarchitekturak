@@ -4,7 +4,7 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import type { IGetUserByIdResponse, ILogin } from '@userService/definitions'
+import type {  ILogin } from '@userService/definitions'
 
 import type { IService }  from '@userService/getServices'
 
@@ -18,6 +18,7 @@ export default function getIdByEmailPass (services: IService): TCallbackFunction
 
     console.log('mukk')
     console.log(loginData)
+
     if (!Validator.isDefined(loginData)) {
       ctx.sendError({
         code: Error.codes.ERR_MISSING_BODY,
@@ -44,12 +45,13 @@ export default function getIdByEmailPass (services: IService): TCallbackFunction
 
       return
     }
+
     // ráhívni a DB-re és elkérni a felhasználót ha van ilyen
     // ha nincs null-t adunk vissza
     const userId = await services.usersService.getUserIdByEmailPass(loginData.email, loginData.pass)
 
     console.log(userId)
 
-    ctx.sendJson({"userId": 0})
+    ctx.sendJson({ userId: 0 })
   }
 }

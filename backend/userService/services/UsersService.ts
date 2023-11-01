@@ -60,7 +60,7 @@ export default class UsersService extends BaseService {
         FROM ${ this.tableName }
         WHERE email = ?
         AND password = ?
-    `, [email, pass])
+    `, [ email, pass ])
   }
 
   /**

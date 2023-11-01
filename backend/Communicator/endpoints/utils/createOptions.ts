@@ -16,7 +16,7 @@ export default function createOptions (
 ): ICrossRequestOptions {
   const headers = hasData
     ? {
-      'Content-Type': 'application/json; utf8',
+      'Content-Type': 'application/json; utf-8',
       'Access-Control-Allow-Origin': '*'
     }
     : {}
