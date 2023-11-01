@@ -1,8 +1,9 @@
 import getUserById from './endpoints/getUserById'
-// getUserIdByMail
+import getIdByEmailPass from './endpoints/getUserIdByEmailPass'
 
 const Communicator = {
-  getUserById
+  getUserById,
+  getIdByEmailPass
 }
 
 export default Communicator

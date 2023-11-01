@@ -53,6 +53,16 @@ export default class UsersService extends BaseService {
       `, [ id ])
   }
 
+  public getUserIdByEmailPass (email: string, pass: string): Promise<number | null> {
+    return this.db.getRow(`
+        SELECT
+        id
+        FROM ${ this.tableName }
+        WHERE email = ?
+        AND password = ?
+    `, [email, pass])
+  }
+
   /**
    * Lekérdez egy felhasználót jogosultság és id alapján.
    * @param id    - Az id.

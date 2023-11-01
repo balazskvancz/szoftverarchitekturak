@@ -23,6 +23,11 @@ export interface IRegisterUser {
   readonly password: string
 }
 
+export interface ILogin {
+  readonly email: string
+  readonly pass: string
+}
+
 export interface IInsertUser extends IRegisterUser {
   readonly role: EUserRole
 }
@@ -40,6 +45,10 @@ export interface IGetUserByIdResponse {
   readonly user: IUser | null
 }
 
+export interface IGetUserIdByEmailPassResponse {
+  readonly userId: number | null
+}
+
 /* eslint-disable no-shadow */
 export enum EUsersRoute {
   GetAll =      '/api/user/users/get-all',
@@ -47,7 +56,7 @@ export enum EUsersRoute {
   Register =    '/api/user/registration',
   UndoDelete =  '/api/user/undo-delete/:id',
   GetUserById = '/api/user/:id',
-  GetIdByEmailPass = '/api/user/:email/:pass',
+  GetIdByEmailPass = '/api/user/email-pass',
 }
 
 /* eslint-disable no-shadow */

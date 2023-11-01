@@ -19,7 +19,7 @@ import getIdByEmailPass from './users/callbacks/getIdByEmailPass'
 export default function usersRoutes (router: IRouter, services: IService): void {
   router.get(EUsersRoute.GetAll,  getAll(services))
   router.get(EUsersRoute.GetUserById, getUserById(services))
-  router.get(EUsersRoute.GetIdByEmailPass, getIdByEmailPass(services))
+  router.post(EUsersRoute.GetIdByEmailPass, getIdByEmailPass(services))
   router.post(EUsersRoute.Insert, insert(services))
   router.post(EUsersRoute.Register, registration(services))
   router.put(EUsersRoute.UndoDelete, undoDelete(services))

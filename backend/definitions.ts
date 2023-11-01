@@ -19,5 +19,6 @@ export {
 
 export type {
   IUser,
-  IGetUserByIdResponse
+  IGetUserByIdResponse,
+  IGetUserIdByEmailPassResponse
 } from './userService/definitions'

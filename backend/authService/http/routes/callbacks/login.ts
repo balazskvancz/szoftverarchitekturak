@@ -3,6 +3,8 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 import Validator from '@common/Validator/Validator'
 import { createHash } from '@common/utils/createHash'
 
+import Communicator from '@backend/Communicator/Communicator'
+
 import Error from '@authService/Error'
 
 import type { ILogin } from '@authService/definitions'
@@ -15,7 +17,6 @@ import type { IService } from '@authService/getServices'
 export default function login (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const loginData = ctx.getBody<ILogin>()
-    console.log(loginData)
 
     // note: ebbe soha nem megy bele, akkor sem ha postmanbol body none-nal kuldom, mindig van egy ures body: {}
     // [Balázs]: ezt jól észrevetted, pontosan így van, ahogy mondod. A „keretrendszer” megpróbál minden
@@ -51,25 +52,19 @@ export default function login (services: IService): TCallbackFunction {
       return
     }
 
-    console.log(loginData.email)
-      /**
-       * // TODO email+hash => userValidáció
-       *  megkérdezni a userAuth-tól hogy helyesek-e a bejelentkezési adatok
-       *  köztes kommunikátor service?
-       *
-       *  Megkapjuk a userId-t
-       *  további feladatok:
-       *  1) Loginhash létrehozása
-       *  2) login rekord beszúrása az adatbázisba.
-       */
+    // megkérdezzük a userId-t email+pass alapján a Communicatortól
+    console.log('-- getUserId')
+    const userId =  await Communicator.getIdByEmailPass(loginData.email, loginData.pass)
 
-    // case: user letezik visszakaptuk az Id-jat
-    const userId = 0
+    if (Validator.isNull(userId)) {
+      ctx.sendError({
+        code: Error.codes.ERR_WRONG_LOGIN_DATA,
+        message: Error.messages.ERR_WRONG_LOGIN_DATA
+      })
 
-    // [Balázs]: Woooow! Szép lett, nekem tetszik! :)
-    // TODO: kérlek ez a logikát szervezd ki egy függvénybe.
-    // Ennek a helye lehet akár itt a saját szervízen belül is,
-    // de teheted a @common/utils alá is.
+      return
+    }
+
     const loginHash = createHash(userId)
 
     const insertSuccess = await services.sessions.insert(loginHash, userId)

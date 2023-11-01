@@ -4,7 +4,7 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import type { IGetUserByIdResponse } from '@userService/definitions'
+import type { IGetUserByIdResponse, ILogin } from '@userService/definitions'
 
 import type { IService }  from '@userService/getServices'
 
@@ -14,24 +14,42 @@ import type { IService }  from '@userService/getServices'
  */
 export default function getIdByEmailPass (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const { email, pass } = ctx.getRouteParams()
-    console.log(email)
-    ctx.sendOk()
-    // if (!Validator.isPositiveNumber(id)) {
-    //   ctx.sendError({
-    //     code: Error.codes.ERR_INVALID_ID,
-    //     message: Error.messages.ERR_INVALID_ID
-    //   })
+    const loginData = ctx.getBody<ILogin>()
 
-    //   return
-    // }
+    console.log('mukk')
+    console.log(loginData)
+    if (!Validator.isDefined(loginData)) {
+      ctx.sendError({
+        code: Error.codes.ERR_MISSING_BODY,
+        message: Error.messages.ERR_MISSING_BODY
+      })
 
-    // const user = await services.usersService.getUserById(id)
+      return
+    }
 
-    // const data: IGetUserByIdResponse = {
-    //   user
-    // }
+    if (!Validator.isNonEmptyString(loginData.email)) {
+      ctx.sendError({
+        code: Error.codes.ERR_MISSING_KEY,
+        message: 'Hiányzó email'
+      })
 
-    // ctx.sendJson(data)
+      return
+    }
+
+    if (!Validator.isNonEmptyString(loginData.pass)) {
+      ctx.sendError({
+        code: Error.codes.ERR_MISSING_KEY,
+        message: 'Hiányzó jelszó'
+      })
+
+      return
+    }
+    // ráhívni a DB-re és elkérni a felhasználót ha van ilyen
+    // ha nincs null-t adunk vissza
+    const userId = await services.usersService.getUserIdByEmailPass(loginData.email, loginData.pass)
+
+    console.log(userId)
+
+    ctx.sendJson({"userId": 0})
   }
 }
