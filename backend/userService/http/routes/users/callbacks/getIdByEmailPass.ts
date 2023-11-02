@@ -4,7 +4,7 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import type { ILogin, IGetUserByIdResponse } from '@userService/definitions'
+import type { ILogin } from '@userService/definitions'
 
 import type { IService }  from '@userService/getServices'
 
@@ -15,8 +15,6 @@ import type { IService }  from '@userService/getServices'
 export default function getIdByEmailPass (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const loginData = ctx.getBody<ILogin>()
-    console.log('mukk')
-    console.log(loginData)
 
     if (!Validator.isDefined(loginData)) {
       ctx.sendError({
@@ -49,8 +47,10 @@ export default function getIdByEmailPass (services: IService): TCallbackFunction
     // ha nincs null-t adunk vissza
     const userId = await services.usersService.getUserIdByEmailPass(loginData.email, loginData.pass)
 
-    console.log(userId)
+    if (Validator.isNull(userId)) {
+      return
+    }
 
-    ctx.sendJson({ userId: 0 })
+    ctx.sendJson({ userId: userId.id })
   }
 }

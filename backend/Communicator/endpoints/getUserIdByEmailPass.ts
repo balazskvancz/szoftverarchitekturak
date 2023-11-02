@@ -12,27 +12,15 @@ import sendRequest from './utils/sendRequest'
  */
 export default async function getUserById (email: string, pass: string): Promise<number | null> {
   const url = EUsersRoute.GetIdByEmailPass
-  const url = EUsersRoute.GetIdByEmailPass
 
   const requestBody = {
     email,
     pass
   }
 
-  }
-
-  const jsonString = JSON.stringify(requestBody)
-
-  console.log('-- communicator sent request')
-
   const { data, isSuccess } = await sendRequest<IGetUserIdByEmailPassResponse>('POST', url, requestBody)
 
-
-  console.log('-- communicator get response')
-
   if (!isSuccess) {
-    console.log('megvagy szaros')
-
     return null
   }
 

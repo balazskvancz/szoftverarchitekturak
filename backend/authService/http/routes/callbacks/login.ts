@@ -53,7 +53,6 @@ export default function login (services: IService): TCallbackFunction {
     }
 
     // megkérdezzük a userId-t email+pass alapján a Communicatortól
-    console.log('-- getUserId')
     const userId = await Communicator.getIdByEmailPass(loginData.email, loginData.pass)
 
     if (Validator.isNull(userId)) {
