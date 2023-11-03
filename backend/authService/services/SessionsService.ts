@@ -5,12 +5,11 @@ import type { ISession } from '../definitions'
 // import type { IUser, IInsertUser } from '../definitions'
 
 export default class SessionsService extends BaseService {
-
   /**
    * Beszúr egy session rekordot.
-   * @param hash    - loginHash
-   * @param userId  - felhasználó azonosító
-   * @returns       - boolean a beszúrás sikerességéről
+   * @param hash    - LoginHash.
+   * @param userId  - Felhasználó azonosító.
+   * @returns       boolean a beszúrás sikerességéről.
    */
   public async insert (hash: string, userId: number): Promise<boolean> {
     const result = await this.db.exec(`
@@ -25,31 +24,30 @@ export default class SessionsService extends BaseService {
 
   /**
    * Soft töröl egy sessiont hash alapján.
-   * @param hash - loginHash
-   * @returns    - boolean törlésről sikerességéről
+   * @param hash - LoginHash.
+   * @returns    boolean törlésről sikerességéről.
    */
   public async delete (hash: string): Promise<boolean> {
     const result = await this.db.exec(`
       UPDATE ${ this.tableName }
       SET endedAt = NOW()
       WHERE loginHash = ?
-    `, [hash])
+    `, [ hash ])
 
     return this.db.hasAffectedRows(result)
   }
 
   /**
    * Lekérdezi az élő session adatait hash alapján. Ha a sessiont korábban lezárták nem adja vissza a rekordot.
-   * note: az a megfontolás, hogy kliens oldalról nem lenne szabad lezárt sessionökre hivatkozni, így ez csak valami hiba esetén fordulhat elő ezért hibát dobunk.
-   * @param hash  - loginHash
+   * Note: az a megfontolás, hogy kliens oldalról nem lenne szabad lezárt sessionökre hivatkozni, így ez csak valami hiba esetén fordulhat elő ezért hibát dobunk.
+   * @param hash  - LoginHash.
    * */
   public getByHash (hash: string): Promise<ISession | null> {
-    // TODO: Petitol lekerni
     return this.db.getRow(`
       ${ this.getBaseSql() }
       WHERE loginHash = ?
       AND endedAt IS NULL
-    `, [hash])
+    `, [ hash ])
   }
 
   /** Alap SQL lekérdezés. */

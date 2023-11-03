@@ -23,7 +23,7 @@ export default function getUser (services: IService): TCallbackFunction {
    * @param ctx
    */
   return async (ctx: IContext): Promise<void> => {
-    const loginhash = ctx.getRouteParams()
+    const { loginhash } = ctx.getRouteParams()
 
     if (!Validator.isNonEmptyString(loginhash)) {
       ctx.sendError({
@@ -63,7 +63,7 @@ export default function getUser (services: IService): TCallbackFunction {
 
     // van user -> vissza adom a role-ját // TODO: user.role pontos syntax
     ctx.sendJson({
-      "role": user.role
+      role: user.role
     })
   }
 }

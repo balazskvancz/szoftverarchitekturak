@@ -14,8 +14,9 @@ import type { IService }  from '@authService/getServices'
  */
 export default function getUser (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const loginhash = ctx.getRouteParams()
+    const { loginhash } = ctx.getRouteParams()
 
+    // ! false-al ter vissza, true helyett amikor IRouteParamot adunk at neki
     if (!Validator.isNonEmptyString(loginhash)) {
       ctx.sendError({
         code: Error.codes.ERR_INVALID_HASH,
@@ -36,7 +37,6 @@ export default function getUser (services: IService): TCallbackFunction {
       return
     }
 
-    console.log(session.userId)
     // van user : megkapom az adatokat
     // [Balázs]: szintúgy, mint a getRole esetében.
     const user = await Communicator.getUserById(session.userId)

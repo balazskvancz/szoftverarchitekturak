@@ -47,13 +47,19 @@ export default class UsersService extends BaseService {
    */
   public getUserById (id: number): Promise<IUser | null> {
     return this.db.getRow(`
-        ${ this.getBaseSql() }
+        SELECT
+          id,
+          name,
+          email,
+          createdAt,
+          role
+        FROM ${ this.tableName }
         WHERE deletedAt IS NULL
         AND id = ?
-      `, [ id ])
+      `, [ id ]) // [Simon] kicseréltem a BaseSQL-t role-al kiegészítve mivel hash alapján lekérhetőnek kell lennie. Ezt a függvényt úgy is az authService használja csak (elviekben)
   }
 
-  public getUserIdByEmailPass (email: string, pass: string): Promise<number | null> {
+  public getUserIdByEmailPass (email: string, pass: string): Promise<TAnyObject | null> {
     return this.db.getRow(`
         SELECT
         id

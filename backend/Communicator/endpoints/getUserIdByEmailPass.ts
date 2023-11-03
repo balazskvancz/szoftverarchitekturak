@@ -6,6 +6,7 @@ import sendRequest from './utils/sendRequest'
 
 /**
  * Elkér az adott email és passworddal rendelkező felhasználó azonosítóját.
+ * Elkér az adott email és passworddal rendelkező felhasználó azonosítóját.
  * @param email - A keresendő egyed emailje.
  * @param pass - A keresendő egyed jelszava.
  */
