@@ -9,20 +9,18 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'always',
   plugins: [
-    // 'prettier-plugin-svelte' // TODO: ha majd lesz Svelte.
+    'prettier-plugin-svelte'
   ],
   pluginSearchDirs: false,
   overrides: [
-    // TODO: same as l 12.
-    // {
-      // files: '*.svelte',
-      // options: {
-        // svelteSortOrder: 'options-scripts-styles-markup',
-        // svelteStrictMode: true,
-        // svelteAllowShorthand: true,
-        // // svelteBracketNewLine: true, // DEPRECATED
-        // svelteIndentScriptAndStyle: true
-      // }
-    // }
+    {
+      files: '*.svelte',
+      options: {
+        svelteSortOrder: 'options-scripts-styles-markup',
+        svelteStrictMode: true,
+        svelteAllowShorthand: true,
+        svelteIndentScriptAndStyle: true
+      }
+    }
   ]
 }

@@ -1,16 +1,22 @@
+/* eslint-disable no-console */
+/* eslint-disable no-constant-binary-expression */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable valid-typeof */
 require('module-alias/register')
 
 const webpack = require('webpack')
 
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const JavaScriptObfuscator      = require('webpack-obfuscator')
+const HtmlWebpackPlugin         = require('html-webpack-plugin')
 const SitemapPlugin             = require('sitemap-webpack-plugin').default
 
 const { makeBypassProxy } = require('@root/webpack/tools/makeBypassProxy')
+const htmlMinifyOptions   = require('@root/webpack/tools/htmlMinifyOptions')
 const { makeProxy }       = require('@root/webpack/tools/makeProxy')
 
 const nodeConfig = require('@root/webpack/webpack.node.config')
-// const webConfig  = require('./')
+const webConfig  = require('@root/webpack/webpack.web.config')
 
 /** @typedef {import('http').ServerResponse} ServerResponse */
 
@@ -33,7 +39,7 @@ class WebpackConfigurator {
   constructor (env, argv, params) {
     const { type, ...rest } = params
 
-    const baseConfig = type === 'web' ? /* webConfig */ {} : nodeConfig
+    const baseConfig = type === 'web' ? webConfig : nodeConfig
 
     const envWithParams = {
       ...env,
@@ -280,7 +286,8 @@ class WebpackConfigurator {
 
 WebpackConfigurator.tools = {
   makeProxy,
-  makeBypassProxy,
+  htmlMinifyOptions,
+  makeBypassProxy
 }
 
 WebpackConfigurator.plugins = {
@@ -290,7 +297,8 @@ WebpackConfigurator.plugins = {
   // 3rd party
   WebpackManifestPlugin,
   JavaScriptObfuscator,
-  SitemapPlugin,
+  HtmlWebpackPlugin,
+  SitemapPlugin
 }
 
 module.exports.WebpackConfigurator = WebpackConfigurator

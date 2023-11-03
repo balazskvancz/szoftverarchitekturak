@@ -3,6 +3,11 @@
 module.exports = {
   extends: [],
 
+  parserOptions: {
+    // Required for certain syntax usages
+    ecmaVersion: 2020
+  },
+
   settings: {
     jsdoc: {
       mode: 'typescript'
@@ -21,6 +26,7 @@ module.exports = {
     'tsdoc',
     'jsdoc',
     'perfectionist',
+    'svelte'
   ],
 
   env: {

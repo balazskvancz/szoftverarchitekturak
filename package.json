@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "admin:dev": "webpack serve --mode development --progress --config ./frontend/admin/webpack.config.js",
     "authService:dev": "webpack --watch --mode development --progress --config ./backend/authService/webpack.config.js",
     "distributorService:dev": "webpack --watch --mode development --progress --config ./backend/distributorService/webpack.config.js",
     "packageService:dev": "webpack --watch --mode development --progress --config ./backend/packageService/webpack.config.js",
@@ -31,11 +32,17 @@
     "eslint-plugin-tsdoc": "^0.2.17",
     "eslint-webpack-plugin": "^4.0.1",
     "globals": "^13.22.0",
+    "html-webpack-plugin": "^5.5.3",
     "javascript-obfuscator": "^4.1.0",
     "jsdoc": "^4.0.2",
     "module-alias": "^2.2.3",
     "nodemon-webpack-plugin": "^4.8.1",
+    "prettier-plugin-svelte": "^3.0.3",
     "sitemap-webpack-plugin": "^1.1.1",
+    "svelte-eslint-parser": "^0.32.2",
+    "svelte-jester": "^3.0.0",
+    "svelte-loader": "^3.1.9",
+    "svelte-preprocess": "^5.0.4",
     "ts-loader": "^9.4.4",
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
@@ -49,6 +56,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "svelte": "^4.2.2",
+    "svelte-routing": "^2.6.0"
   }
 }
