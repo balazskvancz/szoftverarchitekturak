@@ -1,3 +1,5 @@
+import 'jest-extended'
+
 declare global {
   const __CORDOVA__: boolean
   const __TEST__: boolean
@@ -59,5 +61,3 @@ declare global {
 
   type TReplaceTypes<F extends Object, T extends Object> = F extends { [key in keyof T]?: unknown } ? Omit<F, keyof T> & T : F
 }
-
-export {}

@@ -26,8 +26,12 @@ module.exports = {
     'tsdoc',
     'jsdoc',
     'perfectionist',
-    'svelte'
+    'svelte',
+    '@typescript-eslint',
+    'jest'
   ],
+
+  parser: '@typescript-eslint/parser',
 
   env: {
     es6: true
@@ -43,5 +47,8 @@ module.exports = {
     ...require('./rules/eslintComments')
   },
 
-  overrides: require('./overrides/typescript')
+  overrides: [
+    ...require('./overrides/typescript'),
+    ...require('./overrides/tests')
+  ]
 }

@@ -32,13 +32,13 @@ module.exports.tsPaths = tsPaths
 // --- WEBPACK
 
 const webpackPaths = {
-  '@common': path.resolve(__dirname, 'common'),
-  '@backend': path.resolve(__dirname, 'backend'),
-  '@authService': path.resolve(__dirname, 'backend', 'authService'),
-  '@distributorService': path.resolve(__dirname, 'backend', 'distributorService'),
-  '@packageService': path.resolve(__dirname, 'backend', 'packageService'),
-  '@userService': path.resolve(__dirname, 'backend', 'userService'),
-  '@frontend': path.resolve(__dirname, 'frontend')
+  '@common':              path.resolve(__dirname, 'common'),
+  '@backend':             path.resolve(__dirname, 'backend'),
+  '@authService':         path.resolve(__dirname, 'backend', 'authService'),
+  '@distributorService':  path.resolve(__dirname, 'backend', 'distributorService'),
+  '@packageService':      path.resolve(__dirname, 'backend', 'packageService'),
+  '@userService':         path.resolve(__dirname, 'backend', 'userService'),
+  '@frontend':            path.resolve(__dirname, 'frontend')
 }
 
 module.exports.webpackPaths = webpackPaths
@@ -47,7 +47,12 @@ module.exports.webpackPaths = webpackPaths
 
 const jestPaths = {
   '^@backend(.*)$': '<rootDir>backend$1',
-  '^@common(.*)$': '<rootDir>common$1'
+  '^@common(.*)$':  '<rootDir>common$1',
+
+  '^@authService(.*)$':         '<rootDir>backend/authService$1',
+  '^@distributorService(.*)$':  '<rootDir>backend/distributorService$1',
+  '^@packageService(.*)$':      '<rootDir>backend/packageService$1',
+  '^@userService(.*)$':         '<rootDir>backend/userService$1'
 }
 
 module.exports.jestPaths = jestPaths
