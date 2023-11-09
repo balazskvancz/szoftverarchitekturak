@@ -1,7 +1,5 @@
 const path = require('path')
 
-const { getRule } = require('../utils/getRule')
-
 module.exports = [
   // Sima TypeScript és TSX fájlok esetén, akár teszt, akár nem.
   {
@@ -27,10 +25,7 @@ module.exports = [
     },
 
     rules: {
-      ...require('../rules/typescript'),
-      'no-restricted-syntax': [
-        ...getRule('no-restricted-syntax'),
-      ]
+      ...require('../rules/typescript')
     }
-  },
+  }
 ]

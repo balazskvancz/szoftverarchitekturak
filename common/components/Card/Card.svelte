@@ -1,10 +1,13 @@
-<script lang="ts">
-  export let cardClass: string = ''
+<script
+  lang="ts"
+  strictEvents
+>
+  export let cardClass = ''
 </script>
 
-<div class={`card ${ cardClass }`}>
+<div class="card { cardClass }">
   {#if $$slots.header}
-    <div class="card-header text-center">
+    <div class="card-header text-start">
       <slot name="header" />
     </div>
   {/if}

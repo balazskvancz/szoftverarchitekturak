@@ -51,6 +51,6 @@ module.exports = {
   overrides: [
     ...require('./overrides/typescript'),
     ...require('./overrides/tests'),
-    ...require('./overrides/svelte')
+    ...require('./overrides/svelte'),
   ]
 }

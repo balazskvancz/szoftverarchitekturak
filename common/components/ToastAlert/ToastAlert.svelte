@@ -1,4 +1,7 @@
-<script lang="ts">
+<script
+  lang="ts"
+  strictEvents
+>
   import { fade } from 'svelte/transition'
 
   import type { TState } from '../definitions'
@@ -12,24 +15,26 @@
   function onChange (..._args: boolean[]): void {
     if (isShown && timeOut > 0) {
       setTimeout(() => {
+        // eslint-disable-next-line svelte/infinite-reactive-loop
         isShown = false
       }, timeOut)
     }
   }
 
+  // eslint-disable-next-line svelte/infinite-reactive-loop
   $: onChange(isShown)
 </script>
 
 {#if isShown}
   <div
-  class={`container p-3 toast-alert`}
-  in:fade
-  out:fade
+    class="container p-3 toast-alert"
+    in:fade
+    out:fade
   >
     <div class="col-sm-12-col-md-6 col-lg-4 mx-auto">
       <Alert
+        bind:isShown
         { alertType }
-        bind:isShown={ isShown}
       >
         <slot />
       </Alert>

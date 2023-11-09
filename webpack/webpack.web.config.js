@@ -1,6 +1,8 @@
 const webpackDefault = require('./webpack.config.js')
 const { getOptions } = require('./tools/getOptions')
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 /**
  * A default webpack configunk.
  * @param {any} env - Env.
@@ -13,8 +15,6 @@ module.exports = function webpackWebDefault (env = {}, options) {
   const opts = getOptions(env, options)
 
   const config = webpackDefault(env, options)
-
-  // config.optimization = require('./optimization')(opts)
 
   config.target = 'web'
 
@@ -36,6 +36,10 @@ module.exports = function webpackWebDefault (env = {}, options) {
       // require('./plugins/favicons')(opts)
     // )
   }
+
+  config.plugins.push(
+    new MiniCssExtractPlugin({ filename: 'app.css' })
+  )
 
   return config
 }

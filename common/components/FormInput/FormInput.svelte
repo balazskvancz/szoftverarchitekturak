@@ -1,14 +1,17 @@
-<script lang="ts">
+<script
+  lang="ts"
+  strictEvents
+>
+  import type { TFormErrors } from '../../definitions'
+
   import getRandomLetters from '@common/utils/getRandomLetters'
 
   import FormLabel from '../FormLabel/FormLabel.svelte'
 
-  type TFormErrors = any[]
-
   export let name: string | null = null
   export let type: 'text' | 'date' = 'text'
   export let autocomplete = 'off'
-  export let value: string = ''
+  export let value = ''
   export let label: string | null = null
   export let placeholder: string
   export let formErrors: TFormErrors = []
@@ -25,26 +28,30 @@
     value = currentTarget.value
   }
 
-  const id = getRandomLetters(10)
+  const ID_LENGTH = 10
+
+  const id = getRandomLetters(ID_LENGTH)
 </script>
 
-<div class="form-outline mb-4">
+<div class="form-outline mb-4 text-start">
   {#if label !== null}
     <FormLabel
-      { label }
       forElement={ id }
+      { label }
     />
   {/if}
-    <input
-      class={`form-control form-control-lg shadow-none ${ errorMsg ? 'border border-2 border-danger' : ''}`}
-      { value }
-      { type }
-      { name }
-      { autocomplete }
-      { placeholder }
-      on:change={ onChange }
-    />
+  <input
+    class="form-control form-control-lg shadow-none "
+    class:border={ Boolean(errorMsg) }
+    class:border-danger={ Boolean(errorMsg) }
+    { value }
+    on:change={ onChange }
+    { autocomplete }
+    { name }
+    { placeholder }
+    { type }
+  />
   {#if errorMsg}
-    <small><p class="text-danger">{ errorMsg }</p></small>
+    <small><p class="text-danger">{errorMsg}</p></small>
   {/if}
 </div>

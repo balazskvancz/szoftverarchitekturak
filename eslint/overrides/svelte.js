@@ -15,7 +15,9 @@ module.exports = [
       'no-inner-declarations': 0,
       'no-self-assign': 0,
       ...require('../rules/svelte'),
-      ...require('../rules/typescript')
+      ...require('../rules/typescript'),
+
+      'svelte/experimental-require-slot-types': 0
     }
   }
 ]

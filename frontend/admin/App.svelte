@@ -1,33 +1,78 @@
-<script lang="ts">
-  let counter = 0
+<script
+  lang="ts"
+  strictEvents
+>
+  import { onDestroy } from 'svelte'
+
+  import { onSuccessOccured } from './store'
+
+  import ToastAlert from '@common/components/ToastAlert/ToastAlert.svelte'
+
+  import Header   from './components/Header/Header.svelte'
+  import Sidebar  from './components/Sidebar/Sidebar.svelte'
+
+  import Router from './Router.svelte'
+
+  import './app.css'
+
+  let isSuccessOccured = false
+  let toastMessage = ''
+
+  /** Sikeres művelet eseménykezelője. */
+  const unsubscribeSuccessOccured = onSuccessOccured.subscribe((v) => {
+    if (v) {
+      isSuccessOccured  = true
+      toastMessage      = v
+    }
+
+    onSuccessOccured.set(null)
+  })
+
+  onDestroy(() => {
+    unsubscribeSuccessOccured()
+  })
 </script>
 
-<div class="container mx-auto mt-5">
-  <div class="row">
-    <div class="col-sm-12 text-center">
-      <h1>Számláló: { counter }</h1>
-      <div class="row">
+<ToastAlert
+  bind:isShown={ isSuccessOccured }
+  alertType="success">
+  {toastMessage}
+</ToastAlert>
 
-        <div class="col-sm-12 col-md-6 text-center">
-          <button
-            type='button'
-            class="btn btn-primary"
-            on:click={ () => counter++ }
-          >
-            Kattints rám!
-          </button>
-        </div>
+<div class="container-fluid p-0 min-vh-100 d-flex flex-column">
+  <div class="sticky-top">
+    <Header />
+  </div>
+  <div class="mainc">
+    <div class="container-fluid">
+      <div class="row h-100">
+        <Sidebar />
 
-        <div class="col-sm-12 col-md-6 text-center">
-          <button
-            type='button'
-            class="btn btn-danger"
-            on:click={ () => counter = 0 }
-          >
-            Visszaállítás!
-          </button>
-        </div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <Router />
+        </main>
       </div>
     </div>
   </div>
 </div>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --font-family: var(--bs-body-font-family);
+    --input-font-size: 1.20rem;
+    --input-padding: 0.8rem;
+    --input-border-radius: 10px;
+  }
+  .mainc {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    min-height: 100vh;
+    height: 100%;
+  }
+</style>
