@@ -25,5 +25,6 @@ export const PAGE_LINKS: Record<TPage, IPage> = {
 
 export type {
   IDimension,
-  TDimensions
-} from '../../backend/packageService/definitions'
+  TDimensions,
+  IBaseDimension
+} from '@common/definitions'

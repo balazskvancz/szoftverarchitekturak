@@ -2,28 +2,26 @@
   lang="ts"
   strictEvents
 >
-  import { onMount  } from 'svelte'
+  import { onMount, onDestroy } from 'svelte'
 
-  import type { TFormErrors } from '@common/definitions'
+  import type { TFormErrors, IBaseDimension } from '@common/definitions'
 
   import Button         from '@common/components/Button/Button.svelte'
   import DashboardCard  from '@common/components/DashboardCard/DashboardCard.svelte'
   import Table          from '@common/components/Table/Table.svelte'
 
+  import ajax from '../../ajax'
+
+  import {
+    onDimensionOpen,
+
+    onSuccessOccured
+  } from '../../store'
+
   import type { TDimensions } from '../../definitions'
 
   import DimensionForm      from '../DimensionForm/DimensionForm.svelte'
   import DimensionTableRow  from '../DimensionTableRow/DimensionTableRow.svelte'
-
-  let currentlyDisplayed: 'data' | 'form' = 'data'
-
-  let height: string
-  let width: string
-  let depth: string
-
-  let formErrors: TFormErrors = []
-
-  let data: TDimensions = []
 
   const TABLE_HEADERS = [
     'Azonosító',
@@ -32,6 +30,18 @@
     'Műveletek'
   ]
 
+  let currentlyDisplayed: 'data' | 'form' = 'data'
+
+  let length: string
+  let width: string
+  let depth: string
+
+  let formErrors: TFormErrors = []
+
+  let data: TDimensions = []
+
+  let dimensionToEdit: number | null = null
+
   /** Új dimenzió felvétele gomb eseménkezelője. */
   function onClickNewDimension (): void {
     currentlyDisplayed = 'form'
@@ -39,14 +49,47 @@
 
   /** Alaphelyzetbe állítás. */
   function reset (): void {
-    height = ''
+    length = ''
     width  = ''
     depth  = ''
 
     formErrors = []
 
-    currentlyDisplayed = 'data'
+    currentlyDisplayed  = 'data'
+    dimensionToEdit     = null
   }
+
+  /** Sikeres művelet kezelő. */
+  function handleSuccess (): void {
+    onSuccessOccured.set('Sikeres dimenzió felvétel!')
+
+    reset()
+  }
+
+  /** Adatok szervertől való lekérdezése. */
+  async function getData (): Promise<void> {
+    data = await ajax.getDimensions()
+  }
+
+  /** Egy dimenzió megnyitását figyelő eseménykezelő. */
+  const unsubscribeOnOpen = onDimensionOpen.subscribe(async (v) => {
+    if (!v) {
+      return
+    }
+
+    onDimensionOpen.set(null)
+
+    const res = await ajax.getDimensionById(v)
+
+    if (res) {
+      dimensionToEdit     = v
+      currentlyDisplayed  = 'form'
+
+      length = res.length.toString()
+      width  = res.width.toString()
+      depth  = res.depth.toString()
+    }
+  })
 
   /**
    * Form elsütésének kezelője.
@@ -55,16 +98,32 @@
   async function onSubmit (e: Event): Promise<void> {
     e.preventDefault()
 
-    await Promise.resolve()
+    const data: IBaseDimension = {
+      depth:  Number(depth),
+      length: Number(length),
+      width:  Number(width)
+    }
+
+    const error = dimensionToEdit
+      ? await ajax.updateDimension(dimensionToEdit, data)
+      : await ajax.insertDimension(data)
+
+    formErrors = error ? error.formErrors ?? [] : []
+
+    if (formErrors.length === 0) {
+      handleSuccess()
+
+      await getData()
+    }
   }
 
   onMount(async () => {
-    // TODO: ide API lekérdezés.
-    await Promise.resolve()
-
-    data = []
+    await getData()
   })
 
+  onDestroy(() => {
+    unsubscribeOnOpen()
+  })
 </script>
 
 <DashboardCard pageTitle="Csomag dimenziók">
@@ -94,7 +153,7 @@
 
     {#if currentlyDisplayed === 'form'}
       <DimensionForm
-        bind:height
+        bind:length
         bind:depth
         bind:width
         bind:formErrors

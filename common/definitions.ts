@@ -34,6 +34,11 @@ export interface IError {
   readonly message: string
 }
 
+export interface IAjaxResponse<T extends TAnyObject> {
+  readonly error: IGeneralError | null
+  readonly data: T
+}
+
 export interface ICreateError {
   readonly formErrors?: readonly IFormError[]
   readonly error?: IError
@@ -64,3 +69,16 @@ export interface IDataResponse<T extends TAnyObject> {
   readonly data: T
   readonly metaData: IMetaData
 }
+
+/** Szervíz specifikus típusok. */
+export type {
+  IDimension,
+  TDimensions,
+  IBaseDimension,
+  IGetDimensionByIdResponse,
+  IGetAllDimensionsResponse
+} from '../backend/packageService/definitions'
+
+export {
+  EDimensionsRoute
+} from '../backend/packageService/definitions'

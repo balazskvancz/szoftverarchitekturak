@@ -8,7 +8,7 @@
   import FormInput  from '@common/components/FormInput/FormInput.svelte'
 
   export let width: string
-  export let height: string
+  export let length: string
   export let depth: string
   export let onSubmit: (e: Event) => Promise<void> | void
   export let formErrors: TFormErrors
@@ -30,11 +30,11 @@
   <div class="col-sm-12 col-md-6 mx-auto">
     <FormInput
       bind:formErrors
-      bind:value={ height }
+      bind:value={ length }
       autocomplete="off"
-      label="Magasság"
-      name="height"
-      placeholder="Magasság (centiméterben megadva)"
+      label="Hosszaság"
+      name="length"
+      placeholder="Hosszaság (centiméterben megadva)"
       type="text"
     />
   </div>
