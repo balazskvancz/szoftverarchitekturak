@@ -44,11 +44,13 @@ module.exports = {
     ...require('./rules/promise'),
     ...require('./rules/commondoc'),
     ...require('./rules/perfectionist'),
-    ...require('./rules/eslintComments')
+    ...require('./rules/eslintComments'),
+    ...require('./rules/svelte')
   },
 
   overrides: [
     ...require('./overrides/typescript'),
-    ...require('./overrides/tests')
+    ...require('./overrides/tests'),
+    ...require('./overrides/svelte')
   ]
 }

@@ -38,7 +38,7 @@ module.exports = {
   'svelte/no-immutable-reactive-statements': 2,
   'svelte/no-reactive-functions': 2,
   'svelte/no-reactive-literals': 2,
-  'svelte/no-unused-class-name': 2,
+  'svelte/no-unused-class-name': 0,
   'svelte/no-unused-svelte-ignore': 2,
   'svelte/no-useless-mustaches': 2,
   'svelte/prefer-destructured-store-props': 2,
