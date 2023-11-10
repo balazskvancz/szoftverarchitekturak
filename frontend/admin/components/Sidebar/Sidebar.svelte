@@ -33,10 +33,12 @@
             tabindex="-1"
             type="button"
           >
-            {value.displayName} <i class={ value.icon } />
+            <i class={ value.icon } /> {value.displayName}
           </button>
         </li>
       {/each}
+
+      <hr class="my-3" />
     </ul>
   </div>
 </nav>

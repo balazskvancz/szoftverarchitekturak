@@ -1,5 +1,12 @@
+export type {
+  IDimension,
+  TDimensions,
+  TFormErrors,
+  IBaseDimension
+} from '@common/definitions'
+
 export const PAGES = [
-  'users', 'dimensions'
+  'dimensions', 'admins', 'couriers', 'customers'
 ] as const
 
 export type TPage = typeof PAGES[number]
@@ -16,15 +23,20 @@ export const PAGE_LINKS: Record<TPage, IPage> = {
     url: '/dimenziok',
     icon: 'bi bi-bounding-box-circles'
   },
-  users: {
+  admins: {
+    displayName: 'Adminok',
+    url: '/adminok',
+    icon: 'bi bi-people-fill'
+  },
+  couriers: {
+    displayName: 'Futárok',
+    url: '/futarok',
+    icon: 'bi bi-boxes'
+  },
+  customers: {
     displayName: 'Felhasználók',
     url: '/felhasznalok',
-    icon: 'bi bi-people-fill'
+    icon: 'bi bi-person-vcard'
+
   }
 }
-
-export type {
-  IDimension,
-  TDimensions,
-  IBaseDimension
-} from '@common/definitions'
