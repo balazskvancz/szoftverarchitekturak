@@ -22,6 +22,7 @@ CREATE TABLE dimensions (
   depth     DOUBLE (10, 2)  NOT NULL,
   width     DOUBLE (10, 2)  NOT NULL,
   createdAt DATETIME        NOT NULL,
+  deletedAt DATETIME        DEFAULT NULL,
 
   PRIMARY KEY (id)
 );

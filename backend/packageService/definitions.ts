@@ -86,10 +86,11 @@ export interface IPackageLifecycle extends IBasePackageLifecycle {
 export type TPackageLifecycles = readonly IPackageLifecycle[]
 
 export enum EDimensionsRoute {
-  GetAll  = '/api/package/dimensions',
-  GetById = '/api/package/dimensions/:id',
-  Insert  = '/api/package/dimensions',
-  Update  = '/api/package/dimensions/:id'
+  DeleteById  = '/api/package/dimensions/:id',
+  GetAll      = '/api/package/dimensions',
+  GetById     = '/api/package/dimensions/:id',
+  Insert      = '/api/package/dimensions',
+  Update      = '/api/package/dimensions/:id'
 }
 
 export enum EAddressesRoute {

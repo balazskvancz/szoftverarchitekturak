@@ -7,6 +7,7 @@
   import type { TFormErrors, IBaseDimension } from '@common/definitions'
 
   import Button         from '@common/components/Button/Button.svelte'
+  import ConfirmModal   from '@common/components/ConfirmModal/ConfirmModal.svelte'
   import DashboardCard  from '@common/components/DashboardCard/DashboardCard.svelte'
   import Table          from '@common/components/Table/Table.svelte'
 
@@ -14,8 +15,8 @@
 
   import {
     onDimensionOpen,
-
-    onSuccessOccured
+    onSuccessOccured,
+    onDimensionDelete
   } from '../../store'
 
   import type { TDimensions } from '../../definitions'
@@ -42,6 +43,11 @@
 
   let dimensionToEdit: number | null = null
 
+  let idToDelete: number | null = null
+  let isConfirmModalOpened      = false
+
+  $: isConfirmModalOpened = Boolean(idToDelete)
+
   /** Új dimenzió felvétele gomb eseménkezelője. */
   function onClickNewDimension (): void {
     currentlyDisplayed = 'form'
@@ -61,7 +67,7 @@
 
   /** Sikeres művelet kezelő. */
   function handleSuccess (): void {
-    onSuccessOccured.set('Sikeres dimenzió felvétel!')
+    onSuccessOccured.set('Sikeres művelet!')
 
     reset()
   }
@@ -77,8 +83,6 @@
       return
     }
 
-    onDimensionOpen.set(null)
-
     const res = await ajax.getDimensionById(v)
 
     if (res) {
@@ -89,6 +93,15 @@
       width  = res.width.toString()
       depth  = res.depth.toString()
     }
+  })
+
+  /** Egy adott dimenzió törlését figyelő eseménykezelő. */
+  const unsubscribeOnDelete = onDimensionDelete.subscribe((v) => {
+    if (!v) {
+      return
+    }
+
+    idToDelete = v
   })
 
   /**
@@ -117,14 +130,43 @@
     }
   }
 
+  /**
+   * Visszaigazolás modal eseménykezelője.
+   * @param isConfirmed - Vissza lett-e igazolva.
+   */
+  async function onCloseConfirmModal (isConfirmed: boolean): Promise<void> {
+    const dimensionId = idToDelete ?? 0
+
+    idToDelete = null
+
+    if (!isConfirmed) {
+      return
+    }
+
+    const error = await ajax.deleteDimension(dimensionId)
+
+    if (!error) {
+      handleSuccess()
+
+      await getData()
+    }
+  }
+
   onMount(async () => {
     await getData()
   })
 
   onDestroy(() => {
+    unsubscribeOnDelete()
     unsubscribeOnOpen()
   })
 </script>
+
+<ConfirmModal
+  bind:isOpened={ isConfirmModalOpened }
+  onClose={ onCloseConfirmModal }
+  title="Biztosan törlöd a dimenziót?"
+/>
 
 <DashboardCard pageTitle="Csomag dimenziók">
   <div slot="content">

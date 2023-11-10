@@ -32,9 +32,9 @@
       bind:formErrors
       bind:value={ length }
       autocomplete="off"
-      label="Hosszaság"
+      label="Hossz"
       name="length"
-      placeholder="Hosszaság (centiméterben megadva)"
+      placeholder="Hossz (centiméterben megadva)"
       type="text"
     />
   </div>

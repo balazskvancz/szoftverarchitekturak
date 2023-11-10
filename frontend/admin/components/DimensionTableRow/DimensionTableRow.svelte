@@ -22,6 +22,7 @@
     e.preventDefault()
 
     onDimensionDelete.set(data.id)
+    onDimensionDelete.set(null)
   }
 
   /**
@@ -32,17 +33,19 @@
     e.preventDefault()
 
     onDimensionOpen.set(data.id)
+    onDimensionOpen.set(null)
   }
 
+  const DIMENSION = `${ data.width }cm x ${ data.length }cm x ${ data.depth }cm`
 </script>
 
 <tr>
   <td class="align-middle">{data.id}</td>
-  <td class="align-middle" />
+  <td class="align-middle">{DIMENSION}</td>
   <td class="align-middle">{data.createdAt}</td>
   <td class="align-middle">
-    <EditButton onClick={ handleOnDelete } />
-    <DeleteButton onClick={ handleOnOpen } />
+    <EditButton onClick={ handleOnOpen } />
+    <DeleteButton onClick={ handleOnDelete } />
   </td>
 
 </tr>

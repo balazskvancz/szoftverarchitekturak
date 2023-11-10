@@ -1,35 +1,45 @@
-<script lang="ts">
-  export let open = false
+<script
+  lang="ts"
+  strictEvents
+>
+  /** Alap onClose. */
+  function defaultOnClose (): void { /***/ }
+
+  export let isOpened = false
   export let showBackdrop = true
-  export let onClosed: () => void = (): void => {} // Legyen default.
+  export let onClosed: () => void = defaultOnClose // Legyen default.
 
-  export let title: string = ''
+  export let title = ''
 
-  const modalClose = () => {
-    open = false
+  /** Bezárás.*/
+  function modalClose (): void {
+    isOpened = false
+
     if (onClosed) {
       onClosed()
     }
   }
 </script>
 
-{#if open}
+{#if isOpened}
   <div
-    class="modal"
-    tabindex="-1"
+    class="modal custom-modal"
+    aria-hidden={ false }
     role="dialog"
-    aria-hidden={false}
+    tabindex="-1"
   >
-    <div class="modal-dialog" role="document">
+    <div
+      class="modal-dialog"
+      role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{ title }</h5>
+          <h5 class="modal-title">{title}</h5>
           <button
-            type="button"
             class="btn close"
             data-dismiss="modal"
+            on:click={ modalClose }
             aria-label="Close"
-            on:click={modalClose}
+            type="button"
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -42,15 +52,14 @@
           </div>
         {/if}
 
-
         {#if $$slots.footer}
           <slot name="footer" />
         {:else}
           <div class="modal-footer">
             <button
-              type="button"
               class="btn btn-secondary"
-              on:click={modalClose}
+              on:click={ modalClose }
+              type="button"
             >
               Close
             </button>
@@ -67,7 +76,7 @@
 {/if}
 
 <style>
-  .modal {
+  .custom-modal {
     display: block;
   }
 </style>

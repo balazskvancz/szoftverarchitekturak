@@ -47,13 +47,27 @@ export default class DimensionsService extends BaseService {
   public getById (id: number): Promise<IDimension | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
-      WHERE id = ?
+      AND id = ?
     `, [ id ])
   }
 
   /** Visszaadja az összes felvett egyedet. */
   public getAll (): Promise<TDimensions> {
     return this.db.getArray(this.getBaseSql())
+  }
+
+  /**
+   * Egy adott dimenzió törlése azonosító szerint.
+   * @param id - Azonosító.
+   */
+  public async deleteById (id: number): Promise<boolean> {
+    const result = await this.db.exec(`
+      UPDATE ${ this.tableName } SET
+        deletedAt = NOW()
+      WHERE id = ?
+    `, [ id ])
+
+    return this.db.hasAffectedRows(result)
   }
 
   /** Alap SQL lekérdezés. */
@@ -66,6 +80,7 @@ export default class DimensionsService extends BaseService {
         width,
         createdAt
       FROM ${ this.tableName }
+      WHERE deletedAt IS NULL
     `
   }
 }
