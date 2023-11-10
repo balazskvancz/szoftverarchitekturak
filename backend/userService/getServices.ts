@@ -6,10 +6,10 @@ import CustomersService from './services/CustomersService'
 import CourierWorkingDaysService from './services/CourierWorkingDaysService'
 
 export interface IService {
-  usersService: UsersService
-  couriersService: CouriersService
-  customersService: CustomersService
-  courierWorkingDaysService: CourierWorkingDaysService
+  users: UsersService
+  couriers: CouriersService
+  customers: CustomersService
+  courierWorkingDays: CourierWorkingDaysService
 
 }
 
@@ -19,9 +19,9 @@ export interface IService {
  */
 export default function getServices (mysql: MySql): IService {
   return {
-    usersService: new UsersService(mysql, 'users'),
-    couriersService: new CouriersService(mysql, 'couriers'),
-    customersService: new CustomersService(mysql, 'customers'),
-    courierWorkingDaysService: new CourierWorkingDaysService(mysql, 'courierWorkingDays')
+    users: new UsersService(mysql, 'users'),
+    couriers: new CouriersService(mysql, 'couriers'),
+    customers: new CustomersService(mysql, 'customers'),
+    courierWorkingDays: new CourierWorkingDaysService(mysql, 'courierWorkingDays')
   }
 }

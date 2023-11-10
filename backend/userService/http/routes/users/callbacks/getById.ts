@@ -4,14 +4,15 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import { EUserRole }      from '@userService/definitions'
+import type { IGetUserByIdResponse } from '@userService/definitions'
+
 import type { IService }  from '@userService/getServices'
 
 /**
- * Egy admin azonosító alapján való lekérdezését megvalósító végpont.
+ * Egy felhasználó lekérdezése id alapján.
  * @param services - Services.
  */
-export default function getAdmin (services: IService): TCallbackFunction {
+export default function getById (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const { id } = ctx.getRouteParams()
 
@@ -24,10 +25,12 @@ export default function getAdmin (services: IService): TCallbackFunction {
       return
     }
 
-    const user = await services.usersService.getUser(id, EUserRole.Admin)
+    const user = await services.users.getUserById(id)
 
-    ctx.sendJson({
+    const data: IGetUserByIdResponse = {
       user
-    })
+    }
+
+    ctx.sendJson(data)
   }
 }

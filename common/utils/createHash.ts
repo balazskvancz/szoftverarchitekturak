@@ -1,10 +1,13 @@
-/**
- * Generál egy hasht az alábbi patternt követve:
- * {id}-{Date.now()}-{32 random characters}.
- * @param id - A Hash elején szereplő azonosító, ez lehet szá és sztring is.
- */
-export function createHash (id?: string | number): string {
-  const arrayLength = 32
+import { createHash } from 'crypto'
 
-  return `${ id }-${ Date.now() }-${ [ ...Array(arrayLength) ].map(() => Math.random().toString(36)[2]).join('') }`
+const HASHING_ALGORITHM = 'sha256'
+
+/**
+ * Egyszerű szöveg SHA256 hashé alakítása.
+ * @param plainText - A nyers szöveg.
+ */
+export default function createPassword (plainText: string): string {
+  const hasher = createHash(HASHING_ALGORITHM)
+
+  return hasher.update(plainText).digest('hex')
 }

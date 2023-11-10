@@ -1,45 +1,52 @@
+/* eslint-disable no-shadow */
 export type {
   IConfig,
   IDatabaseConfig
 } from '@common/definitions'
 
-/* eslint-disable no-shadow */
-export enum EUserRole {
-  Customer = 1,
-  Courier = 2,
-  Admin = 3
-}
+export const USER_TYPES = [
+  'admin', 'customer', 'courier'
+] as const
 
-/* eslint-disable no-shadow */
-export enum EUserRow {
-  name = 'name',
-  email = 'email',
-  password = 'password'
-}
+export type TUserType = typeof USER_TYPES[number]
 
-export interface IRegisterUser {
-  readonly name: string
+export interface IBaseUser {
   readonly email: string
+  readonly name: string
+}
+
+export interface IPassword {
   readonly password: string
+  readonly passwordRepeat: string
+}
+
+export interface IChangePasswordRequest extends IPassword {
+  readonly currentPassword: string
 }
 
 export interface ILogin {
   readonly email: string
-  readonly pass: string
+  readonly password: string
 }
 
-export interface IInsertUser extends IRegisterUser {
-  readonly role: EUserRole
+export interface IInsertUserRequest extends IBaseUser, IPassword {}
+
+export interface IInsertUser extends IInsertUserRequest {
+  readonly role: TUserType
 }
 
-export interface IUser extends IInsertUser {
+export interface IUser extends IBaseUser {
   readonly id: number
   readonly createdAt: string
 }
 
-export interface IRegisterCourier extends IRegisterUser {
+export type TUsers = readonly IUser[]
+
+export interface IBaseCourier extends IBaseUser {
   readonly phoneNum: string
 }
+
+export interface IInsertCourier extends IBaseCourier, IPassword {}
 
 export interface IGetUserByIdResponse {
   readonly user: IUser | null
@@ -49,38 +56,65 @@ export interface IGetUserIdByEmailPassResponse {
   readonly userId: number | null
 }
 
-/* eslint-disable no-shadow */
+export interface IGetAllAdminsResponse {
+  readonly admins: TUsers
+}
+
+export interface ICourier extends IUser {
+  readonly phoneNum: string
+}
+
+export type TCouriers = readonly ICourier[]
+
+export interface IGetCourierByIdResponse {
+  readonly courier: ICourier | null
+}
+
+export interface IGetAllCouriers {
+  readonly couriers: TCouriers
+}
+
+export interface IBaseCustomer extends IBaseCourier {}
+
+export interface IInsertCustomer extends IBaseCustomer, IPassword {}
+
+export interface ICustomer extends ICourier {}
+
+export type TCustomers = readonly ICustomer[]
+
+export interface IGetCustomerByIdResponse {
+  readonly customer: ICustomer | null
+
+}
+
+export interface IGetAllCustomersResponse {
+  readonly customers: TCustomers
+}
+
 export enum EUsersRoute {
-  GetAll =      '/api/user/users/get-all',
-  Insert =      '/api/user/users/insert',
-  Register =    '/api/user/registration',
-  UndoDelete =  '/api/user/undo-delete/:id',
-  GetUserById = '/api/user/:id',
-  GetIdByEmailPass = '/api/user/email-pass',
+  GetAll                  = '/api/user/users/get-all',
+  GetUserById             = '/api/user/:id',
+  GetByEmailAndPassword   = '/api/user/get-by-email-and-password'
 }
 
-/* eslint-disable no-shadow */
 export enum EAdminsRoute {
-  GetAdmins =   '/api/user/admins',
-  GetAdmin =    '/api/user/admins/:id',
-  DeleteAdmin = '/api/user/admins/:id',
-  UpdateAdmin = '/api/user/admins/:id'
+  Get         = '/api/user/admins',
+  GetById     = '/api/user/admins/:id',
+  Insert      = '/api/users/admins',
+  Update      = '/api/user/admins/:id'
 }
 
-/* eslint-disable no-shadow */
 export enum ECourierRoute {
-  GetCouriers =     '/api/user/couriers',
-  GetCourier =      '/api/user/couriers/:id',
-  RegisterCourier = '/api/user/couriers',
-  DeleteCourier =   '/api/user/couriers/:id',
-  UpdateCourier =   '/api/user/couriers/:id',
-  SetWorkingDay =   '/api/user/couriers/set-working-day'
+  Get     = '/api/user/couriers',
+  GetById = '/api/user/couriers/:id',
+  Insert  = '/api/user/couriers',
+  Update  = '/api/user/couriers/:id'
+  // SetWorkingDay   = '/api/user/couriers/set-working-day'
 }
 
-/* eslint-disable no-shadow */
 export enum ECustomersRoute {
-  GetCustomers = '/api/user/customers',
-  GetCustomer = '/api/user/customers/:id',
-  DeleteCustomer = '/api/user/customers/:id',
-  UpdateCustomer = '/api/user/customers/:id'
+  GetById = '/api/user/customers',
+  Get     = '/api/user/customers/:id',
+  Insert  = '/api/user/customers',
+  Update  = '/api/user/customers/:id'
 }

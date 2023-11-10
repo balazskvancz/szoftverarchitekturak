@@ -1,18 +1,19 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
+import createPassword from '@common/utils/createHash'
 
 import Error from '@userService/Error'
 
-import type { ILogin } from '@userService/definitions'
+import type { ILogin, IGetUserByIdResponse } from '@userService/definitions'
 
 import type { IService }  from '@userService/getServices'
 
 /**
- * Egy felhasználó lekérdezése id alapján.
+ * Egy felhasználó lekérdezése e-mail és jelszó alapján.
  * @param services - Services.
  */
-export default function getIdByEmailPass (services: IService): TCallbackFunction {
+export default function getByEmailAndPassword (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const loginData = ctx.getBody<ILogin>()
 
@@ -34,7 +35,7 @@ export default function getIdByEmailPass (services: IService): TCallbackFunction
       return
     }
 
-    if (!Validator.isNonEmptyString(loginData.pass)) {
+    if (!Validator.isNonEmptyString(loginData.password)) {
       ctx.sendError({
         code: Error.codes.ERR_MISSING_KEY,
         message: 'Hiányzó jelszó'
@@ -43,14 +44,21 @@ export default function getIdByEmailPass (services: IService): TCallbackFunction
       return
     }
 
-    // ráhívni a DB-re és elkérni a felhasználót ha van ilyen
-    // ha nincs null-t adunk vissza
-    const userId = await services.usersService.getUserIdByEmailPass(loginData.email, loginData.pass)
+    const user = await services.users.getUserIdByEmailPass(loginData.email, createPassword(loginData.password))
 
-    if (Validator.isNull(userId)) {
+    if (Validator.isNull(user)) {
+      ctx.sendError({
+        code: Error.codes.ERR_USER_NOT_EXISTS,
+        message: Error.messages.ERR_USER_NOT_EXISTS
+      })
+
       return
     }
 
-    ctx.sendJson({ userId: userId.id })
+    const data: IGetUserByIdResponse = {
+      user
+    }
+
+    ctx.sendJson(data)
   }
 }

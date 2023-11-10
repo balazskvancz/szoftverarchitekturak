@@ -4,10 +4,10 @@ import type { IService } from '../../getServices'
 
 import { ECustomersRoute } from '../../definitions'
 
-import deleteCustomer   from './customers/callbacks/deleteCustomer'
-import getCustomer      from './customers/callbacks/getCustomer'
-import getCustomers     from './customers/callbacks/getCustomers'
-import updateCustomer   from './customers/callbacks/updateCustomer'
+import get      from './customers/callbacks/get'
+import getById  from './customers/callbacks/getById'
+import insert   from './customers/callbacks/insert'
+import update   from './customers/callbacks/update'
 
 /**
  * Felveszi az összes, ügyfelekkel kapcsolatos végpontot.
@@ -15,8 +15,8 @@ import updateCustomer   from './customers/callbacks/updateCustomer'
  * @param services  - Services.
  */
 export default function customersRoutes (router: IRouter, services: IService): void {
-  router.delete(ECustomersRoute.DeleteCustomer, deleteCustomer(services))
-  router.get(ECustomersRoute.GetCustomer, getCustomer(services))
-  router.get(ECustomersRoute.GetCustomers, getCustomers(services))
-  router.put(ECustomersRoute.UpdateCustomer, updateCustomer(services))
+  router.get(ECustomersRoute.Get, get(services))
+  router.get(ECustomersRoute.GetById, getById(services))
+  router.post(ECustomersRoute.Insert, insert(services))
+  router.put(ECustomersRoute.Update, update(services))
 }

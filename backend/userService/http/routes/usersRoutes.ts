@@ -4,12 +4,9 @@ import type { IService } from '../../getServices'
 
 import { EUsersRoute } from '../../definitions'
 
-import getAll           from './users/callbacks/getAll'
-import getUserById      from './users/callbacks/getUserById'
-import insert           from './users/callbacks/insert'
-import registration     from './users/callbacks/register'
-import undoDelete       from './users/callbacks/undoDelete'
-import getIdByEmailPass from './users/callbacks/getIdByEmailPass'
+import get                    from './users/callbacks/get'
+import getById                from './users/callbacks/getById'
+import getByEmailAndPassword  from './users/callbacks/getByEmailAndPassword'
 
 /**
  * Felveszi az összes felhasználókkal kapcsolatos végpontot.
@@ -17,10 +14,7 @@ import getIdByEmailPass from './users/callbacks/getIdByEmailPass'
  * @param services  - Services.
  */
 export default function usersRoutes (router: IRouter, services: IService): void {
-  router.get(EUsersRoute.GetAll,  getAll(services))
-  router.get(EUsersRoute.GetUserById, getUserById(services))
-  router.post(EUsersRoute.GetIdByEmailPass, getIdByEmailPass(services))
-  router.post(EUsersRoute.Insert, insert(services))
-  router.post(EUsersRoute.Register, registration(services))
-  router.put(EUsersRoute.UndoDelete, undoDelete(services))
+  router.get(EUsersRoute.GetAll,  get(services))
+  router.get(EUsersRoute.GetUserById, getById(services))
+  router.post(EUsersRoute.GetByEmailAndPassword, getByEmailAndPassword(services))
 }

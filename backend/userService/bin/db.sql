@@ -11,15 +11,14 @@ CREATE TABLE users (
   password  VARCHAR (255) NOT NULL,
   createdAt DATETIME      NOT NULL,
   deletedAt DATETIME      DEFAULT NULL,
-  -- emailConfirmedAt DATETIME DEFAULT NULL,
-  role      TINYINT (1)   DEFAULT 0,
+  role      VARCHAR (10)  NOT NULL,
 
   PRIMARY KEY (id)
 );
 
 CREATE TABLE couriers (
-  userId    INTEGER NOT NULL,
-  phoneNum  VARCHAR (50) DEFAULT NULL,
+  userId    INTEGER       NOT NULL,
+  phoneNum  VARCHAR (50)  DEFAULT NULL,
 
   PRIMARY KEY (userId)
 );
@@ -33,8 +32,8 @@ CREATE TABLE courierWorkingDays (
 );
 
 CREATE TABLE customers (
-  userId    INTEGER NOT NULL,
-  phoneNum  VARCHAR (50) DEFAULT NULL,
+  userId    INTEGER       NOT NULL,
+  phoneNum  VARCHAR (50)  DEFAULT NULL,
 
   PRIMARY KEY (userId)
 );

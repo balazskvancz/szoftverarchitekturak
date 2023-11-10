@@ -1,7 +1,6 @@
 import BaseService from '@common/backend/BaseService'
 
-import type { EUserRole } from '../definitions'
-import type { IUser, IInsertUser } from '../definitions'
+import type { IUser, TUserType, IBaseUser, IPassword, IInsertUser } from '../definitions'
 
 export default class UsersService extends BaseService {
   /**
@@ -14,8 +13,8 @@ export default class UsersService extends BaseService {
         name      = ?,
         email     = ?,
         password  = ?,
-        createdAt = NOW(),
-        role      = ?
+        role      = ?,
+        createdAt = NOW()
     `, [ insertData.name, insertData.email, insertData.password, insertData.role ])
 
     return this.db.insertId(result)
@@ -23,21 +22,17 @@ export default class UsersService extends BaseService {
 
   /** Lekérdezi az összes felhasználót. */
   public getAllUsers (): Promise<IUser[]> {
-    return this.db.getArray(`
-      ${ this.getBaseSql() }
-      WHERE deletedAt IS NULL
-    `)
+    return this.db.getArray(this.getBaseSql())
   }
 
   /**
    * Lekérdezi az összes felhasználót jogosultság alapján.
    * @param role - A jogosultság.
    */
-  public getUsers (role: EUserRole): Promise<IUser[]> {
+  public getUsers (role: TUserType): Promise<IUser[]> {
     return this.db.getArray(`
-    ${ this.getBaseSql() }
-    WHERE deletedAt IS NULL
-    AND role = ${ role }
+      ${ this.getBaseSql() }
+      AND role = '${ role }'
     `)
   }
 
@@ -47,88 +42,76 @@ export default class UsersService extends BaseService {
    */
   public getUserById (id: number): Promise<IUser | null> {
     return this.db.getRow(`
-        SELECT
-          id,
-          name,
-          email,
-          createdAt,
-          role
-        FROM ${ this.tableName }
-        WHERE deletedAt IS NULL
-        AND id = ?
-      `, [ id ]) // [Simon] kicseréltem a BaseSQL-t role-al kiegészítve mivel hash alapján lekérhetőnek kell lennie. Ezt a függvényt úgy is az authService használja csak (elviekben)
+      ${ this.getBaseSql() }
+      AND id = ?
+    `, [ id ])
   }
 
-  public getUserIdByEmailPass (email: string, pass: string): Promise<TAnyObject | null> {
+  /**
+   * E-mail cím és jelszó szerinti lekérdezés.
+   * @param email     - E-mail cím.
+   * @param password  - Jelszó.
+   */
+  public getUserIdByEmailPass (email: string, password: string): Promise<IUser | null> {
     return this.db.getRow(`
-        SELECT
-        id
-        FROM ${ this.tableName }
-        WHERE email = ?
-        AND password = ?
-    `, [ email, pass ])
+      ${ this.getBaseSql() }
+        AND email     = ?
+        AND password  = ?
+    `, [ email, password ])
   }
 
   /**
    * Lekérdez egy felhasználót jogosultság és id alapján.
    * @param id    - Az id.
-   * @param role  - A jogosultság.
    */
-  public getUser (id: number, role: EUserRole): Promise<IUser | null> {
+  public getUser (id: number): Promise<IUser | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
-      WHERE deletedAt IS NULL
       AND id = ?
-      AND role = ?
-      `, [ id, role ])
+    `, [ id ])
   }
 
   /**
    * Soft töröl egy felhasználót jogosultság és id alapján.
    * @param id    - Az id.
-   * @param role  - A jogosultság.
    */
-  public async deleteUser (id: number, role: EUserRole): Promise<boolean> {
+  public async deleteUser (id: number): Promise<boolean> {
     const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET deletedAt = NOW()
+      UPDATE ${ this.tableName } SET
+        deletedAt = NOW()
       WHERE id = ?
-      AND role = ${ role }
     `, [ id ])
 
     return this.db.hasChangedRows(result)
   }
 
   /**
-   * Egy adott azonosítóval rendelkező felhasználó törlését visszaállítja.
-   * @param id - Az id.
+   * Egy adott felhasználó adatainak módosítása.
+   * @param id    - Azonosító.
+   * @param data  - Adat.
    */
-  public async undoDelete (id: number): Promise<boolean> {
+  public async update (id: number, data: IBaseUser): Promise<boolean> {
     const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET deletedAt = NULL
+      UPDATE ${ this.tableName } SET
+        name  = ?,
+        email = ?
       WHERE id = ?
-      AND deletedAt IS NOT NULL
-    `, [ id ])
+    `, [ data.name, data.email, id ])
 
-    return this.db.hasChangedRows(result)
+    return this.db.hasAffectedRows(result)
   }
 
   /**
-   * Frissíti egy adott azonosítóval és jogosultsággal rendelkező felhasználó egy adatát.
-   * @param id    - A futár azonosítója.
-   * @param row   - Melyik adatot kell módosítani.
-   * @param data  - Mire kell módosítani.
-   * @param role  - A jogosultság.
+   * Egy adott felhasználó jelszavának módosítása.
+   * @param id    - Felhasználó azonosító.
+   * @param data  - Adat.
    */
-  public async updateUser (id: number, row: string, data: string, role: EUserRole): Promise<boolean> {
+  public async updatePassword (id: number, data: IPassword): Promise<boolean> {
     const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET ${ row } = ?
-      WHERE deletedAt IS NULL
-      AND id = ?
-      AND role = ${ role }
-    `, [ data, id ])
+      UDPATE ${ this.tableName } SET
+        password = ?
+      WHERE id = ?
+    `, [ data.password, id ])
 
     return this.db.hasAffectedRows(result)
   }
@@ -140,8 +123,10 @@ export default class UsersService extends BaseService {
         id,
         name,
         email,
+        role,
         createdAt
       FROM ${ this.tableName }
+      WHERE deletedAt IS NULL
     `
   }
 }

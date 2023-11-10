@@ -6,9 +6,9 @@ import type { IService } from '@userService/getServices'
  * Az összes felhasználó lekérdezése.
  * @param services - Services.
  */
-export default function getAll (services: IService): TCallbackFunction {
+export default function get (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const users = await services.usersService.getAllUsers()
+    const users = await services.users.getAllUsers()
 
     ctx.sendJson({
       users

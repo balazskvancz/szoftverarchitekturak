@@ -5,13 +5,12 @@ import Validator from '@common/Validator/Validator'
 import Error from '@userService/Error'
 
 import type { IService }  from '@userService/getServices'
-import { EUserRole }      from '@userService/definitions'
 
 /**
- * Adott azonosítóval rendelkező ügyfél soft törlését megvalósító végpont.
+ * Egy admin azonosító alapján való lekérdezését megvalósító végpont.
  * @param services - Services.
  */
-export default function deleteCustomer (services: IService): TCallbackFunction {
+export default function getById (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const { id } = ctx.getRouteParams()
 
@@ -24,15 +23,10 @@ export default function deleteCustomer (services: IService): TCallbackFunction {
       return
     }
 
-    const isSuccessfull = await services.usersService.deleteUser(id, EUserRole.Customer)
+    const user = await services.users.getUser(id)
 
-    if (!isSuccessfull) {
-      ctx.sendError({
-        code: Error.codes.ERR_DB_DELETE,
-        message: Error.messages.ERR_DB_DELETE
-      })
-    }
-
-    ctx.sendOk()
+    ctx.sendJson({
+      user
+    })
   }
 }

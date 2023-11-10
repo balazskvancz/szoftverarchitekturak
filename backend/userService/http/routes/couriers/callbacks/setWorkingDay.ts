@@ -1,17 +1,15 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
-import Validator from '@common/Validator/Validator'
-
-import Error from '@userService/Error'
-
 import type { IService } from '@userService/getServices'
 
 /**
  * Egy új futár felvételét megvalósító végpont.
- * @param services - Services.
+ * @param _services - Services.
  */
-export default function setWorkingDay (services: IService): TCallbackFunction {
+export default function setWorkingDay (_services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
+    // TODO: REFAKT.
+    /*
     const userData = ctx.getBody<string>()
 
     if (!Validator.isNonEmptyString(userData)) {
@@ -23,8 +21,7 @@ export default function setWorkingDay (services: IService): TCallbackFunction {
       return
     }
 
-    // TODO: user azonosító elkérése + validálása.
-    const isSuccessfull = await services.courierWorkingDaysService.insert(5, userData)
+    const isSuccessfull = await services.courierWorkingDays.insert(5, userData)
 
     if (!isSuccessfull) {
       ctx.sendError({
@@ -33,7 +30,9 @@ export default function setWorkingDay (services: IService): TCallbackFunction {
       })
 
       return
-    }
+    }*/
+
+    await Promise.resolve()
 
     ctx.sendOk()
   }

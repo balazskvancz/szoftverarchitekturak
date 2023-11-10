@@ -1,17 +1,17 @@
+import type { IGetCourierByIdResponse } from '@backend/userService/definitions'
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import { EUserRole }      from '@userService/definitions'
 import type { IService }  from '@userService/getServices'
 
 /**
- * Adott azonosítóval rendelkező futár soft törlését  megvalósító végpont.
+ * Egy futár azonosító alapján való lekérdezését megvalósító végpont.
  * @param services - Services.
  */
-export default function deleteCourier (services: IService): TCallbackFunction {
+export default function getById (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const { id } = ctx.getRouteParams()
 
@@ -24,15 +24,12 @@ export default function deleteCourier (services: IService): TCallbackFunction {
       return
     }
 
-    const isSuccessfull = await services.usersService.deleteUser(id, EUserRole.Courier)
+    const courier = await services.couriers.getById(id)
 
-    if (!isSuccessfull) {
-      ctx.sendError({
-        code: Error.codes.ERR_DB_DELETE,
-        message: Error.messages.ERR_DB_DELETE
-      })
+    const data: IGetCourierByIdResponse = {
+      courier
     }
 
-    ctx.sendOk()
+    ctx.sendJson(data)
   }
 }

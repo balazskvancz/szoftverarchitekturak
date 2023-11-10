@@ -4,10 +4,10 @@ import type { IService } from '../../getServices'
 
 import { EAdminsRoute } from '../../definitions'
 
-import deleteAdmin  from './admins/callbacks/deleteAdmin'
-import getAdmin     from './admins/callbacks/getAdmin'
-import getAdmins    from './admins/callbacks/getAdmins'
-import updateAdmin  from './admins/callbacks/updateAdmin'
+import getById      from './admins/callbacks/getById'
+import get          from './admins/callbacks/get'
+import insert       from './admins/callbacks/insert'
+import update       from './admins/callbacks/update'
 
 /**
  * Felveszi az összes, adminokkal kapcsolatos végpontot.
@@ -16,8 +16,8 @@ import updateAdmin  from './admins/callbacks/updateAdmin'
  */
 
 export default function adminsRoutes (router: IRouter, services: IService): void {
-  router.delete(EAdminsRoute.DeleteAdmin, deleteAdmin(services))
-  router.get(EAdminsRoute.GetAdmin, getAdmin(services))
-  router.get(EAdminsRoute.GetAdmins, getAdmins(services))
-  router.put(EAdminsRoute.UpdateAdmin, updateAdmin(services))
+  router.get(EAdminsRoute.GetById, getById(services))
+  router.get(EAdminsRoute.Get, get(services))
+  router.post(EAdminsRoute.Insert, insert(services))
+  router.put(EAdminsRoute.Update, update(services))
 }
