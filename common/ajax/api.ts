@@ -9,7 +9,7 @@ type TMethod = 'get' | 'post' | 'delete' | 'put'
 type THeader = Record<string, string>
 
 const axiosAPI = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://localhost:3000',
   withCredentials: true
 })
 

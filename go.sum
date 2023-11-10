@@ -1,7 +1,11 @@
-github.com/balazskvancz/gateway v0.4.1 h1:fM+3inwxGqaX1XCNc9oEeJxxYkBoaf9cFsieBbPVEbY=
-github.com/balazskvancz/gateway v0.4.1/go.mod h1:fQ42Pxov2Fw+7Ff4/OFHwCo/2D31ilvKSiqieDLbnbk=
-github.com/balazskvancz/rtree v1.0.1 h1:IzV4Xf72g5jApPWymfGzuJpszAkdNMhQG/D9CywIWFM=
-github.com/balazskvancz/rtree v1.0.1/go.mod h1:Q6neTW6sMmYkKRt4olSvKM6bGfLlVPIseQSTBUyE7vA=
+github.com/balazskvancz/gateway v0.5.0 h1:dER0Fo0ysKghjIGgMP19z6TbfDRArQgV7N5YFNJmWpQ=
+github.com/balazskvancz/gateway v0.5.0/go.mod h1:sHHKLCeQXLjgiY7ljCPqCYq5frWCGfDF8wvisFUg60s=
+github.com/balazskvancz/gateway v0.5.1 h1:c7jhufsdA9/8EXqFTkU1BdU5C/WFoVOt6JHKlAHhwGw=
+github.com/balazskvancz/gateway v0.5.1/go.mod h1:sHHKLCeQXLjgiY7ljCPqCYq5frWCGfDF8wvisFUg60s=
+github.com/balazskvancz/gorouter v1.2.1 h1:fmdKNKQPN8SYm9uvI2gFGUUGgCc1SKU59V+IhXmY3ng=
+github.com/balazskvancz/gorouter v1.2.1/go.mod h1:0W8lkEMk/vha2qRonR6CgQAkWCVU1oiCRiwXGmfJsAc=
+github.com/balazskvancz/rtree v1.0.2 h1:6j5o4RDbaF8uu49yrLapu6649E6s26jTMkfdEAGI6pA=
+github.com/balazskvancz/rtree v1.0.2/go.mod h1:Q6neTW6sMmYkKRt4olSvKM6bGfLlVPIseQSTBUyE7vA=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/golang/protobuf v1.5.3 h1:KhyjKVUg7Usr/dYsdSqoFveMYd5ko72D+zANwlG1mmg=
 github.com/golang/protobuf v1.5.3/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=
