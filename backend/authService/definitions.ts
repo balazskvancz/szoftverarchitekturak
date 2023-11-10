@@ -3,26 +3,33 @@ export type {
   IDatabaseConfig
 } from '@common/definitions'
 
-export interface ISession {
+export type { ILogin } from '../userService/definitions'
+
+import type { IUser } from '../userService/definitions'
+
+export interface IBaseSession {
   readonly loginHash: string
   readonly userId: number
+}
+
+export interface ISession extends IBaseSession {
   readonly startedAt: string
   readonly endedAt: string | null
 }
 
-export interface ILogoutRequest {
+export interface ILoginResponse {
   readonly loginHash: string
 }
 
-export interface ILogin {
-  readonly email: string
-  readonly pass: string
+export interface ILogoutRequest extends ILoginResponse {}
+
+export interface IDigestSession extends ISession {
+  readonly user: IUser | null
 }
 
 /* eslint-disable no-shadow */
 export enum EAuthRoute {
-  GetUser =     '/api/auth/check-hash/:loginhash',
-  GetRole =     '/api/auth/check-role/:loginhash',
-  Login =       '/api/auth/login',
-  Logout =      '/api/auth/logout'
+  GetByHash = '/api/auth/get-by-hash',
+  Login     = '/api/auth/login',
+  Logout    = '/api/auth/logout'
 }

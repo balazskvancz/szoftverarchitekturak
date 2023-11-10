@@ -1,36 +1,31 @@
 import BaseService from '@common/backend/BaseService'
-import type { ISession } from '../definitions'
 
-// import { EUserRole } from '../definitions'
-// import type { IUser, IInsertUser } from '../definitions'
+import type { ISession, IBaseSession } from '../definitions'
 
 export default class SessionsService extends BaseService {
   /**
-   * Beszúr egy session rekordot.
-   * @param hash    - LoginHash.
-   * @param userId  - Felhasználó azonosító.
-   * @returns       boolean a beszúrás sikerességéről.
+   * Beszúr egy session egyedet.
+   * @param data - A beszúrandó adat.
    */
-  public async insert (hash: string, userId: number): Promise<boolean> {
+  public async insert (data: IBaseSession): Promise<boolean> {
     const result = await this.db.exec(`
       INSERT INTO ${ this.tableName } SET
         loginHash  = ?,
         userId     = ?,
         startedAt  = NOW()
-    `, [ hash, userId ])
+    `, [ data.loginHash, data.userId ])
 
     return this.db.hasAffectedRows(result)
   }
 
   /**
-   * Soft töröl egy sessiont hash alapján.
+   * Beállítja a lejárati dátumot egy adott egyednél.
    * @param hash - LoginHash.
-   * @returns    boolean törlésről sikerességéről.
    */
-  public async delete (hash: string): Promise<boolean> {
+  public async setEndedAt (hash: string): Promise<boolean> {
     const result = await this.db.exec(`
-      UPDATE ${ this.tableName }
-      SET endedAt = NOW()
+      UPDATE ${ this.tableName } SET
+        endedAt = NOW()
       WHERE loginHash = ?
     `, [ hash ])
 
@@ -38,8 +33,7 @@ export default class SessionsService extends BaseService {
   }
 
   /**
-   * Lekérdezi az élő session adatait hash alapján. Ha a sessiont korábban lezárták nem adja vissza a rekordot.
-   * Note: az a megfontolás, hogy kliens oldalról nem lenne szabad lezárt sessionökre hivatkozni, így ez csak valami hiba esetén fordulhat elő ezért hibát dobunk.
+   * Lekérdezi egy élő session adatait azonosító szerint.
    * @param hash  - LoginHash.
    * */
   public getByHash (hash: string): Promise<ISession | null> {

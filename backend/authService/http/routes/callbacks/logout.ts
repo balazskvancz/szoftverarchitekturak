@@ -13,9 +13,9 @@ import type { IService }        from '@authService/getServices'
  */
 export default function logout (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const logoutData = ctx.getBody<ILogoutRequest>()
+    const postData = ctx.getBody<ILogoutRequest>()
 
-    if (!Validator.isDefined(logoutData)) {
+    if (!Validator.isDefined(postData)) {
       ctx.sendError({
         code: Error.codes.ERR_MISSING_BODY,
         message: 'Hiányzó request body'
@@ -24,7 +24,7 @@ export default function logout (services: IService): TCallbackFunction {
       return
     }
 
-    if (!Validator.isNonEmptyString(logoutData.loginHash)) {
+    if (!Validator.isNonEmptyString(postData.loginHash)) {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_POSTDATA,
         message: 'Hiányzó session azonosító'
@@ -33,21 +33,7 @@ export default function logout (services: IService): TCallbackFunction {
       return
     }
 
-    // lekérjük a hash alapján a rekordot
-    const session = await services.sessions.getByHash(logoutData.loginHash)
-
-    // A) nincs ilyen rekord || már le van zárva -> error
-    if (Validator.isNull(session)) {
-      ctx.sendError({
-        code: Error.codes.ERR_INVALID_HASH,
-        message: Error.messages.ERR_INVALID_HASH
-      })
-
-      return
-    }
-
-    // B) van ilyen rekord -> bezárás
-    await services.sessions.delete(logoutData.loginHash)
+    await services.sessions.setEndedAt(postData.loginHash)
 
     ctx.sendOk()
   }
