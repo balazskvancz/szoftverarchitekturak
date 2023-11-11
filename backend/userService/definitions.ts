@@ -122,8 +122,8 @@ export enum ECourierRoute {
 }
 
 export enum ECustomersRoute {
-  GetById = '/api/user/customers',
-  Get     = '/api/user/customers/:id',
+  GetById = '/api/user/customers/:id',
+  Get     = '/api/user/customers',
   Insert  = '/api/user/customers',
   Update  = '/api/user/customers/:id'
 }

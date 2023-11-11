@@ -9,8 +9,12 @@
 
   export let name: string
   export let email: string
-  export let formErrors: TFormErrors
+  export let password: string
+  export let passwordRepeat: string
+  export let telephone: string
+  export let withPassword = true
   export let onSubmit: (e: Event) => Promise<void>
+  export let formErrors: TFormErrors = []
 </script>
 
 <form on:submit={ onSubmit }>
@@ -37,6 +41,45 @@
       type="text"
     />
   </div>
+
+  <div class="col-sm-12 col-md-6 mx-auto">
+    <FormInput
+      bind:formErrors
+      bind:value={ telephone }
+      autocomplete="off"
+      label="Telefonszám"
+      name="phoneNum"
+      placeholder="+36 20 123 4567"
+      type="text"
+    />
+  </div>
+
+  {#if withPassword}
+    <div class="col-sm-12 col-md-6 mx-auto">
+      <FormInput
+        bind:formErrors
+        bind:value={ password }
+        autocomplete="off"
+        label="Jelszó"
+        name="password"
+        placeholder=""
+        type="password"
+      />
+    </div>
+
+    <div class="col-sm-12 col-md-6 mx-auto">
+      <FormInput
+        bind:formErrors
+        bind:value={ passwordRepeat }
+        autocomplete="off"
+        label="Jelszó megismétlése"
+        name="passwordRepeat"
+        placeholder=""
+        type="password"
+      />
+    </div>
+
+  {/if}
 
   <hr class="my-3" />
 

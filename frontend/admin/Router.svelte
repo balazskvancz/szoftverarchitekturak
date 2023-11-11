@@ -6,8 +6,8 @@
 
   import AdminsPage     from './components/AdminsPage/AdminsPage.svelte'
   import CouriersPage   from './components/CouriersPage/CouriersPage.svelte'
+  import CustomersPage  from './components/CustomersPage/CustomersPage.svelte'
   import DimensionsPage from './components/DimensionsPage/DimensionsPage.svelte'
-  import UsersPage      from './components/UsersPage/UsersPage.svelte'
 
   import { PAGE_LINKS } from './definitions'
 
@@ -19,7 +19,7 @@
   </Route>
 
   <Route path={ PAGE_LINKS.customers.url }>
-    <UsersPage />
+    <CustomersPage />
   </Route>
 
   <Route path={ PAGE_LINKS.admins.url }>

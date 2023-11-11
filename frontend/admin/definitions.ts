@@ -1,6 +1,8 @@
 export type {
   IAdmin,
   TAdmins,
+  ICustomer,
+  TCustomers,
   IDimension,
   TDimensions,
   TFormErrors,
