@@ -38,6 +38,22 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
+    const alreadyTaken = await services.users.getByEmailAddress(postData.email)
+
+    if (!Validator.isNull(alreadyTaken)) {
+      ctx.sendError({
+        code: Error.codes.ERR_WRONG_POSTDATA,
+        formErrors: [
+          {
+            key: 'email',
+            message: 'Az e-mail cím már használatban van!'
+          }
+        ]
+      })
+
+      return
+    }
+
     // Alap felhasználó beszúrása.
     const userId = await services.users.insert({
       ...postData,

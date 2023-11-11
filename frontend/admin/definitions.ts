@@ -1,7 +1,9 @@
 export type {
   IAdmin,
   TAdmins,
+  ICourier,
   ICustomer,
+  TCouriers,
   TCustomers,
   IDimension,
   TDimensions,

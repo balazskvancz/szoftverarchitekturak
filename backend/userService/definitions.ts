@@ -78,7 +78,7 @@ export interface IGetCourierByIdResponse {
   readonly courier: ICourier | null
 }
 
-export interface IGetAllCouriers {
+export interface IGetAllCouriersResponse {
   readonly couriers: TCouriers
 }
 

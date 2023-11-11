@@ -93,11 +93,15 @@ export type {
   ICustomer,
   TCouriers,
   TCustomers,
+  IBaseCourier,
   IBaseCustomer,
+  IInsertCourier,
   IInsertCustomer,
   IInsertUserRequest,
   IGetAdminByIdResponse,
   IGetAllAdminsResponse,
+  IGetCourierByIdResponse,
+  IGetAllCouriersResponse,
   IGetAllCustomersResponse,
   IGetCustomerByIdResponse
 } from '../backend/userService/definitions'

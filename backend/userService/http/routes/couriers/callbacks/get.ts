@@ -1,4 +1,4 @@
-import type { IGetAllCouriers } from '@backend/userService/definitions'
+import type { IGetAllCouriersResponse } from '@backend/userService/definitions'
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import type { IService }  from '@userService/getServices'
@@ -11,7 +11,7 @@ export default function get (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const couriers = await services.couriers.getAll()
 
-    const data: IGetAllCouriers = {
+    const data: IGetAllCouriersResponse = {
       couriers
     }
 

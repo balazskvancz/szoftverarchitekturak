@@ -49,6 +49,36 @@ export default function update (services: IService): TCallbackFunction {
       return
     }
 
+    const courier = await services.couriers.getById(id)
+
+    if (Validator.isNull(courier)) {
+      ctx.sendError({
+        code: Error.codes.ERR_USER_NOT_EXISTS,
+        message: Error.messages.ERR_USER_NOT_EXISTS
+      })
+
+      return
+    }
+
+    // E-mail változtatás.
+    if (postData.email !== courier.email) {
+      const alreadyTaken = await services.users.getByEmailAddress(postData.email)
+
+      if (!Validator.isNull(alreadyTaken)) {
+        ctx.sendError({
+          code: Error.codes.ERR_WRONG_POSTDATA,
+          formErrors: [
+            {
+              key: 'email',
+              message: 'Az e-mail cím már használatban van!'
+            }
+          ]
+        })
+
+        return
+      }
+    }
+
     const isUpdated = await services.users.update(id, {
       ...postData
     })
