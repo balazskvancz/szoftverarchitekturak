@@ -42,6 +42,10 @@ export interface IUser extends IBaseUser {
 
 export type TUsers = readonly IUser[]
 
+export interface IAdmin extends IUser {}
+
+export type TAdmins = readonly IAdmin[]
+
 export interface IBaseCourier extends IBaseUser {
   readonly phoneNum: string
 }
@@ -57,7 +61,11 @@ export interface IGetUserIdByEmailPassResponse {
 }
 
 export interface IGetAllAdminsResponse {
-  readonly admins: TUsers
+  readonly admins: TAdmins
+}
+
+export interface IGetAdminByIdResponse {
+  readonly admin: IAdmin | null
 }
 
 export interface ICourier extends IUser {
@@ -92,15 +100,16 @@ export interface IGetAllCustomersResponse {
 }
 
 export enum EUsersRoute {
+  DeleteById              = '/api/user/users/:id',
   GetAll                  = '/api/user/users/get-all',
-  GetUserById             = '/api/user/:id',
+  GetUserById             = '/api/user/users/:id',
   GetByEmailAndPassword   = '/api/user/get-by-email-and-password'
 }
 
 export enum EAdminsRoute {
   Get         = '/api/user/admins',
   GetById     = '/api/user/admins/:id',
-  Insert      = '/api/users/admins',
+  Insert      = '/api/user/admins',
   Update      = '/api/user/admins/:id'
 }
 

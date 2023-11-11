@@ -82,3 +82,25 @@ export type {
 export {
   EDimensionsRoute
 } from '../backend/packageService/definitions'
+
+/** UserService. */
+
+export type {
+  IAdmin,
+  TAdmins,
+  ICourier,
+  IBaseUser,
+  ICustomer,
+  TCouriers,
+  TCustomers,
+  IInsertUserRequest,
+  IGetAdminByIdResponse,
+  IGetAllAdminsResponse
+} from '../backend/userService/definitions'
+
+export {
+  EUsersRoute,
+  EAdminsRoute,
+  ECourierRoute,
+  ECustomersRoute
+} from '../backend/userService/definitions'

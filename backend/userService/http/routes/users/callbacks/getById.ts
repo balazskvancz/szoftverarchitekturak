@@ -25,7 +25,7 @@ export default function getById (services: IService): TCallbackFunction {
       return
     }
 
-    const user = await services.users.getUserById(id)
+    const user = await services.users.getById(id)
 
     const data: IGetUserByIdResponse = {
       user

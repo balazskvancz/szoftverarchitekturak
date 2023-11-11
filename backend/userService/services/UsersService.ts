@@ -40,11 +40,22 @@ export default class UsersService extends BaseService {
    * Lekérdez egy felhasználót azonosító szerint.
    * @param id - A keresendő azonosító.
    */
-  public getUserById (id: number): Promise<IUser | null> {
+  public getById (id: number): Promise<IUser | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
       AND id = ?
     `, [ id ])
+  }
+
+  /**
+   * Lekérdez egy felhasználót e-mail cím szerint.
+   * @param email - E-mail cím.
+   */
+  public getByEmailAddress (email: string): Promise<IUser | null> {
+    return this.db.getRow(`
+      ${ this.getBaseSql() }
+      AND email = ?
+    `, [ email ])
   }
 
   /**
@@ -75,7 +86,7 @@ export default class UsersService extends BaseService {
    * Soft töröl egy felhasználót jogosultság és id alapján.
    * @param id    - Az id.
    */
-  public async deleteUser (id: number): Promise<boolean> {
+  public async deleteById (id: number): Promise<boolean> {
     const result = await this.db.exec(`
       UPDATE ${ this.tableName } SET
         deletedAt = NOW()

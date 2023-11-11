@@ -9,7 +9,7 @@
   import FormLabel from '../FormLabel/FormLabel.svelte'
 
   export let name: string | null = null
-  export let type: 'text' | 'date' = 'text'
+  export let type: 'text' | 'date' | 'password' = 'text'
   export let autocomplete = 'off'
   export let value = ''
   export let label: string | null = null

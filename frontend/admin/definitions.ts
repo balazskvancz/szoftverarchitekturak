@@ -1,8 +1,11 @@
 export type {
+  IAdmin,
+  TAdmins,
   IDimension,
   TDimensions,
   TFormErrors,
-  IBaseDimension
+  IBaseDimension,
+  IInsertUserRequest
 } from '@common/definitions'
 
 export const PAGES = [

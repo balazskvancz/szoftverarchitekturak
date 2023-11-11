@@ -16,8 +16,8 @@ import update       from './admins/callbacks/update'
  */
 
 export default function adminsRoutes (router: IRouter, services: IService): void {
-  router.get(EAdminsRoute.GetById, getById(services))
   router.get(EAdminsRoute.Get, get(services))
+  router.get(EAdminsRoute.GetById, getById(services))
   router.post(EAdminsRoute.Insert, insert(services))
   router.put(EAdminsRoute.Update, update(services))
 }

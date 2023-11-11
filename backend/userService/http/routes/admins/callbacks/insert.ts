@@ -2,32 +2,22 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
+import createPassword from '@common/utils/createHash'
+
 import type { IInsertUserRequest } from '@userService/definitions'
 
 import Error from '@userService/Error'
 
 import type { IService } from '@userService/getServices'
 
-import validateUpdate from '../../utils/validateUpdate'
-import createPassword from '@common/utils/createHash'
+import validateInsert from '../../utils/validateInsert'
 
 /**
- * Egy admin egy adatmezőjének módosítását megvalósító végpont.
+ * Egy új admin beszúrását megvalósító végpont.
  * @param services - Services.
  */
-export default function updateAdmin (services: IService): TCallbackFunction {
+export default function insert (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const { id } = ctx.getRouteParams()
-
-    if (!Validator.isPositiveNumber(id)) {
-      ctx.sendError({
-        code: Error.codes.ERR_WRONG_PARAM,
-        message: Error.messages.ERR_WRONG_PARAM
-      })
-
-      return
-    }
-
     const postData = ctx.getBody<IInsertUserRequest>()
 
     if (!Validator.isDefined(postData)) {
@@ -39,12 +29,28 @@ export default function updateAdmin (services: IService): TCallbackFunction {
       return
     }
 
-    const formErrors = validateUpdate(postData)
+    const formErrors = validateInsert(postData)
 
     if (Validator.isNonEmptyArray(formErrors)) {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_POSTDATA,
         formErrors
+      })
+
+      return
+    }
+
+    const alreadyTaken = await services.users.getByEmailAddress(postData.email)
+
+    if (!Validator.isNull(alreadyTaken)) {
+      ctx.sendError({
+        code: Error.codes.ERR_WRONG_POSTDATA,
+        formErrors: [
+          {
+            key: 'email',
+            message: 'Az e-mail cím már használatban van!'
+          }
+        ]
       })
 
       return

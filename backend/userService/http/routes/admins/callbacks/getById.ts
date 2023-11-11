@@ -1,3 +1,4 @@
+import type { IGetAdminByIdResponse } from '@backend/userService/definitions'
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
@@ -23,10 +24,12 @@ export default function getById (services: IService): TCallbackFunction {
       return
     }
 
-    const user = await services.users.getUser(id)
+    const admin = await services.users.getUser(id)
 
-    ctx.sendJson({
-      user
-    })
+    const data: IGetAdminByIdResponse = {
+      admin
+    }
+
+    ctx.sendJson(data)
   }
 }
