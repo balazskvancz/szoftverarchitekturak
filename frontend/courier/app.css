@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-family: var(--bs-body-font-family);
+  --input-font-size: 1.20rem;
+  --input-padding: 0.8rem;
+  --input-border-radius: 10px;
+}
+
+body {
+  min-height: 100vh;
+  height: 100%;
+  background-color: #E8E7E7;
+  position: relative;
+  font-family: var(--font-family);
+  margin: 0 auto;
+  text-align: center;
+}
