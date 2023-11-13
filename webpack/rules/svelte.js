@@ -1,5 +1,4 @@
 const sveltePreprocess      = require('svelte-preprocess')
-const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
 module.exports = function svelte (/** @type {any} */ opts) {
   // https://github.com/sveltejs/svelte-loader
@@ -14,8 +13,7 @@ module.exports = function svelte (/** @type {any} */ opts) {
 
           compilerOptions: {
             // NOTE Svelte's dev mode MUST be enabled for HMR to work
-            dev: opts.DEV, // Default: false
-            css: false
+            dev: opts.DEV // Default: false
           },
 
           // https://github.com/sveltejs/svelte-loader#extracting-css
@@ -54,14 +52,6 @@ module.exports = function svelte (/** @type {any} */ opts) {
           }
         }
       }
-    },
-    {
-      test: /\.[p]?css$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        'css-loader',
-        'postcss-loader'
-      ]
     },
     {
       // required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4

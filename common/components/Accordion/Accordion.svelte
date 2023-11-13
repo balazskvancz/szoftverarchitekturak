@@ -1,24 +1,31 @@
-<script lang="ts">
+<script
+  lang="ts"
+  strictEvents
+>
   import getRandomLetters from '@common/utils/getRandomLetters'
 
   export let title: string
 
-  const headingId = getRandomLetters(10)
-  const bodyId    = getRandomLetters(10)
+  const ID_LENGTH = 10
+
+  const headingId = getRandomLetters(ID_LENGTH)
+  const bodyId    = getRandomLetters(ID_LENGTH)
 </script>
 
 <div class="accordion">
   <div class="accordion-item">
-    <h2 class="accordion-header" id={ headingId }>
+    <h2
+      id={ headingId }
+      class="accordion-header">
       <button
         class="accordion-button collapsed"
-        type="button"
         data-bs-toggle="collapse"
-        data-bs-target={ `#${ bodyId }` }
-        aria-expanded="false"
+        data-bs-target={ bodyId }
         aria-controls={ bodyId }
+        aria-expanded="false"
+        type="button"
       >
-        { title }
+        {title}
       </button>
     </h2>
     <div

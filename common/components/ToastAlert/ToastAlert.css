@@ -1,0 +1,7 @@
+.toast-alert {
+  position: fixed;
+  left: 50%;
+  top: 4%;
+  transform: translate(-50%, -10%);
+  z-index: 1200; /* BS navbar 1020! */
+}

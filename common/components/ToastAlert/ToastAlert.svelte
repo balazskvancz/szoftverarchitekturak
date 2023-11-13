@@ -8,6 +8,8 @@
 
   import Alert from '../Alert/Alert.svelte'
 
+  import styles from './ToastAlert.css'
+
   export let alertType: TState  = 'primary'
   export let timeOut = 3000
   export let isShown: boolean
@@ -27,7 +29,7 @@
 
 {#if isShown}
   <div
-    class="container p-3 toast-alert"
+    class="container p-3 { styles.toastAlert }"
     in:fade
     out:fade
   >
@@ -41,13 +43,3 @@
     </div>
   </div>
 {/if}
-
-<style>
-  .toast-alert {
-    position: fixed;
-    left: 50%;
-    top: 4%;
-    transform: translate(-50%, -10%);
-    z-index: 1200; /* BS navbar 1020! */
-  }
-</style>

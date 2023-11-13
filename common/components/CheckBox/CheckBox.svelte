@@ -1,4 +1,7 @@
-<script lang="ts">
+<script
+  lang="ts"
+  strictEvents
+>
   import getRandomLetters from '@common/utils/getRandomLetters'
 
   type TOnChangeFn = (isChecked: boolean) => void
@@ -8,7 +11,9 @@
 
   export let onChange: TOnChangeFn | undefined = undefined
 
-  const checkBoxId = getRandomLetters(10)
+  const ID_LENGTH = 10
+
+  const checkBoxId = getRandomLetters(ID_LENGTH)
 
   /**
    * Állapot megváltozás kezelője.
@@ -27,13 +32,15 @@
 
 <div class="form-check form-switch">
   <input
-    class="form-check-input shadow-none"
     id={ checkBoxId }
-    type="checkbox"
-    checked={ isChecked }
+    class="form-check-input shadow-none"
     on:change={ handleOnChange }
-  >
+    checked={ isChecked }
+    type="checkbox"
+  />
   {#if label}
-    <label class="form-check-label" for={ checkBoxId }>{ label }</label>
+    <label
+      class="form-check-label"
+      for={ checkBoxId }>{label}</label>
   {/if}
 </div>

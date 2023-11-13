@@ -1,5 +1,8 @@
-<script lang="ts">
-  function defaultOnClick(): void {}
+<script
+  lang="ts"
+  strictEvents
+>
+  function defaultOnClick (): void { /***/ }
 
   export let btnType: 'submit' | 'button' = 'button'
   export let className  = ''
@@ -8,10 +11,10 @@
 </script>
 
 <button
-  type={ btnType }
-  class={ `btn ${ className }` }
-  style:color={ color }
+  class="btn { className }"
+  style:color
   on:click={ onClick }
+  type={ btnType }
 >
   <slot />
 </button>

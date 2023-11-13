@@ -20,6 +20,7 @@ module.exports = function webpackWebDefault (env = {}, options) {
 
   config.module.rules.push(
     require('./rules/images')(opts),
+    require('./rules/css')(opts),
     ...require('./rules/svelte')(opts)
   )
 

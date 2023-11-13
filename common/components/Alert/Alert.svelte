@@ -1,4 +1,7 @@
-<script lang="ts">
+<script
+  lang="ts"
+  strictEvents
+>
   import type { TState } from '../definitions'
 
   export let alertType: TState = 'primary'
@@ -7,11 +10,17 @@
 </script>
 
 {#if isShown}
-  <div class={`alert alert-${ alertType } alert-dismissible fade show`} role="alert">
+  <div
+    class="alert alert-{ alertType } alert-dismissible fade show"
+    role="alert">
     <slot />
 
-    {#if needCloseButton }
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    {#if needCloseButton}
+      <button
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+        type="button">
         <span aria-hidden="true">&times;</span>
       </button>
     {/if}

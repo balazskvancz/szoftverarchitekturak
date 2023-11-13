@@ -10,6 +10,8 @@
 
   import { PAGE_LINKS } from '../../definitions'
 
+  import styles from './Sidebar.css'
+
   /**
    * Egy adott oldalra való kattintás eseménykezelője.
    * @param target - A cél.
@@ -27,7 +29,7 @@
       {#each Object.getEntries(PAGE_LINKS) as [ key, value ] (key)}
         <li class="nav-item">
           <button
-            class="btn nav-link link"
+            class="btn nav-link link { styles.cLink }"
             on:click={ () => onClickItem(key) }
             aria-disabled="true"
             tabindex="-1"
@@ -42,9 +44,3 @@
     </ul>
   </div>
 </nav>
-
-<style>
-  .link {
-    color: #333;
-  }
-</style>

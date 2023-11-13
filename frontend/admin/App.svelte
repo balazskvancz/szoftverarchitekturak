@@ -13,7 +13,7 @@
 
   import Router from './Router.svelte'
 
-  import './app.css'
+  import styles from './app.css'
 
   let isSuccessOccured = false
   let toastMessage = ''
@@ -43,7 +43,7 @@
   <div class="sticky-top">
     <Header />
   </div>
-  <div class="mainc">
+  <div class={ styles.mainc }>
     <div class="container-fluid">
       <div class="row h-100">
         <Sidebar />
@@ -55,24 +55,3 @@
     </div>
   </div>
 </div>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  :root {
-    --font-family: var(--bs-body-font-family);
-    --input-font-size: 1.20rem;
-    --input-padding: 0.8rem;
-    --input-border-radius: 10px;
-  }
-  .mainc {
-    display: flex;
-    align-items: stretch;
-    position: relative;
-    min-height: 100vh;
-    height: 100%;
-  }
-</style>

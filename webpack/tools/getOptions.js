@@ -18,6 +18,7 @@ require('module-alias/register')
  * @property {string} PROJECT_FOLDER
  * @property {string[]} TS_PATHS
  * @property {string} HASH
+ * @property {string} CSS_LOCAL_IDENT
  * @property {boolean} CORDOVA
  * @property {boolean} ELECTRON
  * @property {string} DIST
@@ -40,11 +41,13 @@ function getOptions (env, options, log = false) {
   const HASH = DEV
     ? 'fullhash'
     : 'contenthash'
+
   const CORDOVA = typeof env.cordova !== 'undefined'
   const ELECTRON = typeof env.electron !== 'undefined'
   const DIST = env.dist
   const TS_PATHS = env.tsPaths
   const PROJECT_FOLDER = env.projectFolder
+  const CSS_LOCAL_IDENT = env.localIdentName || (PROD ? '[hash:base64]' : '[local]--[hash:base64:5]')
 
   if (log) {
     console.log(`
@@ -52,6 +55,7 @@ function getOptions (env, options, log = false) {
       PROD: ${ PROD },
       DEV: ${ DEV },
       HASH: ${ HASH },
+      CSS_LOCAL_IDENT: ${ CSS_LOCAL_IDENT }
       CORDOVA: ${ CORDOVA },
       ELECTRON: ${ ELECTRON },
       TS_PATHS: ${ TS_PATHS },
@@ -81,6 +85,7 @@ function getOptions (env, options, log = false) {
     TS_PATHS,
     HASH,
     CORDOVA, ELECTRON,
+    CSS_LOCAL_IDENT,
     DIST,
     FAVICON: typeof env.favicon === 'string' ? env.favicon : undefined
   }

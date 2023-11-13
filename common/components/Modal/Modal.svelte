@@ -23,7 +23,7 @@
 
 {#if isOpened}
   <div
-    class="modal custom-modal"
+    class="modal d-block"
     aria-hidden={ false }
     role="dialog"
     tabindex="-1"
@@ -76,7 +76,5 @@
 {/if}
 
 <style>
-  .custom-modal {
-    display: block;
-  }
+
 </style>
