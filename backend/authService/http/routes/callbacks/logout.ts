@@ -33,6 +33,9 @@ export default function logout (services: IService): TCallbackFunction {
       return
     }
 
+    // beállítjuk az endedAt mezőt az adott hash-en
+    // ha olyan hash-t kaptunk ami nincs az adatbázisban
+    // akkor nem csinálunk semmit.
     await services.sessions.setEndedAt(postData.loginHash)
 
     ctx.sendOk()
