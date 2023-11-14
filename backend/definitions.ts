@@ -21,6 +21,11 @@ export {
   LOGIN_HASH_COOKIE_NAME
 } from '../common/definitions'
 
+export type {
+  IGeneralError,
+  IInsertedIdResponse
+} from '../common/definitions'
+
 /** AuthService. */
 export {
   EAuthRoute
@@ -32,6 +37,15 @@ export type {
   IGetDigestSessionResponse,
   IGetSessionByHashResponse
 } from './authService/definitions'
+
+/** PackageService. */
+export {
+  EAddressesRoute
+} from './packageService/definitions'
+
+export type {
+  IInsertAddressRequest
+} from './packageService/definitions'
 
 /** UserService. */
 export {

@@ -4,8 +4,9 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@packageService/Error'
 
-import type { IBaseAddress }  from '@packageService/definitions'
-import type { IService }      from '@packageService/getServices'
+import type { IBaseAddress, IInsertedIdResponse }  from '@packageService/definitions'
+
+import type { IService } from '@packageService/getServices'
 
 import validatePostData from './utils/validatePostData'
 
@@ -48,6 +49,10 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    ctx.sendOk()
+    const data: IInsertedIdResponse = {
+      insertedId
+    }
+
+    ctx.sendJson(data)
   }
 }

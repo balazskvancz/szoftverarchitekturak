@@ -39,7 +39,7 @@ CREATE TABLE customers (
   PRIMARY KEY (userId)
 );
 
-CREATE TABLE customerAdresses (
+CREATE TABLE customerAddresses (
   userId      INTEGER   NOT NULL,
   addressId   INTEGER   NOT NULL,
   createdAt   DATETIME  NOT NULL,

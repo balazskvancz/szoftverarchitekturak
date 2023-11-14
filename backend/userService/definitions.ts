@@ -12,6 +12,10 @@ export {
   EBindValue
 } from '../definitions'
 
+export type {
+  IInsertAddressRequest
+} from '../definitions'
+
 export const USER_TYPES = [
   'admin', 'customer', 'courier'
 ] as const
@@ -122,6 +126,18 @@ export interface ICourierWorkingDay extends IBaseCourierWorkingDay {
 
 export type TCourierWorkingDays = readonly ICourierWorkingDay[]
 
+/** Felhasználó - címek. */
+export interface IBaseCustomerAddress {
+  readonly userId: number
+  readonly addressId: number
+}
+
+export interface ICustomerAddress extends IBaseCustomerAddress {
+  readonly createdAt: string
+}
+
+export type TCustomerAddresses = readonly ICustomerAddress[]
+
 export enum EUsersRoute {
   DeleteById              = '/api/user/users/:id',
   GetAll                  = '/api/user/users/get-all',
@@ -146,8 +162,9 @@ export enum ECourierRoute {
 }
 
 export enum ECustomersRoute {
-  GetById = '/api/user/customers/:id',
-  Get     = '/api/user/customers',
-  Insert  = '/api/user/customers',
-  Update  = '/api/user/customers/:id'
+  GetById         = '/api/user/customers/:id',
+  Get             = '/api/user/customers',
+  Insert          = '/api/user/customers',
+  InsertAddress   = '/api/user/customers/addresses',
+  Update          = '/api/user/customers/:id'
 }

@@ -1,7 +1,8 @@
 /* eslint-disable no-shadow */
 export type {
   IConfig,
-  IDatabaseConfig
+  IDatabaseConfig,
+  IInsertedIdResponse
 } from '@common/definitions'
 
 export {
@@ -21,6 +22,8 @@ export interface IBaseAddress {
   readonly street: string
   readonly house: string
 }
+
+export interface IInsertAddressRequest extends IBaseAddress {}
 
 export interface IAddress extends IBaseAddress {
   readonly id: number
