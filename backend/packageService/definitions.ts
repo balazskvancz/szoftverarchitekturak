@@ -4,6 +4,14 @@ export type {
   IDatabaseConfig
 } from '@common/definitions'
 
+export {
+  EBindValue
+} from '../definitions'
+
+export type {
+  IUser
+} from '../definitions'
+
 /** Címek. */
 export interface IBaseAddress {
   readonly userId: number

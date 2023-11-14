@@ -102,12 +102,25 @@ export type TCustomers = readonly ICustomer[]
 
 export interface IGetCustomerByIdResponse {
   readonly customer: ICustomer | null
-
 }
 
 export interface IGetAllCustomersResponse {
   readonly customers: TCustomers
 }
+
+/** Futár munkanapok. */
+
+export interface IBaseCourierWorkingDay {
+  readonly userId: number
+  readonly day: string
+}
+
+export interface ICourierWorkingDay extends IBaseCourierWorkingDay {
+  readonly id: number
+  readonly createdAt: string
+}
+
+export type TCourierWorkingDays = readonly ICourierWorkingDay[]
 
 export enum EUsersRoute {
   DeleteById              = '/api/user/users/:id',
@@ -124,11 +137,12 @@ export enum EAdminsRoute {
 }
 
 export enum ECourierRoute {
-  Get             = '/api/user/couriers',
-  GetById         = '/api/user/couriers/:id',
-  Insert          = '/api/user/couriers',
-  SetWorkingDays  = '/api/user/couriers/set-working-days',
-  Update          = '/api/user/couriers/:id'
+  DeleteWorkingDay  = '/api/user/couriers/:date',
+  Get               = '/api/user/couriers',
+  GetById           = '/api/user/couriers/:id',
+  Insert            = '/api/user/couriers',
+  SetWorkingDays    = '/api/user/couriers/set-working-days',
+  Update            = '/api/user/couriers/:id'
 }
 
 export enum ECustomersRoute {

@@ -8,9 +8,9 @@ import Validator  from '@packageService/Validator'
 
 import type { IService } from '@backend/packageService/getServices'
 
-import { VALID_NEXT_ACTIONS } from '@packageService/definitions'
+import { EBindValue, VALID_NEXT_ACTIONS } from '@packageService/definitions'
 
-import type { IInsertPackageLifeCycleRequest } from '@packageService/definitions'
+import type { IUser, IInsertPackageLifeCycleRequest } from '@packageService/definitions'
 
 /**
  * Egy új csomag életciklus esemény beszúrása.
@@ -40,8 +40,24 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
+    const user = ctx.getBindedValue<IUser>(EBindValue.User)
+
+    if (!Validator.isDefined(user)) {
+      ctx.sendError({
+        code: Error.codes.ERR_USER_NOT_AUTHENTICATED,
+        message: Error.messages.ERR_USER_NOT_AUTHENTICATED
+      })
+
+      return
+    }
+
     // Amennyiben nem valid a megadott action, akkor is hiba.
     if (!Validator.isValidPackageLifeCycleAction(action)) {
+      ctx.sendError({
+        code: Error.codes.ERR_WRONG_PACKAGE_ACTION,
+        message: Error.messages.ERR_WRONG_PACKAGE_ACTION
+      })
+
       return
     }
 
@@ -81,7 +97,7 @@ export default function insert (services: IService): TCallbackFunction {
     const insertedId = await services.packageLifecycles.insert({
       action,
       packageId,
-      userId: -1 // TODO: fix.
+      userId: user.id
     })
 
     if (!Validator.isPositiveNumber(insertedId)) {

@@ -2,9 +2,12 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import Error from '@common/backend/Error'
+import Error from '@userService/Error'
 
 import type { IService } from '@userService/getServices'
+
+import { EBindValue } from '@userService/definitions'
+import type { IUser, IBaseCourierWorkingDay } from '@userService/definitions'
 
 interface ISetWorkingDaysRequest {
   readonly dates: string[]
@@ -12,9 +15,9 @@ interface ISetWorkingDaysRequest {
 
 /**
  * Egy új futár felvételét megvalósító végpont.
- * @param _services - Services.
+ * @param services - Services.
  */
-export default function setWorkingDays (_services: IService): TCallbackFunction {
+export default function setWorkingDays (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const postData = ctx.getBody<ISetWorkingDaysRequest>()
 
@@ -42,7 +45,48 @@ export default function setWorkingDays (_services: IService): TCallbackFunction 
       return
     }
 
-    await Promise.resolve()
+    const user = ctx.getBindedValue<IUser>(EBindValue.User)
+
+    if (!Validator.isDefined(user)) {
+      ctx.sendError({
+        code: Error.codes.ERR_USER_NOT_AUTHENTICATED,
+        message: Error.messages.ERR_USER_NOT_AUTHENTICATED
+      })
+
+      return
+    }
+
+    const workingDays = await services.courierWorkingDays.getByUserId(user.id)
+
+    const days = workingDays.map(({ day }) => day)
+
+    // Ki kell szűrni, hogy melyek azok a dátumok,
+    // amelyek még nincsenek felvéve.
+    const insertData = dates.reduce((acc, curr) => {
+      const already = days.find((d) => d === curr)
+
+      // Ha még nincs felvéve, akkor most hozzáadjuk.
+      if (!Validator.isDefined(already)) {
+        acc.push({
+          day: curr,
+          userId: user.id
+        })
+      }
+
+      return acc
+    }, [] as IBaseCourierWorkingDay[])
+
+    // Ha üres a fent meghatározott tömb, akkor nincs mit csinálni.
+    if (!Validator.isNonEmptyArray(insertData)) {
+      ctx.sendError({
+        code: Error.codes.ERR_NOTHING_TO_INSERT,
+        message: Error.messages.ERR_NOTHING_TO_INSERT
+      })
+
+      return
+    }
+
+    await services.courierWorkingDays.massInsert(insertData)
 
     ctx.sendOk()
   }

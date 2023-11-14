@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import type http from 'http'
 
 export const LOG_TYPES = [ 'error', 'info', 'warning' ] as const
