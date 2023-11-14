@@ -10,16 +10,18 @@ type TError = (
   'ERR_MISSING_BODY'        |
   'ERR_WRONG_POSTDATA'      |
   'ERR_MISSING_LOGIN_HASH'  |
-  'ERR_WRONG_LOGIN_DATA'
+  'ERR_WRONG_LOGIN_DATA'    |
+  'ERR_SESSION_NOT_EXISTS'
 )
 
 const ERROR_CODES: TErrorCodes<TError> = {
-  ERR_INVALID_HASH:       1,
-  ERR_NON_EXISTING_USER:  2,
-  ERR_MISSING_BODY:       3,
-  ERR_WRONG_POSTDATA:     4,
-  ERR_MISSING_LOGIN_HASH: 5,
-  ERR_WRONG_LOGIN_DATA:   6
+  ERR_INVALID_HASH:       1001,
+  ERR_NON_EXISTING_USER:  1002,
+  ERR_MISSING_BODY:       1003,
+  ERR_WRONG_POSTDATA:     1004,
+  ERR_MISSING_LOGIN_HASH: 1005,
+  ERR_WRONG_LOGIN_DATA:   1006,
+  ERR_SESSION_NOT_EXISTS: 1007
 }
 
 const ERROR_MESSAGES: TErrorMessages<TError> = {
@@ -28,7 +30,8 @@ const ERROR_MESSAGES: TErrorMessages<TError> = {
   ERR_MISSING_BODY:         'Hiányzó request body!',
   ERR_WRONG_POSTDATA:       'Nem megfelelő küldött adat!',
   ERR_MISSING_LOGIN_HASH:   'Hiányzó `loginHash`!',
-  ERR_WRONG_LOGIN_DATA:     'A megadott bejelentkezési adatok érvénytelenek!'
+  ERR_WRONG_LOGIN_DATA:     'A megadott bejelentkezési adatok érvénytelenek!',
+  ERR_SESSION_NOT_EXISTS:   'Nincs ilyen munkamenet!'
 }
 
 const Error: IError<TError | TCommonError> = {

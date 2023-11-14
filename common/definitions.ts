@@ -112,3 +112,5 @@ export {
   ECourierRoute,
   ECustomersRoute
 } from '../backend/userService/definitions'
+
+export const LOGIN_HASH_COOKIE_NAME = 'szoftverarchitekturak:loginHash'

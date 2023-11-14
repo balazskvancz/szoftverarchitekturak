@@ -4,15 +4,17 @@ import type { IService } from '@authService/getServices'
 
 import Validator from '@common/Validator/Validator'
 
+import Communicator from '@backend/Communicator/Communicator'
+
 import Error from '@backend/authService/Error'
 
-import type { IGetSessionByHashResponse } from '@backend/authService/definitions'
+import type { IDigestSession, IGetDigestSessionResponse } from '@backend/authService/definitions'
 
 /**
- * Hash szerinti lekérdezés.
+ * Hash szerinti bővített lekérdezés.
  * @param services - Services.
  */
-export default function getByHash (services: IService): TCallbackFunction {
+export default function getDigest (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const { loginHash } = ctx.getRouteParams()
 
@@ -38,8 +40,16 @@ export default function getByHash (services: IService): TCallbackFunction {
       return
     }
 
-    const data: IGetSessionByHashResponse = {
-      session
+    // Szükségünk van a felhasználó adataira is.
+    const user = await Communicator.getUserById(session.userId)
+
+    const digestSession: IDigestSession = {
+      ...session,
+      user
+    }
+
+    const data: IGetDigestSessionResponse = {
+      digestSession
     }
 
     ctx.sendJson(data)

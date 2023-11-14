@@ -24,8 +24,9 @@ CREATE TABLE couriers (
 );
 
 CREATE TABLE courierWorkingDays (
-  userId      INTEGER NOT NULL,
-  day         DATE NOT NULL,
+  id          INTEGER   AUTO_INCREMENT,
+  userId      INTEGER   NOT NULL,
+  day         DATE      NOT NULL,
   createdAt   DATETIME  NOT NULL,
 
   PRIMARY KEY (userId, day)

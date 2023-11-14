@@ -4,6 +4,14 @@ export type {
   IDatabaseConfig
 } from '@common/definitions'
 
+export {
+  LOGIN_HASH_COOKIE_NAME
+} from '@common/definitions'
+
+export {
+  EBindValue
+} from '../definitions'
+
 export const USER_TYPES = [
   'admin', 'customer', 'courier'
 ] as const
@@ -31,11 +39,13 @@ export interface ILogin {
 
 export interface IInsertUserRequest extends IBaseUser, IPassword {}
 
-export interface IInsertUser extends IInsertUserRequest {
+export interface IUserRole {
   readonly role: TUserType
 }
 
-export interface IUser extends IBaseUser {
+export interface IInsertUser extends IInsertUserRequest, IUserRole {}
+
+export interface IUser extends IBaseUser, IUserRole {
   readonly id: number
   readonly createdAt: string
 }
@@ -114,11 +124,11 @@ export enum EAdminsRoute {
 }
 
 export enum ECourierRoute {
-  Get     = '/api/user/couriers',
-  GetById = '/api/user/couriers/:id',
-  Insert  = '/api/user/couriers',
-  Update  = '/api/user/couriers/:id'
-  // SetWorkingDay   = '/api/user/couriers/set-working-day'
+  Get             = '/api/user/couriers',
+  GetById         = '/api/user/couriers/:id',
+  Insert          = '/api/user/couriers',
+  SetWorkingDays  = '/api/user/couriers/set-working-days',
+  Update          = '/api/user/couriers/:id'
 }
 
 export enum ECustomersRoute {

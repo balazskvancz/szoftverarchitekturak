@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export type {
   IConfig,
   IDatabaseConfig
@@ -17,19 +18,27 @@ export interface ISession extends IBaseSession {
   readonly endedAt: string | null
 }
 
+export interface IGetSessionByHashResponse {
+  readonly session: ISession
+}
+
+export interface IDigestSession extends ISession {
+  readonly user: IUser | null
+}
+
+export interface IGetDigestSessionResponse {
+  readonly digestSession: IDigestSession
+}
+
 export interface ILoginResponse {
   readonly loginHash: string
 }
 
 export interface ILogoutRequest extends ILoginResponse {}
 
-export interface IDigestSession extends ISession {
-  readonly user: IUser | null
-}
-
-/* eslint-disable no-shadow */
 export enum EAuthRoute {
-  GetByHash = '/api/auth/get-by-hash',
-  Login     = '/api/auth/login',
-  Logout    = '/api/auth/logout'
+  GetDigest  = '/api/auth/get-digest/:loginHash',
+  GetByHash  = '/api/auth/get-by-hash/:loginHash',
+  Login      = '/api/auth/login',
+  Logout     = '/api/auth/logout'
 }

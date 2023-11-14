@@ -1,5 +1,5 @@
 import { GATEWAY_HOST, GATEWAY_PORT } from '../../../definitions'
-import type { ICrossRequestOptions } from '../../../definitions'
+import type { ICrossRequestOptions }  from '../../../definitions'
 
 import type { TMethod } from '../../../definitions'
 
@@ -16,7 +16,7 @@ export default function createOptions (
 ): ICrossRequestOptions {
   const headers = hasData
     ? {
-      'Content-Type': 'application/json; utf-8',
+      'Content-Type': 'application/json; charset=UTF-8',
       'Access-Control-Allow-Origin': '*'
     }
     : {}
