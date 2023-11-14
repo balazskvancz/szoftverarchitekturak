@@ -66,24 +66,55 @@ export interface IPackage extends IBaseAddress {
 
 /** Csomag életciklus események. */
 export const PACKAGE_LIFECYCLES = [
-  // TODO: bővíteni...
-  'created'
+  'created',
+  'pickedUp',
+  'movedToCenter',
+  'onDelivery',
+  'sentBack',
+  'delivered'
 ] as const
 
-export type TPackageLifecyclceAction = typeof PACKAGE_LIFECYCLES[number]
+export type TPackageLifeCycleAction = typeof PACKAGE_LIFECYCLES[number]
 
-export interface IBasePackageLifecycle {
-  readonly packageId: number
-  readonly userId: number
-  readonly action: TPackageLifecyclceAction
+/**
+ * Számontartja, hogy egy adott állapotból milyen más állapotokba térhetünk át.
+ * Olyasmi, mint egy állapotátmeneti függvény az automatáknál.
+ */
+export const VALID_NEXT_ACTIONS: Record<TPackageLifeCycleAction, TPackageLifeCycleAction[]> = {
+  /** A csomag létrehozása. */
+  created: [ 'pickedUp' ],
+
+  /** A csomag feladótól való felvétele. */
+  pickedUp: [ 'movedToCenter', 'onDelivery', 'delivered', 'sentBack' ],
+
+  /** Központi lerakatba szállítva. */
+  movedToCenter: [ 'onDelivery', 'sentBack', 'delivered' ],
+
+  /** Kiszállítás alatt. */
+  onDelivery: [ 'movedToCenter', 'sentBack', 'delivered' ],
+
+  /** Visszaküldve. */
+  sentBack: [ 'sentBack' ],
+
+  /** Végső állapot, kiszállításra került a csomag. */
+  delivered: [ 'delivered' ]
 }
 
-export interface IPackageLifecycle extends IBasePackageLifecycle {
+export interface IInsertPackageLifeCycleRequest {
+  readonly packageId: number
+  readonly action: TPackageLifeCycleAction
+}
+
+export interface IBasePackageLifeCycle extends IInsertPackageLifeCycleRequest {
+  readonly userId: number
+}
+
+export interface IPackageLifeCycle extends IBasePackageLifeCycle {
   readonly id: number
   readonly createdAt: string
 }
 
-export type TPackageLifecycles = readonly IPackageLifecycle[]
+export type TPackageLifeCycles = readonly IPackageLifeCycle[]
 
 export enum EDimensionsRoute {
   DeleteById  = '/api/package/dimensions/:id',
@@ -99,5 +130,10 @@ export enum EAddressesRoute {
 }
 
 export enum EPackagesRoute {
-  Insert = '/api/package/packages'
+  Insert        = '/api/package/packages',
+  GetLifeCycles = '/api/package/packages/:id/life-cycles'
+}
+
+export enum EPackageLifeCyclesRoute {
+  Insert = '/api/package/package-life-cycles'
 }

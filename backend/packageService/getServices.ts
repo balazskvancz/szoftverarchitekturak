@@ -2,7 +2,7 @@ import type MySql from '@common/MySQL/MySQL'
 
 import AddressesService         from './services/AddressesService'
 import DimensionsService        from './services/DimensionsService'
-import PackageLifecyclesService from './services/PackageLifecyclesService'
+import PackageLifecyclesService from './services/PackageLifeCyclesService'
 import PackagesService          from './services/PackagesService'
 
 export interface IService {

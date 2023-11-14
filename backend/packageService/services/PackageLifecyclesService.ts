@@ -1,19 +1,19 @@
 import BaseService from '@common/backend/BaseService'
 
 import type {
-  IPackageLifecycle,
-  TPackageLifecycles,
-  IBasePackageLifecycle
+  IPackageLifeCycle,
+  TPackageLifeCycles,
+  IBasePackageLifeCycle
 } from '../definitions'
 
 type TOrder = 'asc' | 'desc'
 
-export default class PackageLifecyclesService extends BaseService {
+export default class PackageLifeCyclesService extends BaseService {
   /**
    * Egy új egyed beszúrása.
    * @param data - A beszúrandó adat.
    */
-  public async insert (data: IBasePackageLifecycle): Promise<number> {
+  public async insert (data: IBasePackageLifeCycle): Promise<number> {
     const result = await this.db.exec(`
       INSERT INTO ${ this.tableName } SET
         packageId = ?,
@@ -29,7 +29,7 @@ export default class PackageLifecyclesService extends BaseService {
    * Visszaadja egy adott csomaghoz tartozó utolsó életciklus eseményt.
    * @param packageId - A csomag azonosítója.
    */
-  public getLatest (packageId: number): Promise<IPackageLifecycle | null> {
+  public getLatest (packageId: number): Promise<IPackageLifeCycle | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
       WHERE packageId = ?
@@ -43,7 +43,7 @@ export default class PackageLifecyclesService extends BaseService {
    * @param packageId - A csomag azonosítója.
    * @param order     - A sorrend.
    */
-  public getAll (packageId: number, order: TOrder = 'asc'): Promise<TPackageLifecycles> {
+  public getAll (packageId: number, order: TOrder = 'asc'): Promise<TPackageLifeCycles> {
     const orderBy = order === 'asc'
       ? 'ASC'
       : 'DESC'

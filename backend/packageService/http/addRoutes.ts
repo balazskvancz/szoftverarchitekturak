@@ -5,9 +5,10 @@ import type { IRouter } from '@common/Router/definitions'
 
 import type { IService } from '../getServices'
 
-import addressesRoutes  from './routes/addressesRoutes'
-import dimensionsRoutes from './routes/dimensRoutes'
-import packagesRoutes   from './routes/packagesRoutes'
+import addressesRoutes          from './routes/addressesRoutes'
+import dimensionsRoutes         from './routes/dimensRoutes'
+import packageLifeCyclesRoutes  from './routes/packageLifeCyclesRoutes'
+import packagesRoutes           from './routes/packagesRoutes'
 
 /**
  * Az összes route felvétele.
@@ -19,5 +20,6 @@ export default function addRoutes (router: IRouter, services: IService): void {
 
   addressesRoutes(router, services)
   dimensionsRoutes(router, services)
+  packageLifeCyclesRoutes(router, services)
   packagesRoutes(router, services)
 }
