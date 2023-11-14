@@ -18,7 +18,7 @@ export default function logout (services: IService): TCallbackFunction {
     if (!Validator.isDefined(postData)) {
       ctx.sendError({
         code: Error.codes.ERR_MISSING_BODY,
-        message: 'Hiányzó request body'
+        message: Error.messages.ERR_MISSING_BODY
       })
 
       return
@@ -26,8 +26,8 @@ export default function logout (services: IService): TCallbackFunction {
 
     if (!Validator.isNonEmptyString(postData.loginHash)) {
       ctx.sendError({
-        code: Error.codes.ERR_WRONG_POSTDATA,
-        message: 'Hiányzó session azonosító'
+        code: Error.codes.ERR_MISSING_LOGIN_HASH,
+        message: Error.messages.ERR_MISSING_LOGIN_HASH
       })
 
       return
