@@ -2,7 +2,7 @@ import { EUsersRoute } from '../../definitions'
 
 import type { IUser } from '../../definitions'
 
-import type { IGetUserByIdResponse } from '../../definitions'
+import type { IGetUserResponse } from '../../definitions'
 
 import sendRequest from './utils/sendRequest'
 
@@ -20,7 +20,7 @@ export default async function getUserById (
     password
   }
 
-  const { data, isSuccess } = await sendRequest<IGetUserByIdResponse>('POST', EUsersRoute.GetByEmailAndPassword, requestBody)
+  const { data, isSuccess } = await sendRequest<IGetUserResponse>('POST', EUsersRoute.GetByEmailAndPassword, requestBody)
 
   if (!isSuccess) {
     return null

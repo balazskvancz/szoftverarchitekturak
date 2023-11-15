@@ -5,7 +5,7 @@ import createPassword from '@common/utils/createHash'
 
 import Error from '@userService/Error'
 
-import type { ILogin, IGetUserByIdResponse } from '@userService/definitions'
+import type { ILogin, IGetUserResponse } from '@userService/definitions'
 
 import type { IService }  from '@userService/getServices'
 
@@ -55,7 +55,7 @@ export default function getByEmailAndPassword (services: IService): TCallbackFun
       return
     }
 
-    const data: IGetUserByIdResponse = {
+    const data: IGetUserResponse = {
       user
     }
 

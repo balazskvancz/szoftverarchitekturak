@@ -18,6 +18,20 @@ export default class CustomerAddressesService extends BaseService {
   }
 
   /**
+   * Egy felhasználó-cím törlése.
+   * @param data - Törlendő adat.
+   */
+  public async deleteConnection (data: IBaseCustomerAddress): Promise<boolean> {
+    const result = await this.db.exec(`
+      DELETE FROM ${ this.tableName }
+      WHERE userId    = ?
+      AND   addressId = ?
+    `, [ data.userId, data.addressId ])
+
+    return this.db.hasAffectedRows(result)
+  }
+
+  /**
    * Felhasználó azonosító szerinti lekérdezés.
    * @param userId - Felhasználó azonosító.
    */

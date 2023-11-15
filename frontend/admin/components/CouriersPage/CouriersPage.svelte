@@ -83,7 +83,7 @@
 
     name      = courier.name
     email     = courier.email
-    telephone = courier.phoneNum
+    telephone = courier.telephone
 
     idToEdit = v
 
@@ -151,7 +151,7 @@
       const res = await ajax.updateCourier(idToEdit, {
         email,
         name,
-        phoneNum: telephone
+        telephone: telephone
       })
 
       formErrors = res ? res.formErrors ?? [] : []
@@ -170,7 +170,7 @@
       name,
       password,
       passwordRepeat,
-      phoneNum: telephone
+      telephone: telephone
     })
 
     formErrors = res ? res.formErrors ?? [] : []

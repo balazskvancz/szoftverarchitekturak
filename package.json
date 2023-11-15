@@ -6,6 +6,7 @@
   "scripts": {
     "admin:dev": "webpack serve --mode development --progress --config ./frontend/admin/webpack.config.js",
     "courier:dev": "webpack serve --mode development --progress --config ./frontend/courier/webpack.config.js",
+    "customer:dev": "webpack serve --mode development --progress --config ./frontend/customer/webpack.config.js",
     "authService:dev": "webpack --watch --mode development --progress --config ./backend/authService/webpack.config.js",
     "distributorService:dev": "webpack --watch --mode development --progress --config ./backend/distributorService/webpack.config.js",
     "packageService:dev": "webpack --watch --mode development --progress --config ./backend/packageService/webpack.config.js",

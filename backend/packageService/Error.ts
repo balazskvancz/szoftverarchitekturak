@@ -30,7 +30,10 @@ const ERROR_MESSAGES: TErrorMessages<TError> = {
 }
 
 const Error: IError<TError | TCommonError> = {
-  codes: { ...ERROR_CODES,  ...CommonError.codes },
+  codes: {
+    ...ERROR_CODES,
+    ...CommonError.codes
+  },
   messages: {
     ...ERROR_MESSAGES,
     ...CommonError.messages

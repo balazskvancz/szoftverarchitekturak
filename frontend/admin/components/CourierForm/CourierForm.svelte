@@ -48,7 +48,7 @@
       bind:value={ telephone }
       autocomplete="off"
       label="Telefonszám"
-      name="phoneNum"
+      name="telephone"
       placeholder="+36 20 123 4567"
       type="text"
     />

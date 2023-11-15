@@ -5,10 +5,11 @@ import type { IRouter } from '@common/Router/definitions'
 
 import type { IService } from '../getServices'
 
-import adminsRoutes     from './routes/adminsRoutes'
-import couriersRoutes   from './routes/couriersRoutes'
-import customersRoutes  from './routes/customersRoutes'
-import usersRoutes      from './routes/usersRoutes'
+import adminsRoutes             from './routes/adminsRoutes'
+import couriersRoutes           from './routes/couriersRoutes'
+import customerAddressessRoutes from './routes/customerAddressesRoutes'
+import customersRoutes          from './routes/customersRoutes'
+import usersRoutes              from './routes/usersRoutes'
 
 /**
  * Az összes route felvétele.
@@ -20,6 +21,7 @@ export default function addRoutes (router: IRouter, services: IService): void {
 
   adminsRoutes(router, services)
   couriersRoutes(router, services)
+  customerAddressessRoutes(router, services)
   customersRoutes(router, services)
   usersRoutes(router, services)
 }

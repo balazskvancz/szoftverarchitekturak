@@ -44,7 +44,10 @@ export {
 } from './packageService/definitions'
 
 export type {
-  IInsertAddressRequest
+  TAddresses,
+  IInsertAddressRequest,
+  IGetAddressesByIdsRequest,
+  IGetAddressesByIdsResponse
 } from './packageService/definitions'
 
 /** UserService. */
@@ -54,6 +57,5 @@ export {
 
 export type {
   IUser,
-  IGetUserByIdResponse,
-  IGetUserIdByEmailPassResponse
+  IGetUserResponse
 } from './userService/definitions'

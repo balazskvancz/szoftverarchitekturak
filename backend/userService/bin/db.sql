@@ -17,8 +17,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE couriers (
-  userId    INTEGER       NOT NULL,
-  phoneNum  VARCHAR (50)  DEFAULT NULL,
+  userId      INTEGER       NOT NULL,
+  telephone   VARCHAR (50)  DEFAULT NULL,
 
   PRIMARY KEY (userId)
 );
@@ -34,7 +34,7 @@ CREATE TABLE courierWorkingDays (
 
 CREATE TABLE customers (
   userId    INTEGER       NOT NULL,
-  phoneNum  VARCHAR (50)  DEFAULT NULL,
+  telephone  VARCHAR (50)  DEFAULT NULL,
 
   PRIMARY KEY (userId)
 );

@@ -56,6 +56,8 @@
         </button>
 
       </form>
+
+      <slot name="content" />
     </div>
   </div>
 </div>

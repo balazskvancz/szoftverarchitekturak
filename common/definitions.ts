@@ -86,7 +86,9 @@ export type {
 /** PackageService. */
 
 export type {
+  IPackage,
   IDimension,
+  TAddresses,
   TDimensions,
   IBaseDimension,
   IGetDimensionByIdResponse,
@@ -111,6 +113,7 @@ export type {
   IBaseCustomer,
   IInsertCourier,
   IInsertCustomer,
+  IGetAllAddresses,
   IInsertUserRequest,
   IGetAdminByIdResponse,
   IGetAllAdminsResponse,
@@ -124,7 +127,8 @@ export {
   EUsersRoute,
   EAdminsRoute,
   ECourierRoute,
-  ECustomersRoute
+  ECustomersRoute,
+  ECustomerAddressesRoute
 } from '../backend/userService/definitions'
 
 export const LOGIN_HASH_COOKIE_NAME = 'szoftverarchitekturak:loginHash'

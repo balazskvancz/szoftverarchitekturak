@@ -36,6 +36,14 @@ export interface IGetAddressByIdResponse {
   readonly address: IAddress | null
 }
 
+export interface IGetAddressesByIdsRequest {
+  readonly ids: number[]
+}
+
+export interface IGetAddressesByIdsResponse {
+  readonly addresses: TAddresses
+}
+
 /** Csomag dimenziók. */
 export interface IBaseDimension {
   readonly length: number
@@ -136,8 +144,9 @@ export enum EDimensionsRoute {
 }
 
 export enum EAddressesRoute {
-  GetById = '/api/package/addresses/:id',
-  Insert  = '/api/package/addresses'
+  GetById   = '/api/package/addresses/:id',
+  GetByIds  = '/api/package/addresses/by-ids',
+  Insert    = '/api/package/addresses'
 }
 
 export enum EPackagesRoute {

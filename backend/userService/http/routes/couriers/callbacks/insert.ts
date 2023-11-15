@@ -71,7 +71,7 @@ export default function insert (services: IService): TCallbackFunction {
 
     // Futár specifikus adatok beszúrása.
     // Itt csak egyszerűen megvárjuk, hogy be legyen szúrva és kész.
-    await services.couriers.insert(userId, postData.phoneNum)
+    await services.couriers.insert(userId, postData.telephone)
 
     ctx.sendOk()
   }

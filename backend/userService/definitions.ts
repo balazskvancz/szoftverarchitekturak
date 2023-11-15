@@ -1,4 +1,9 @@
 /* eslint-disable no-shadow */
+
+import type {
+  TAddresses
+} from '@common/definitions'
+
 export type {
   IConfig,
   IDatabaseConfig
@@ -61,12 +66,12 @@ export interface IAdmin extends IUser {}
 export type TAdmins = readonly IAdmin[]
 
 export interface IBaseCourier extends IBaseUser {
-  readonly phoneNum: string
+  readonly telephone: string
 }
 
 export interface IInsertCourier extends IBaseCourier, IPassword {}
 
-export interface IGetUserByIdResponse {
+export interface IGetUserResponse {
   readonly user: IUser | null
 }
 
@@ -79,7 +84,7 @@ export interface IGetAdminByIdResponse {
 }
 
 export interface ICourier extends IUser {
-  readonly phoneNum: string
+  readonly telephone: string
 }
 
 export type TCouriers = readonly ICourier[]
@@ -134,6 +139,10 @@ export interface ICustomerAddress extends IBaseCustomerAddress {
 
 export type TCustomerAddresses = readonly ICustomerAddress[]
 
+export interface IGetAllAddresses {
+  readonly addresses: TAddresses
+}
+
 export enum EUsersRoute {
   DeleteById              = '/api/user/users/:id',
   GetAll                  = '/api/user/users/get-all',
@@ -161,6 +170,11 @@ export enum ECustomersRoute {
   GetById         = '/api/user/customers/:id',
   Get             = '/api/user/customers',
   Insert          = '/api/user/customers',
-  InsertAddress   = '/api/user/customers/addresses',
   Update          = '/api/user/customers/:id'
+}
+
+export enum ECustomerAddressesRoute {
+  DeleteById  = '/api/user/customer-addresses/:addressId',
+  Get         = '/api/user/customer-addresses',
+  Insert      = '/api/user/customer-addresses'
 }

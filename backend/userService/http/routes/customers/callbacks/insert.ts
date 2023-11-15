@@ -9,6 +9,7 @@ import type { IService } from '@userService/getServices'
 import Error from '@userService/Error'
 
 import validateInsert from './utils/validateInsert'
+import createPassword from '@common/utils/createHash'
 
 /**
  * Egy új felhasználó felvételét megvalósító végpont.
@@ -57,6 +58,7 @@ export default function insert (services: IService): TCallbackFunction {
     // Alap felhasználó beszúrása.
     const userId = await services.users.insert({
       ...postData,
+      password: createPassword(postData.password),
       role: 'customer'
     })
 
@@ -69,7 +71,7 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    await services.customers.insert(userId, postData.phoneNum)
+    await services.customers.insert(userId, postData.telephone)
 
     ctx.sendOk()
   }

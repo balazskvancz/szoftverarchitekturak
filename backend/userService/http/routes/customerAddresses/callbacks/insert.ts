@@ -19,7 +19,7 @@ import { EBindValue } from '@userService/definitions'
  * Új cím beszúrása egy adott felhasználóhoz.
  * @param services - Services.
  */
-export default function insertAddress (services: IService): TCallbackFunction {
+export default function insert (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const postData = ctx.getBody<IInsertAddressRequest>()
 

@@ -12,11 +12,11 @@ export default function validateRegistration (data: unknown): IFormError[] {
   const errors: IFormError[] = []
 
   if (
-    !Validator.isObjectHaveKeys(data, [ 'phoneNum' ]) ||
-    !Validator.isNonEmptyString(data.phoneNum)
+    !Validator.isObjectHaveKeys(data, [ 'telephone' ]) ||
+    !Validator.isNonEmptyString(data.telephone)
   ) {
     errors.push({
-      key: 'phoneNum',
+      key: 'telephone',
       message: 'Telefonszám megadása kötelező'
     })
   }

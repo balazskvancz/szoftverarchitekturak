@@ -6,14 +6,14 @@ export default class CouriersService extends BaseService {
   /**
    * Egy új futár beszúrása.
    * @param id        - A futár azonosítója.
-   * @param phoneNum  - A futár telefonszáma.
+   * @param telephone  - A futár telefonszáma.
    */
-  public async insert (id: number, phoneNum: string): Promise<boolean> {
+  public async insert (id: number, telephone: string): Promise<boolean> {
     const result = await this.db.exec(`
     INSERT INTO ${ this.tableName } SET
       userId    = ?,
-      phoneNum  = ?
-  `, [ id, phoneNum ])
+      telephone  = ?
+  `, [ id, telephone ])
 
     return this.db.hasAffectedRows(result)
   }
@@ -21,14 +21,14 @@ export default class CouriersService extends BaseService {
   /**
    * Egy futár módosítása.
    * @param id        - A futár azonosítója.
-   * @param phoneNum  - A futár telefonszáma.
+   * @param telephone  - A futár telefonszáma.
    */
-  public async update (id: number, phoneNum: string): Promise<boolean> {
+  public async update (id: number, telephone: string): Promise<boolean> {
     const result = await this.db.exec(`
     UPDATE ${ this.tableName } SET
-      phoneNum    = ?
+      telephone    = ?
     WHERE userId  = ?
-  `, [ phoneNum, id ])
+  `, [ telephone, id ])
 
     return this.db.hasAffectedRows(result)
   }
@@ -59,7 +59,7 @@ export default class CouriersService extends BaseService {
         u.role,
         u.createdAt,
 
-        c.phoneNum
+        c.telephone
       FROM ${ this.tableName } AS c
       INNER JOIN users AS u ON c.userId = u.id
       WHERE u.deletedAt IS NULL

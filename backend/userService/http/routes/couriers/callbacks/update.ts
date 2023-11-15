@@ -92,7 +92,7 @@ export default function update (services: IService): TCallbackFunction {
       return
     }
 
-    await services.couriers.update(id, postData.phoneNum)
+    await services.couriers.update(id, postData.telephone)
 
     ctx.sendOk()
   }

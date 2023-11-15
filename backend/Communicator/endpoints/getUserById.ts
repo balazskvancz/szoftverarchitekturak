@@ -1,7 +1,7 @@
 import makeUrl from '@common/utils/makeUrl'
 
 import { EUsersRoute } from '../../definitions'
-import type { IUser, IGetUserByIdResponse } from '../../definitions'
+import type { IUser, IGetUserResponse } from '../../definitions'
 
 import sendRequest from './utils/sendRequest'
 
@@ -12,7 +12,7 @@ import sendRequest from './utils/sendRequest'
 export default async function getUserById (userId: number): Promise<IUser | null> {
   const url = makeUrl(EUsersRoute.GetUserById, [ userId ])
 
-  const { data, isSuccess } = await sendRequest<IGetUserByIdResponse>('GET', url)
+  const { data, isSuccess } = await sendRequest<IGetUserResponse>('GET', url)
 
   if (!isSuccess) {
     return null

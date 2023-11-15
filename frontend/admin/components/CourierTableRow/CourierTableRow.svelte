@@ -40,7 +40,7 @@
 <tr>
   <td class="align-middle">{data.name}</td>
   <td class="align-middle">{data.email}</td>
-  <td class="align-middle">{data.phoneNum}</td>
+  <td class="align-middle">{data.telephone}</td>
   <td class="align-middle">{data.createdAt}</td>
   <td class="align-middle">
     <EditButton onClick={ handleOnOpen } />

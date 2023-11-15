@@ -12,7 +12,7 @@
 </script>
 
 <Router>
-  <Route path={ PAGE_LINKS.packages.url }>
+  <Route path={ PAGE_LINKS.settings.url }>
     <SettingsPage />
   </Route>
 
