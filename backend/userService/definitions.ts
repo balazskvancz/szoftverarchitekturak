@@ -70,10 +70,6 @@ export interface IGetUserByIdResponse {
   readonly user: IUser | null
 }
 
-export interface IGetUserIdByEmailPassResponse {
-  readonly userId: number | null
-}
-
 export interface IGetAllAdminsResponse {
   readonly admins: TAdmins
 }

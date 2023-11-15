@@ -12,6 +12,10 @@ export type {
   IInsertUserRequest
 } from '@common/definitions'
 
+export {
+  LOGIN_HASH_COOKIE_NAME
+} from '@common/definitions'
+
 export const PAGES = [
   'dimensions', 'admins', 'couriers', 'customers'
 ] as const

@@ -6,12 +6,15 @@ import getAdmins        from './endpoints/getAdmins'
 import getCourierById   from './endpoints/getCourierById'
 import getCouriers      from './endpoints/getCouriers'
 import getCustomers     from './endpoints/getCustomers'
+import getDigestSession from './endpoints/getDigestSession'
 import getCustomerById  from './endpoints/getCustomerById'
 import getDimensions    from './endpoints/getDimensions'
 import insertAdmin      from './endpoints/insertAdmin'
 import insertCourier    from './endpoints/insertCourier'
 import insertCustomer   from './endpoints/insertCustomer'
 import insertDimension  from './endpoints/insertDimension'
+import login            from './endpoints/login'
+import logout           from './endpoints/logout'
 import updateAdmin      from './endpoints/updateAdmin'
 import updateCourier    from './endpoints/updateCourier'
 import updateCustomer   from './endpoints/updateCustomer'
@@ -27,11 +30,14 @@ const ajax = {
   getCouriers,
   getCustomerById,
   getCustomers,
+  getDigestSession,
   getDimensions,
   insertAdmin,
   insertCourier,
   insertCustomer,
   insertDimension,
+  login,
+  logout,
   updateAdmin,
   updateCourier,
   updateCustomer,

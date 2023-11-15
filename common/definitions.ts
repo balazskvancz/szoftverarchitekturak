@@ -71,6 +71,20 @@ export interface IDataResponse<T extends TAnyObject> {
 }
 
 /** Szervíz specifikus típusok. */
+export {
+  EAuthRoute
+} from '../backend/authService/definitions'
+
+export type {
+  ILogin,
+  IDigestSession,
+  ILoginResponse,
+  ILogoutRequest,
+  IGetDigestSessionResponse
+} from '../backend/authService/definitions'
+
+/** PackageService. */
+
 export type {
   IDimension,
   TDimensions,
