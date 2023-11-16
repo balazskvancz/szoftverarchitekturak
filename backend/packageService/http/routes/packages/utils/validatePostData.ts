@@ -2,13 +2,15 @@ import type { IFormError } from '@common/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IBasePackage } from '@packageService/definitions'
+import type { IInsertPackageRequest } from '@packageService/definitions'
+
+import validateAddress from '../../addresses/utils/validatePostData'
 
 /**
  * Validálja a bejövő adatot.
  * @param d - A vizsgálandó adat.
  */
-export default function validatePostData (d: IBasePackage): IFormError[] {
+export default function validatePostData (d: IInsertPackageRequest): IFormError[] {
   const errors: IFormError[] = []
 
   if (!Validator.isPositiveNumber(d.senderId)) {
@@ -25,12 +27,12 @@ export default function validatePostData (d: IBasePackage): IFormError[] {
     })
   }
 
-  if (!Validator.isPositiveNumber(d.destAddressId)) {
-    errors.push({
-      key: 'destAddressId',
-      message: 'Kötelező kézbesítési címet megadni!'
-    })
-  }
+  // if (!Validator.isPositiveNumber(d.destAddressId)) {
+    // errors.push({
+      // key: 'destAddressId',
+      // message: 'Kötelező kézbesítési címet megadni!'
+    // })
+  // }
 
   if (!Validator.isPositiveNumber(d.dimensionId)) {
     errors.push({
@@ -66,5 +68,6 @@ export default function validatePostData (d: IBasePackage): IFormError[] {
     })
   }
 
-  return errors
+  // Az itteni hibák + a címek validálása.
+  return [ ...errors, ...validateAddress(d.dest) ]
 }

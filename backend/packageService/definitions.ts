@@ -68,16 +68,24 @@ export interface IGetDimensionByIdResponse {
 
 /** Csomagok. */
 export interface IBasePackage {
-  readonly senderId: number
   readonly pickUpAddressId: number
-  readonly destAddressId: number
   readonly dimensionId: number
   readonly weight: number
-  readonly expectedDelivery: string | null
-  readonly suitableReceipt: string | null
 }
 
-export interface IPackage extends IBaseAddress {
+export interface IInsertPackageRequest extends IBasePackage {
+  readonly dest: IBaseAddress
+}
+
+export interface IInsertPackage extends IBasePackage {
+  readonly destAddressId: number
+  readonly senderId: number
+  readonly expectedDelivery: string | null
+  readonly suitableReceipt: string | null
+
+}
+
+export interface IPackage extends IInsertPackage {
   readonly id: number
   readonly qrcode: string
   readonly createdAt: string

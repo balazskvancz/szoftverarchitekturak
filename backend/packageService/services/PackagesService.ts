@@ -1,13 +1,13 @@
 import BaseService from '@common/backend/BaseService'
 
-import type { IPackage, IBasePackage } from '../definitions'
+import type { IPackage, IInsertPackage } from '../definitions'
 
 export default class PackagesService extends BaseService {
   /**
    * Egy új egyed beszúrása.
    * @param data - A beszúrandó adat.
    */
-  public async insert (data: IBasePackage): Promise<number> {
+  public async insert (data: IInsertPackage): Promise<number> {
     const values = [
       data.senderId, data.pickUpAddressId, data.destAddressId,
       data.dimensionId, data.weight,

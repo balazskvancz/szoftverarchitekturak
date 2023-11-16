@@ -2,7 +2,11 @@
   lang="ts"
   strictEvents
 >
-  import type { TFormErrors } from '../../definitions'
+  import type {
+    TFormErrors
+  } from '../../definitions'
+
+  import FormLabel from '../FormLabel/FormLabel.svelte'
 
   import styles from './SelectBox.css'
 
@@ -11,11 +15,11 @@
     readonly name: string
   }
 
-  export let formErrors: TFormErrors = []
   export let items: ISelectItem[]
   export let name: string
   export let selectedValue: string | undefined
-
+  export let label: string | null = null
+  export let formErrors: TFormErrors = []
   const defaultValue: ISelectItem = {
     name: 'Kérlek válassz a lehetőségek közül',
     value: ''
@@ -35,6 +39,7 @@
     : itemset.filter((e) => e.name.includes(searchValue))
 
   $: errorMsg = formErrors.find((el) => el.key === name)?.message ?? null
+  $: isError  = !errorMsg
 
   let currentlySelected: ISelectItem = selectedValue
     ? items.find((el) => el.value === selectedValue) ?? defaultValue
@@ -53,11 +58,14 @@
 </script>
 
 <div class={ styles.selectboxContainer }>
-  <div class="selected-srapper">
+  {#if label !== null}
+    <FormLabel { label } />
+  {/if}
+  <div class={ styles.selectedWrapper }>
     <input
       class={ styles.selectboxCurrentlySelected }
-      class:border={ errorMsg }
-      class:border-danger={ errorMsg }
+      class:border={ isError }
+      class:border-danger={ isError }
       on:click={ () => {
         isExpanded = !isExpanded
         searchValue = ''
@@ -66,11 +74,7 @@
       readonly
     />
     {#if errorMsg}
-      <small class={ styles.errorMessage }>
-        <p class="text-danger">
-          {errorMsg}
-        </p>
-      </small>
+      <small class={ styles.errorMessage }><p class="text-danger">{errorMsg}</p></small>
     {/if}
 
   </div>
@@ -86,14 +90,13 @@
         />
       </div>
 
-      <div class="items">
+      <div class={ styles.items }>
         {#if itemsToDisplay.length > 0}
           {#each itemsToDisplay as item (item.value)}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
-              class={ styles.itemRow }
-              class:active={ item.value === currentlySelected.value }
+              class={ `${ styles.itemRow } ${ item.value === currentlySelected.value ? styles.active : '' }` }
               on:click={ () => onClickSelectItem(item) }
             >
               <p>{item.name}</p>

@@ -3,7 +3,7 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 import Validator from '@common/Validator/Validator'
 
 import type { IService }      from '@packageService/getServices'
-import type { IBasePackage }  from '@packageService/definitions'
+import type { IInsertPackageRequest }  from '@packageService/definitions'
 
 import Error from '@packageService/Error'
 
@@ -15,7 +15,7 @@ import validatePostData from './utils/validatePostData'
  */
 export default function insert (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const postData = ctx.getBody<IBasePackage>()
+    const postData = ctx.getBody<IInsertPackageRequest>()
 
     if (!Validator.isDefined(postData)) {
       ctx.sendError({
@@ -50,13 +50,13 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    // Ugyanezt meg kell tenni a szállítási címre is.
-    const destinationAddress = await services.addresses.getById(postData.destAddressId)
+    // Be kell szúrni az adatbázisba a cél címet.
+    const destAddressId = await services.addresses.insert(postData.dest)
 
-    if (Validator.isNull(destinationAddress)) {
+    if (!Validator.isPositiveNumber(destAddressId)) {
       ctx.sendError({
-        code: Error.codes.ERR_ADDRESS_NOT_EXISTS,
-        message: Error.messages.ERR_ADDRESS_NOT_EXISTS
+        code: Error.codes.ERR_DB_INSERT,
+        message: Error.messages.ERR_DB_INSERT
       })
 
       return
@@ -74,7 +74,10 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    const insertedId = await services.packages.insert(postData)
+    const insertedId = await services.packages.insert({
+      ...postData,
+      destAddressId // Az újonnan beszúrt szállítási cím azonosítója.
+    })
 
     if (insertedId <= 0) {
       ctx.sendError({

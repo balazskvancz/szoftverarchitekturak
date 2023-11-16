@@ -5,6 +5,7 @@ export {
 export type {
   IPackage,
   TAddresses,
+  TDimensions,
   TFormErrors
 } from '@common/definitions'
 

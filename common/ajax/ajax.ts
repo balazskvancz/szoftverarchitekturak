@@ -17,6 +17,7 @@ import insertCourier          from './endpoints/insertCourier'
 import insertCustomer         from './endpoints/insertCustomer'
 import insertCustomerAddress  from './endpoints/insertCustomerAddress'
 import insertDimension        from './endpoints/insertDimension'
+import insertPackage          from './endpoints/insertPackage'
 import login                  from './endpoints/login'
 import logout                 from './endpoints/logout'
 import registration           from './endpoints/registration'
@@ -45,6 +46,7 @@ const ajax = {
   insertCustomer,
   insertCustomerAddress,
   insertDimension,
+  insertPackage,
   login,
   logout,
   registration,

@@ -39,7 +39,7 @@
 
 .selected-wrapper::after {
   position: absolute;
-  top: 50%;
+  top: 70%;
   right: 20px;
   width: 0;
   height: 0;

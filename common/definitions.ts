@@ -92,11 +92,13 @@ export type {
   TDimensions,
   IBaseDimension,
   IInsertAddressRequest,
+  IInsertPackageRequest,
   IGetDimensionByIdResponse,
   IGetAllDimensionsResponse
 } from '../backend/packageService/definitions'
 
 export {
+  EPackagesRoute,
   EDimensionsRoute
 } from '../backend/packageService/definitions'
 
