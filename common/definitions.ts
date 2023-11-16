@@ -91,6 +91,7 @@ export type {
   TAddresses,
   TDimensions,
   IBaseDimension,
+  IInsertAddressRequest,
   IGetDimensionByIdResponse,
   IGetAllDimensionsResponse
 } from '../backend/packageService/definitions'

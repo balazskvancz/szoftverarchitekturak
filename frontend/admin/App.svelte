@@ -55,7 +55,7 @@
 
     <Header />
 
-    <div class="container-fluid p-0 min-vh-100 d-flex flex-column">
+    <div class="container-fluid p-0 min-vh-100 d-flex">
       <div class="container-fluid min-vh-100">
         <div class="row h-100">
           <Sidebar />

@@ -10,6 +10,8 @@
 
   import { PAGE_LINKS } from '../../definitions'
 
+  import styles from './Sidebar.css'
+
   /**
    * Egy adott oldalra való kattintás eseménykezelője.
    * @param target - A cél.
@@ -22,12 +24,12 @@
 </script>
 
 <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse h-100">
-  <div class="position-sticky pt-3">
+  <div class="position-sticky pt-3 { styles.sticky }">
     <ul class="nav flex-column">
       {#each Object.getEntries(PAGE_LINKS) as [ key, value ] (key)}
         <li class="nav-item">
           <button
-            class="btn nav-link link"
+            class="btn nav-link { styles.link }"
             on:click={ () => onClickItem(key) }
             aria-disabled="true"
             tabindex="-1"
@@ -42,9 +44,3 @@
     </ul>
   </div>
 </nav>
-
-<style>
-  .link {
-    color: #333;
-  }
-</style>

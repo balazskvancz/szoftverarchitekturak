@@ -24,12 +24,12 @@
 </script>
 
 <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse h-100">
-  <div class="position-sticky pt-3">
+  <div class="position-sticky pt-3 { styles.sticky }">
     <ul class="nav flex-column">
       {#each Object.getEntries(PAGE_LINKS) as [ key, value ] (key)}
         <li class="nav-item">
           <button
-            class="btn nav-link link { styles.cLink }"
+            class="btn nav-link { styles.link }"
             on:click={ () => onClickItem(key) }
             aria-disabled="true"
             tabindex="-1"

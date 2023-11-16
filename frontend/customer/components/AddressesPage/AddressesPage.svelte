@@ -2,13 +2,19 @@
   lang="ts"
   strictEvents
 >
-  import { onMount } from 'svelte'
+  import { onMount, onDestroy } from 'svelte'
 
   import Button         from '@common/components/Button/Button.svelte'
+  import ConfirmModal   from '@common/components/ConfirmModal/ConfirmModal.svelte'
   import DashboardCard  from '@common/components/DashboardCard/DashboardCard.svelte'
   import Table          from '@common/components/Table/Table.svelte'
 
   import type { TAddresses, TFormErrors } from '../../definitions'
+
+  import {
+    onDeleteAddress,
+    onSuccessOccured
+  } from '../../store'
 
   import ajax from '../../ajax'
 
@@ -33,6 +39,11 @@
 
   let data: TAddresses = []
 
+  let addressIdToDelete: number | null  = null
+  let isConfirmModalOpened              = false
+
+  $: isConfirmModalOpened = Boolean(addressIdToDelete)
+
   function reset (): void {
     country     = ''
     postalCode  = ''
@@ -44,6 +55,25 @@
     currentlyDisplayed = 'data'
   }
 
+  /** Sikeres esemény kezelője. */
+  function handleSuccess (): void {
+    onSuccessOccured.set('Sikeres művelet!')
+
+    reset()
+  }
+
+  /** Egy adott cím törlésének eseménykezelője. */
+  const unsubcribeOnDelete = onDeleteAddress.subscribe((v) => {
+    if (v) {
+      addressIdToDelete = v
+    }
+  })
+
+  /** Adat lekérdezése a szervertől. */
+  async function getData (): Promise<void> {
+    data = await ajax.getAddresses()
+  }
+
   /**
    * Form eseménykezelője.
    * @param e - A kiváltó esemény.
@@ -51,23 +81,71 @@
   async function onSubmitForm (e: Event): Promise<void> {
     e.preventDefault()
 
-    await Promise.resolve()
+    const error = await ajax.insertCustomerAddress({
+      city,
+      country,
+      house,
+      postalCode,
+      street,
+
+      // Ide nyugodtan mehet -1, úgyis felülcsapja az első szolg.
+      userId: -1
+    })
+
+    formErrors = error ? error.formErrors ?? [] : []
+
+    if (formErrors.length === 0) {
+      handleSuccess()
+
+      await getData()
+    }
+  }
+
+  /**
+   * ConfirmModal visszaigazolás ezelője.
+   * @param isConfirmed - Vissza lett-e igazolva.
+   */
+  async function handleOnCloseConfirmModal (isConfirmed: boolean): Promise<void> {
+    const idToDelete = addressIdToDelete ?? 0
+
+    addressIdToDelete = null
+
+    if (!isConfirmed) {
+      return
+    }
+
+    const res = await ajax.deleteCustomerAddress(idToDelete)
+
+    if (!res) {
+      handleSuccess()
+
+      await getData()
+    }
   }
 
   onMount(async () => {
-    data = await ajax.getAddresses()
+    await getData()
   })
 
+  onDestroy(() => {
+    unsubcribeOnDelete()
+  })
 </script>
+
+<ConfirmModal
+  bind:isOpened={ isConfirmModalOpened }
+  onClose={ handleOnCloseConfirmModal }
+  title="Biztosan törölni szeretnéd a címet?"
+/>
 
 <DashboardCard pageTitle="Címek">
   <div slot="content">
     <div class="row">
-      <div class="cols-sm-12 col-md-6 text-lg-end">
+      <div class="cols-sm-12 text-lg-end">
         {#if currentlyDisplayed === 'data'}
           <Button
             btnType="button"
-            className="secondary"
+            className="btn-primary"
             onClick={ () => {
               currentlyDisplayed = 'form'
             } }
@@ -78,12 +156,14 @@
         {:else}
           <Button
             btnType="button"
-            className="secondary"
+            className="btn-secondary"
             onClick={ reset }
           >
             Visszalépés
           </Button>
         {/if}
+
+        <hr class="my-3" />
       </div>
     </div>
 

@@ -2,6 +2,8 @@
   lang="ts"
   strictEvents
 >
+  import { fade } from 'svelte/transition'
+
   /** Alap onClose. */
   function defaultOnClose (): void { /***/ }
 
@@ -24,6 +26,8 @@
 {#if isOpened}
   <div
     class="modal d-block"
+    in:fade
+    out:fade
     aria-hidden={ false }
     role="dialog"
     tabindex="-1"
