@@ -93,8 +93,11 @@ export type {
   IBaseDimension,
   IInsertAddressRequest,
   IInsertPackageRequest,
+  IGetPackageByIdResponse,
+  TPackageLifeCycleAction,
   IGetDimensionByIdResponse,
-  IGetAllDimensionsResponse
+  IGetAllDimensionsResponse,
+  IGetPackageLifeCyclesResponse
 } from '../backend/packageService/definitions'
 
 export {

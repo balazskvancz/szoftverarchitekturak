@@ -12,6 +12,9 @@ import getCustomers           from './endpoints/getCustomers'
 import getDigestSession       from './endpoints/getDigestSession'
 import getDimensionById       from './endpoints/getDimensionById'
 import getDimensions          from './endpoints/getDimensions'
+import getPackageById         from './endpoints/getPackageById'
+import getPackageLifeCycles   from './endpoints/getPackageLifeCycles'
+import getPackagesByUser      from './endpoints/getPackagesByUser'
 import insertAdmin            from './endpoints/insertAdmin'
 import insertCourier          from './endpoints/insertCourier'
 import insertCustomer         from './endpoints/insertCustomer'
@@ -41,6 +44,9 @@ const ajax = {
   getCustomers,
   getDigestSession,
   getDimensions,
+  getPackageById,
+  getPackageLifeCycles,
+  getPackagesByUser,
   insertAdmin,
   insertCourier,
   insertCustomer,

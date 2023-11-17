@@ -13,17 +13,31 @@ import validateAddress from '../../addresses/utils/validatePostData'
 export default function validatePostData (d: IInsertPackageRequest): IFormError[] {
   const errors: IFormError[] = []
 
-  if (!Validator.isPositiveNumber(d.senderId)) {
-    errors.push({
-      key: 'senderId',
-      message: 'Kötelező küldő azonosítót megadni!'
-    })
-  }
+  // if (!Validator.isPositiveNumber(d.senderId)) {
+    // errors.push({
+      // key: 'senderId',
+      // message: 'Kötelező küldő azonosítót megadni!'
+    // })
+  // }
 
   if (!Validator.isPositiveNumber(d.pickUpAddressId)) {
     errors.push({
       key: 'pickUpAddressId',
       message: 'Kötelező felvételi címet megadni!'
+    })
+  }
+
+  if (!Validator.isNonEmptyString(d.receiverEmail)) {
+    errors.push({
+      key: 'receiverEmail',
+      message: 'Kötelező címzett azonosítót megadni!'
+    })
+  }
+
+  if (!Validator.isNonEmptyString(d.receiverName)) {
+    errors.push({
+      key: 'receiverName',
+      message: 'Kötelező címzett nevet megadni!'
     })
   }
 
@@ -48,25 +62,25 @@ export default function validatePostData (d: IInsertPackageRequest): IFormError[
     })
   }
 
-  if (
-    !Validator.isNull(d.expectedDelivery) &&
-    !Validator.isNonEmptyString(d.expectedDelivery) // TODO: isValidDate
-  ) {
-    errors.push({
-      key: 'expectedDelivery',
-      message: 'Helytelen dátum formátum!'
-    })
-  }
+ //  if (
+    // !Validator.isNull(d.expectedDelivery) &&
+    // !Validator.isNonEmptyString(d.expectedDelivery) // TODO: isValidDate
+  // ) {
+    // errors.push({
+      // key: 'expectedDelivery',
+      // message: 'Helytelen dátum formátum!'
+    // })
+  // }
 
-  if (
-    !Validator.isNull(d.suitableReceipt) &&
-    !Validator.isNonEmptyString(d.suitableReceipt) // TODO: isValidDate
-  ) {
-    errors.push({
-      key: 'suitableReceipt',
-      message: 'Helytelen dátum formátum!'
-    })
-  }
+  // if (
+    // !Validator.isNull(d.suitableReceipt) &&
+    // !Validator.isNonEmptyString(d.suitableReceipt) // TODO: isValidDate
+  // ) {
+    // errors.push({
+      // key: 'suitableReceipt',
+      // message: 'Helytelen dátum formátum!'
+    // })
+  // }
 
   // Az itteni hibák + a címek validálása.
   return [ ...errors, ...validateAddress(d.dest) ]

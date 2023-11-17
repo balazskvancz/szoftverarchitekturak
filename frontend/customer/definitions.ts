@@ -1,3 +1,7 @@
+import type {
+  TPackageLifeCycleAction
+} from '@common/definitions'
+
 export {
   LOGIN_HASH_COOKIE_NAME
 } from '@common/definitions'
@@ -6,7 +10,11 @@ export type {
   IPackage,
   TAddresses,
   TDimensions,
-  TFormErrors
+  TFormErrors,
+  IDigestPackage,
+  TDigestPackages,
+  IPackageLifeCycle,
+  TPackageLifeCycles
 } from '@common/definitions'
 
 export const PAGES = [
@@ -37,4 +45,13 @@ export const PAGE_LINKS: Record<TPage, IPage> = {
     icon: 'bi bi-person-fill-gear',
     url: '/beallitasok'
   }
+}
+
+export const PACKAGE_LIFE_CYCLE_ACTION_NAMES: Record<TPackageLifeCycleAction, string> = {
+  created:        'Feladva',
+  delivered:      'Kézbesítve',
+  movedToCenter:  'Központba szállítva',
+  onDelivery:     'Szállítás alatt',
+  pickedUp:       'Feladótól felvéve',
+  sentBack:       'Visszaküldve'
 }

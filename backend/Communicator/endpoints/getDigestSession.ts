@@ -13,7 +13,7 @@ import sendRequest from './utils/sendRequest'
 export default async function getDigestSession (
   loginHash: string
 ): Promise<IDigestSession | null> {
-  const url = makeUrl(EAuthRoute.GetByHash, [ loginHash ])
+  const url = makeUrl(EAuthRoute.GetDigest, [ loginHash ])
 
   const { isSuccess, data } = await sendRequest<IGetDigestSessionResponse>('GET', url)
 

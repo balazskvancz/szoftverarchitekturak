@@ -1,6 +1,6 @@
 import BaseService from '@common/backend/BaseService'
 
-import type { IPackage, IInsertPackage } from '../definitions'
+import type { IPackage, TPackages, IInsertPackage } from '../definitions'
 
 export default class PackagesService extends BaseService {
   /**
@@ -11,7 +11,8 @@ export default class PackagesService extends BaseService {
     const values = [
       data.senderId, data.pickUpAddressId, data.destAddressId,
       data.dimensionId, data.weight,
-      data.expectedDelivery, data.suitableReceipt
+      data.expectedDelivery, data.suitableReceipt,
+      data.receiverEmail, data.receiverName
     ]
 
     const result = await this.db.exec(`
@@ -23,6 +24,8 @@ export default class PackagesService extends BaseService {
         weight            = ?,
         expectedDelivery  = ?,
         suitableReceipt   = ?,
+        receiverEmail     = ?,
+        receiverName      = ?,
         createdAt         = NOW()
     `, values)
 
@@ -36,25 +39,44 @@ export default class PackagesService extends BaseService {
   public getById (id: number): Promise<IPackage | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
-      WHERE id = ?
+      WHERE p.id = ?
     `, [ id ])
+  }
+
+  /**
+   * Küldő szerinti lekérdezés.
+   * @param senderId - Küldő azonosító.
+   */
+  public getBySenderId (senderId: number): Promise<TPackages> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE p.senderId = ?
+      ORDER BY p.createdAt DESC
+    `, [ senderId ])
   }
 
   /** Alap SQL lekérdezés. */
   private getBaseSql (): string {
     return `
       SELECT
-        id,
-        senderId,
-        pickUpAddressId,
-        destAddressId,
-        dimensionId,
-        weight,
-        expectedDelivery,
-        suitableReceipt,
-        qrCode,
-        createdAt
-      FROM ${ this.tableName }
+        p.id,
+        p.senderId,
+        p.pickUpAddressId,
+        p.destAddressId,
+        p.receiverEmail,
+        p.receiverName,
+        p.dimensionId,
+        p.weight,
+        p.expectedDelivery,
+        p.suitableReceipt,
+        p.qrCode,
+        p.createdAt,
+
+        d.length,
+        d.depth,
+        d.width
+      FROM ${ this.tableName } AS p
+      INNER JOIN dimensions AS d ON p.dimensionId = d.id
     `
   }
 }

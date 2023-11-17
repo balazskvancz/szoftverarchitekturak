@@ -2,8 +2,10 @@ import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
 import Validator from '@common/Validator/Validator'
 
-import type { IService }      from '@packageService/getServices'
-import type { IInsertPackageRequest }  from '@packageService/definitions'
+import type { IService } from '@packageService/getServices'
+
+import type { IUser, IInsertPackageRequest }  from '@packageService/definitions'
+import { EBindValue } from '@packageService/definitions'
 
 import Error from '@packageService/Error'
 
@@ -15,6 +17,17 @@ import validatePostData from './utils/validatePostData'
  */
 export default function insert (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
+    const user = ctx.getBindedValue<IUser>(EBindValue.User)
+
+    if (!Validator.isDefined(user)) {
+      ctx.sendError({
+        code: Error.codes.ERR_USER_NOT_AUTHENTICATED,
+        message: Error.messages.ERR_USER_NOT_AUTHENTICATED
+      })
+
+      return
+    }
+
     const postData = ctx.getBody<IInsertPackageRequest>()
 
     if (!Validator.isDefined(postData)) {
@@ -76,7 +89,10 @@ export default function insert (services: IService): TCallbackFunction {
 
     const insertedId = await services.packages.insert({
       ...postData,
-      destAddressId // Az újonnan beszúrt szállítási cím azonosítója.
+      senderId: user.id,
+      destAddressId, // Az újonnan beszúrt szállítási cím azonosítója.
+      expectedDelivery: null,
+      suitableReceipt: null
     })
 
     if (insertedId <= 0) {
@@ -92,7 +108,7 @@ export default function insert (services: IService): TCallbackFunction {
     await services.packageLifecycles.insert({
       action: 'created',
       packageId: insertedId,
-      userId: postData.senderId
+      userId: user.id
     })
 
     ctx.sendOk()

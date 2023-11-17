@@ -66,31 +66,6 @@ export interface IGetDimensionByIdResponse {
   readonly dimension: IDimension | null
 }
 
-/** Csomagok. */
-export interface IBasePackage {
-  readonly pickUpAddressId: number
-  readonly dimensionId: number
-  readonly weight: number
-}
-
-export interface IInsertPackageRequest extends IBasePackage {
-  readonly dest: IBaseAddress
-}
-
-export interface IInsertPackage extends IBasePackage {
-  readonly destAddressId: number
-  readonly senderId: number
-  readonly expectedDelivery: string | null
-  readonly suitableReceipt: string | null
-
-}
-
-export interface IPackage extends IInsertPackage {
-  readonly id: number
-  readonly qrcode: string
-  readonly createdAt: string
-}
-
 /** Csomag életciklus események. */
 export const PACKAGE_LIFECYCLES = [
   'created',
@@ -143,6 +118,53 @@ export interface IPackageLifeCycle extends IBasePackageLifeCycle {
 
 export type TPackageLifeCycles = readonly IPackageLifeCycle[]
 
+export interface IGetPackageLifeCyclesResponse {
+  readonly lifeCycles: TPackageLifeCycles
+}
+
+/** Csomagok. */
+export interface IBasePackage {
+  readonly pickUpAddressId: number
+  readonly dimensionId: number
+  readonly weight: number
+  readonly receiverEmail: string
+  readonly receiverName: string
+}
+
+export interface IInsertPackageRequest extends IBasePackage {
+  readonly dest: IBaseAddress
+}
+
+export interface IInsertPackage extends IBasePackage {
+  readonly destAddressId: number
+  readonly senderId: number
+  readonly expectedDelivery: string | null
+  readonly suitableReceipt: string | null
+}
+
+export interface IPackage extends IInsertPackage, IBaseDimension {
+  readonly id: number
+  readonly qrcode: string
+  readonly createdAt: string
+}
+
+export type TPackages = readonly IPackage[]
+
+export interface IDigestPackage extends IPackage {
+  readonly lifeCycles: TPackageLifeCycles
+  readonly destAddress: IAddress | null
+}
+
+export type TDigestPackages = readonly IDigestPackage[]
+
+export interface IGetPackageByIdResponse {
+  readonly digestPackage: IDigestPackage
+}
+
+export interface IGetDigestPackages {
+  readonly digestPackages: TDigestPackages
+}
+
 export enum EDimensionsRoute {
   DeleteById  = '/api/package/dimensions/:id',
   GetAll      = '/api/package/dimensions',
@@ -158,6 +180,8 @@ export enum EAddressesRoute {
 }
 
 export enum EPackagesRoute {
+  Get           = '/api/package/packages',
+  GetById       = '/api/package/packages/:id',
   Insert        = '/api/package/packages',
   GetLifeCycles = '/api/package/packages/:id/life-cycles'
 }

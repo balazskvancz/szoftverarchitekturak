@@ -55,6 +55,18 @@ export default class PackageLifeCyclesService extends BaseService {
     `, [ packageId ])
   }
 
+  /**
+   * Visszaadja adott csomagokhoz tartozó összes életciklus eseményt.
+   * @param packageIds - Csomag azonosítói.
+   */
+  public getByPackageIds (packageIds: number[]): Promise<TPackageLifeCycles> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE packageId IN (${ packageIds.join(', ') })
+      ORDER BY packageId, createdAt DESC
+    `)
+  }
+
   /** Alap SQL lekérdezés. */
   private getBaseSql (): string {
     return `

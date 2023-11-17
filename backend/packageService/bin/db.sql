@@ -32,6 +32,8 @@ CREATE TABLE packages (
   senderId          INTEGER       NOT NULL,
   pickUpAddressId   INTEGER       NOT NULL,
   destAddressId     INTEGER       NOT NULL,
+  receiverEmail     VARCHAR (255) NOT NULL,
+  receiverName      VARCHAR (255) NOT NULL,
   dimensionId       INTEGER       NOT NULL,
   weight            DOUBLE (5, 2) NOT NULL,
   expectedDelivery  DATE          DEFAULT NULL,

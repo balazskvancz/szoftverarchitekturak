@@ -5,7 +5,9 @@
   import Button     from '@common/components/Button/Button.svelte'
   import Card       from '@common/components/Card/Card.svelte'
   import FormInput  from '@common/components/FormInput/FormInput.svelte'
-  import SelectBox  from '@common/components/SelectBox/SelectBox.svelte'
+  import Select     from '@common/components/Select/Select.svelte'
+
+  import type { TSelectValues } from '@common/components/definitions'
 
   import type { TAddresses, TDimensions, TFormErrors } from '../../definitions'
 
@@ -16,8 +18,10 @@
   export let street: string
   export let house: string
 
-  // Csomag súlya.
+  // Csomag súlya, címzett egyéb adatai.
   export let weight: string
+  export let receiverName: string
+  export let receiverEmail: string
 
   // Kiválasztott felvételi cím és csomag dimenzió.
   export let selectedAddress: string
@@ -28,34 +32,37 @@
   export let addresses: TAddresses
   export let dimensions: TDimensions
 
-  const addressSelectItems = addresses.map(({ id, city, street, house }) => ({
+  let addressSelectItems: TSelectValues = []
+  $: addressSelectItems = addresses.map(({ id, city, street, house }) => ({
     value: id.toString(),
-    name: `${ city } ${ street } ${ house }`
+    text: `${ city } ${ street } ${ house }`
   }))
 
-  const dimensionSelectItems = dimensions.map(({ id, depth, length, width }) => ({
+  let dimensionSelectItems: TSelectValues = []
+  $: dimensionSelectItems = dimensions.map(({ id, depth, length, width }) => ({
     value: id.toString(),
-    name: `${ width }x${ length }x${ depth }`
+    text: `${ width }x${ length }x${ depth }`
   }))
 </script>
 
 <form on:submit={ onSubmit }>
   <div class="col-sm-12 col-md-6 mx-auto">
-    <SelectBox
+    <Select
       bind:formErrors
-      bind:selectedValue={ selectedAddress }
-      items={ addressSelectItems }
+      bind:value={ selectedAddress }
+      label="Felvételi cím"
       name="pickUpAddressId"
+      values={ addressSelectItems }
     />
   </div>
 
   <div class="col-sm-12 col-md-6 mx-auto">
-    <SelectBox
+    <Select
       bind:formErrors
-      bind:selectedValue={ selectedDimension }
-      items={ dimensionSelectItems }
+      bind:value={ selectedDimension }
       label="Csomag dimenzió"
       name="dimensionId"
+      values={ dimensionSelectItems }
     />
   </div>
 
@@ -67,6 +74,30 @@
       label="Csomag súlya"
       name="weight"
       placeholder="pl. 5"
+      type="text"
+    />
+  </div>
+
+  <div class="col-sm-12 col-md-6 mx-auto">
+    <FormInput
+      bind:formErrors
+      bind:value={ receiverName }
+      autocomplete="off"
+      label="Címzett neve"
+      name="receiverName"
+      placeholder="pl. Teszt Elek"
+      type="text"
+    />
+  </div>
+
+  <div class="col-sm-12 col-md-6 mx-auto">
+    <FormInput
+      bind:formErrors
+      bind:value={ receiverEmail }
+      autocomplete="off"
+      label="Címzett e-mail címe"
+      name="receiverEmail"
+      placeholder="pl. teszt@teszt.hu"
       type="text"
     />
   </div>
