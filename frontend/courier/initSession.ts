@@ -7,6 +7,8 @@ import { LOGIN_HASH_COOKIE_NAME } from './definitions'
 
 import ajax from './ajax'
 
+import { onLogin } from './store'
+
 /** Inicializálja a session-t a sütik alapján. */
 export default async function initSession (): Promise<boolean> {
   const loginHashCookie = Cookie.get(document.cookie, LOGIN_HASH_COOKIE_NAME)
@@ -27,5 +29,11 @@ export default async function initSession (): Promise<boolean> {
     return false
   }
 
-  return user.role === 'courier'
+  if (user.role !== 'courier') {
+    return false
+  }
+
+  onLogin.set(user)
+
+  return true
 }

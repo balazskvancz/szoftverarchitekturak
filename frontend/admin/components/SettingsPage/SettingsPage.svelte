@@ -20,7 +20,7 @@
 
   let name: string
   let email: string
-  let telephone: string
+  let telephone: string | null
 
   let currentPassword: string
   let password: string
@@ -37,15 +37,14 @@
 
     userId = v.id
 
-    const customer = await ajax.getCustomerById(userId)
+    const admin = await ajax.getAdminById(userId)
 
-    if (!customer) {
+    if (!admin) {
       return
     }
 
-    name      = customer.name
-    email     = customer.email
-    telephone = customer.telephone
+    name  = admin.name
+    email = admin.email
   })
 
   /** Sikeres esemény kezelője. */
@@ -61,10 +60,9 @@
     e.preventDefault()
     await Promise.resolve()
 
-    const error = await ajax.updateCustomer(userId, {
+    const error = await ajax.updateAdmin(userId, {
       email,
-      name,
-      telephone
+      name
     })
 
     formErrors = error ? error.formErrors ?? [] : []

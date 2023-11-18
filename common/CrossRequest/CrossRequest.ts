@@ -7,7 +7,8 @@ import type { ICrossResponse } from './definitions'
 
 type TData = Object | string | null
 
-const HTTP_STATUS_OK = 200
+const HTTP_STATUS_OK          = 200
+const HTTP_STATUS_BAD_REQUEST = 400
 
 export default class CrossRequest extends Request {
   /**
@@ -34,9 +35,21 @@ export default class CrossRequest extends Request {
         )
 
         res.on('end', () => {
+          if (
+            res.statusCode === HTTP_STATUS_OK ||
+            res.statusCode === HTTP_STATUS_BAD_REQUEST
+          ) {
+            resolve({
+              data: JSON.parse(body),
+              isSuccess: res.statusCode === HTTP_STATUS_OK
+            })
+
+            return
+          }
+
           resolve({
-            data: JSON.parse(body),
-            isSuccess: res.statusCode === HTTP_STATUS_OK
+            data: null,
+            isSuccess: false
           })
         })
       })

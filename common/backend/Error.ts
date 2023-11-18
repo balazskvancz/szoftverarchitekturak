@@ -7,6 +7,7 @@ export type TError = (
   'ERR_NOT_ADMIN'               |
   'ERR_NOT_CUSTOMER'            |
   'ERR_NOT_COURIER'             |
+  'ERR_MISSING_PERMISSON'       |
 
   'ERR_DB_INSERT'               |
   'ERR_DB_UPDATE'               |
@@ -20,6 +21,7 @@ const ERROR_CODES: TErrorCodes<TError> = {
   ERR_NOT_ADMIN:              103,
   ERR_NOT_CUSTOMER:           104,
   ERR_NOT_COURIER:            105,
+  ERR_MISSING_PERMISSON:      106,
 
   ERR_DB_DELETE:              200,
   ERR_DB_INSERT:              201,
@@ -33,6 +35,7 @@ const ERROR_MESSAGES: TErrorMessages<TError> = {
   ERR_NOT_ADMIN:              'A felhasználó nem admin!',
   ERR_NOT_CUSTOMER:           'A felhasználó nem sima felhasználó!',
   ERR_NOT_COURIER:            'A felhasználó nem futár!',
+  ERR_MISSING_PERMISSON:      'Hiányzó jogosultság!',
 
   ERR_DB_DELETE:              'Sikertelen adatbázis törlés!',
   ERR_DB_INSERT:              'Sikertelen adatbázis beszúrás!',

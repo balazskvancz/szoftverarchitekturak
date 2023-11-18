@@ -15,6 +15,8 @@ export default async function getUserById (userId: number): Promise<IUser | null
   const { data, isSuccess } = await sendRequest<IGetUserResponse>('GET', url)
 
   if (!isSuccess) {
+    console.log(data)
+
     return null
   }
 

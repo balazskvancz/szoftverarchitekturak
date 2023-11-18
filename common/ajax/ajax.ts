@@ -1,3 +1,4 @@
+import changePassword         from './endpoints/changePassword'
 import deleteAddress          from './endpoints/deleteAddress'
 import deleteCustomerAddress  from './endpoints/deleteCustomerAddress'
 import deleteDimension        from './endpoints/deleteDimension'
@@ -30,6 +31,7 @@ import updateCustomer         from './endpoints/updateCustomer'
 import updateDimension        from './endpoints/updateDimension'
 
 const ajax = {
+  changePassword,
   deleteAddress,
   deleteCustomerAddress,
   deleteDimension,

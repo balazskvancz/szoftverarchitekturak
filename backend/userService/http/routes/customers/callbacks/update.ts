@@ -4,7 +4,8 @@ import Validator from '@common/Validator/Validator'
 
 import Error from '@userService/Error'
 
-import type { IBaseCustomer } from '@userService/definitions'
+import type { IUser, IBaseCustomer } from '@userService/definitions'
+import { EBindValue } from '@userService/definitions'
 
 import type { IService } from '@userService/getServices'
 
@@ -22,6 +23,17 @@ export default function update (services: IService): TCallbackFunction {
       ctx.sendError({
         code: Error.codes.ERR_WRONG_PARAM,
         message: Error.messages.ERR_WRONG_PARAM
+      })
+
+      return
+    }
+
+    const user = ctx.getBindedValue<IUser>(EBindValue.User)
+
+    if (!Validator.isDefined(user)) {
+      ctx.sendError({
+        code: Error.codes.ERR_USER_NOT_AUTHENTICATED,
+        message: Error.messages.ERR_USER_NOT_AUTHENTICATED
       })
 
       return
@@ -55,6 +67,19 @@ export default function update (services: IService): TCallbackFunction {
       ctx.sendError({
         code: Error.codes.ERR_USER_NOT_EXISTS,
         message: Error.messages.ERR_USER_NOT_EXISTS
+      })
+
+      return
+    }
+
+    // Csak admin vagy saját maga módosíthat.
+    if (
+      user.role !== 'admin' && // Tehát csak admin
+      !(user.role === 'customer' && user.id === customer.id)
+    ) {
+      ctx.sendError({
+        code: Error.codes.ERR_MISSING_PERMISSON,
+        message: Error.messages.ERR_MISSING_PERMISSON
       })
 
       return

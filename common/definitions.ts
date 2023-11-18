@@ -91,6 +91,10 @@ export type {
   TAddresses,
   TDimensions,
   IBaseDimension,
+  IDigestPackage,
+  TDigestPackages,
+  IPackageLifeCycle,
+  TPackageLifeCycles,
   IInsertAddressRequest,
   IInsertPackageRequest,
   IGetPackageByIdResponse,
@@ -108,6 +112,7 @@ export {
 /** UserService. */
 
 export type {
+  IUser,
   IAdmin,
   TAdmins,
   ICourier,
@@ -123,6 +128,7 @@ export type {
   IInsertUserRequest,
   IGetAdminByIdResponse,
   IGetAllAdminsResponse,
+  IChangePasswordRequest,
   IGetCourierByIdResponse,
   IGetAllCouriersResponse,
   IGetAllCustomersResponse,

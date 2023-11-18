@@ -4,6 +4,8 @@ import type { IService } from '../../getServices'
 
 import { ECustomersRoute } from '../../definitions'
 
+import attachUser from '../middlewares/attachUser'
+
 import get            from './customers/callbacks/get'
 import getById        from './customers/callbacks/getById'
 import insert         from './customers/callbacks/insert'
@@ -18,5 +20,7 @@ export default function customersRoutes (router: IRouter, services: IService): v
   router.get(ECustomersRoute.Get, get(services))
   router.get(ECustomersRoute.GetById, getById(services))
   router.post(ECustomersRoute.Insert, insert(services))
+
   router.put(ECustomersRoute.Update, update(services))
+    .registerMiddleware(attachUser(services))
 }

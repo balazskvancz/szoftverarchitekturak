@@ -44,7 +44,7 @@ export default function getByEmailAndPassword (services: IService): TCallbackFun
       return
     }
 
-    const user = await services.users.getUserIdByEmailPass(loginData.email, createPassword(loginData.password))
+    const user = await services.users.getUserByEmailAndPass(loginData.email, createPassword(loginData.password))
 
     if (Validator.isNull(user)) {
       ctx.sendError({

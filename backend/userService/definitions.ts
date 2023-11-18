@@ -61,6 +61,10 @@ export interface IUser extends IBaseUser, IUserRole {
 
 export type TUsers = readonly IUser[]
 
+export interface IGetUserByIdResponse {
+  readonly user: IUser | null
+}
+
 export interface IAdmin extends IUser {}
 
 export type TAdmins = readonly IAdmin[]
@@ -144,10 +148,11 @@ export interface IGetAllAddresses {
 }
 
 export enum EUsersRoute {
+  ChangePassword          = '/api/user/users/change-password',
   DeleteById              = '/api/user/users/:id',
   GetAll                  = '/api/user/users/get-all',
-  GetUserById             = '/api/user/users/:id',
-  GetByEmailAndPassword   = '/api/user/get-by-email-and-password'
+  GetUserById             = '/api/user/users/by-id/:id',
+  GetByEmailAndPassword   = '/api/user/users/by-email-and-password'
 }
 
 export enum EAdminsRoute {

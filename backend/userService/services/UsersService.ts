@@ -1,6 +1,6 @@
 import BaseService from '@common/backend/BaseService'
 
-import type { IUser, TUserType, IBaseUser, IPassword, IInsertUser } from '../definitions'
+import type { IUser, TUserType, IBaseUser, IInsertUser } from '../definitions'
 
 export default class UsersService extends BaseService {
   /**
@@ -63,7 +63,7 @@ export default class UsersService extends BaseService {
    * @param email     - E-mail cím.
    * @param password  - Jelszó.
    */
-  public getUserIdByEmailPass (email: string, password: string): Promise<IUser | null> {
+  public getUserByEmailAndPass (email: string, password: string): Promise<IUser | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
         AND email     = ?
@@ -114,15 +114,15 @@ export default class UsersService extends BaseService {
 
   /**
    * Egy adott felhasználó jelszavának módosítása.
-   * @param id    - Felhasználó azonosító.
-   * @param data  - Adat.
+   * @param id        - Felhasználó azonosító.
+   * @param password  - Az új jelszó hashelve.
    */
-  public async updatePassword (id: number, data: IPassword): Promise<boolean> {
+  public async updatePassword (id: number, password: string): Promise<boolean> {
     const result = await this.db.exec(`
-      UDPATE ${ this.tableName } SET
+      UPDATE ${ this.tableName } SET
         password = ?
       WHERE id = ?
-    `, [ data.password, id ])
+    `, [ password, id ])
 
     return this.db.hasAffectedRows(result)
   }

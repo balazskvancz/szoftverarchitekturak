@@ -7,6 +7,7 @@ export {
 } from '@common/definitions'
 
 export type {
+  IUser,
   IPackage,
   TAddresses,
   TDimensions,

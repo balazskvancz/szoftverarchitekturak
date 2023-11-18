@@ -1,4 +1,5 @@
 export type {
+  IUser,
   IAdmin,
   TAdmins,
   ICourier,
@@ -17,7 +18,7 @@ export {
 } from '@common/definitions'
 
 export const PAGES = [
-  'dimensions', 'admins', 'couriers', 'customers'
+  'dimensions', 'admins', 'couriers', 'customers', 'settings'
 ] as const
 
 export type TPage = typeof PAGES[number]
@@ -48,6 +49,11 @@ export const PAGE_LINKS: Record<TPage, IPage> = {
     displayName: 'Felhasználók',
     url: '/felhasznalok',
     icon: 'bi bi-person-vcard'
-
+  },
+  settings: {
+    displayName: 'Beállítások',
+    url: '/beallatasok',
+    icon: 'bi bi-person-fill-gear'
   }
+
 }

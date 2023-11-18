@@ -3,6 +3,7 @@ export {
 } from '@common/definitions'
 
 export type {
+  IUser,
   TFormErrors
 } from '@common/definitions'
 
