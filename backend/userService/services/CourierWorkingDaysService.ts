@@ -12,7 +12,7 @@ export default class CourierWorkingDaysService extends BaseService {
    */
   public async massInsert (data: IBaseCourierWorkingDay[]): Promise<boolean> {
     const values = data.map(({ day, userId }) => {
-      return `${ userId }, ${ this.db.escape(day) }, NOW()`
+      return `(${ userId }, ${ this.db.escape(day) }, NOW())`
     })
 
     const result = await this.db.exec(`
@@ -27,14 +27,14 @@ export default class CourierWorkingDaysService extends BaseService {
   /**
    * Felhasználó szerinti munkanapok lekérdezése.
    * @param userId    - Felhasználó azonosító.
-   * @param startDate - Kezdő dátum, ha van.
+   * @param yearhMonth - Kezdő dátum, ha van.
    */
   public getByUserId (
     userId: number,
-    startDate?: string
+    yearhMonth?: string
   ): Promise<TCourierWorkingDays> {
-    const predicate = startDate
-      ? `AND day >= ${ this.db.escape(startDate) }`
+    const predicate = yearhMonth
+      ? `AND day BETWEEN ${ this.db.escape(`${ yearhMonth }-1`) } AND ${ this.db.escape(`${ yearhMonth }-31`) }`
       : ''
 
     return this.db.getArray(`
@@ -54,6 +54,19 @@ export default class CourierWorkingDaysService extends BaseService {
       WHERE userId = ?
       AND day = ?
     `, [ data.userId, data.day ])
+
+    return this.db.hasAffectedRows(result)
+  }
+
+  /**
+   * Tömeges törlés.
+   * @param ids - Törlendő egyedek azonosíója.
+   */
+  public async massDelete (ids: number[]): Promise<boolean> {
+    const result = await this.db.exec(`
+      DELETE FROM ${ this.tableName }
+      WHERE id IN (${ ids.join(', ') })
+    `)
 
     return this.db.hasAffectedRows(result)
   }

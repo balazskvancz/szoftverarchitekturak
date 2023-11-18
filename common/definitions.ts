@@ -126,13 +126,17 @@ export type {
   IInsertCustomer,
   IGetAllAddresses,
   IInsertUserRequest,
+  ICourierCalendarDay,
+  TCourierCalendarWeek,
   IGetAdminByIdResponse,
   IGetAllAdminsResponse,
+  ISetWorkingDaysRequest,
   IChangePasswordRequest,
   IGetCourierByIdResponse,
   IGetAllCouriersResponse,
   IGetAllCustomersResponse,
-  IGetCustomerByIdResponse
+  IGetCustomerByIdResponse,
+  IGetCourierCalendarResponse
 } from '../backend/userService/definitions'
 
 export {
@@ -140,7 +144,8 @@ export {
   EAdminsRoute,
   ECourierRoute,
   ECustomersRoute,
-  ECustomerAddressesRoute
+  ECustomerAddressesRoute,
+  ECourierWorkingDaysRoute
 } from '../backend/userService/definitions'
 
 export const LOGIN_HASH_COOKIE_NAME = 'szoftverarchitekturak:loginHash'

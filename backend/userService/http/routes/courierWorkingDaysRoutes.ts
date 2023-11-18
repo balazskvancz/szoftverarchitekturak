@@ -8,9 +8,8 @@ import { ECourierWorkingDaysRoute } from '../../definitions'
 
 import attachUser from '../middlewares/attachUser'
 
-import deleteByDate from './courierWorkingDays/callbacks/deleteByDate'
-import get          from './courierWorkingDays/callbacks/get'
-import insert       from './courierWorkingDays/callbacks/insert'
+import getCalendar  from './courierWorkingDays/callbacks/getCalendar'
+import set          from './courierWorkingDays/callbacks/set'
 
 /**
  * Felveszi az összes, futárok munkabeosztásával kapcsolatos végpontot.
@@ -18,15 +17,11 @@ import insert       from './courierWorkingDays/callbacks/insert'
  * @param services  - Services.
  */
 export default function courierWorkingDaysRoutes (router: IRouter, services: IService): void {
-  router.delete(ECourierWorkingDaysRoute.DeleteByDate, deleteByDate(services))
+  router.get(ECourierWorkingDaysRoute.GetCalendar, getCalendar(services))
     .registerMiddleware(attachUser(services))
     .registerMiddleware(courier)
 
-  router.get(ECourierWorkingDaysRoute.Get, get(services))
-    .registerMiddleware(attachUser(services))
-    .registerMiddleware(courier)
-
-  router.post(ECourierWorkingDaysRoute.Insert, insert(services))
+  router.post(ECourierWorkingDaysRoute.Set, set(services))
     .registerMiddleware(attachUser(services))
     .registerMiddleware(courier)
 }

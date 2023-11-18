@@ -17,7 +17,8 @@ module.exports = [
       ...require('../rules/svelte'),
       ...require('../rules/typescript'),
 
-      'svelte/experimental-require-slot-types': 0
+      'svelte/experimental-require-slot-types': 0,
+      'svelte/require-each-key': 0 // Megőrjít.
     }
   }
 ]

@@ -118,7 +118,7 @@ export interface IGetAllCustomersResponse {
 }
 
 /** Futár munkanapok. */
-export interface IInsertWorkingDaysRequest {
+export interface ISetWorkingDaysRequest {
   readonly dates: string[]
 }
 
@@ -136,6 +136,17 @@ export type TCourierWorkingDays = readonly ICourierWorkingDay[]
 
 export interface IGetCourierWorkingDaysResponse {
   readonly workingDays: TCourierWorkingDays
+}
+
+export interface ICourierCalendarDay {
+  readonly date: string
+  readonly isSetForWorking: boolean
+}
+
+export type TCourierCalendarWeek = readonly ICourierCalendarDay[]
+
+export interface IGetCourierCalendarResponse {
+  readonly calendarWeeks: TCourierCalendarWeek[]
 }
 
 /** Felhasználó - címek. */
@@ -177,9 +188,8 @@ export enum ECourierRoute {
 }
 
 export enum ECourierWorkingDaysRoute {
-  DeleteByDate  = '/api/user/courier-working-days/:date',
-  Get           = '/api/user/courier-working-days',
-  Insert        = '/api/user/courier/working-days'
+  GetCalendar = '/api/user/courier-working-days/calendar',
+  Set         = '/api/user/courier/working-days/set'
 }
 
 export enum ECustomersRoute {

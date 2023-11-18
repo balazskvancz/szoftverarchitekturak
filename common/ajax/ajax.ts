@@ -7,6 +7,7 @@ import getAddresses           from './endpoints/getAddresses'
 import getAdminById           from './endpoints/getAdminById'
 import getAdmins              from './endpoints/getAdmins'
 import getCourierById         from './endpoints/getCourierById'
+import getCourierCalendar     from './endpoints/getCourierCalendar'
 import getCouriers            from './endpoints/getCouriers'
 import getCustomerById        from './endpoints/getCustomerById'
 import getCustomers           from './endpoints/getCustomers'
@@ -25,6 +26,7 @@ import insertPackage          from './endpoints/insertPackage'
 import login                  from './endpoints/login'
 import logout                 from './endpoints/logout'
 import registration           from './endpoints/registration'
+import setWorkingDays         from './endpoints/setWorkingDays'
 import updateAdmin            from './endpoints/updateAdmin'
 import updateCourier          from './endpoints/updateCourier'
 import updateCustomer         from './endpoints/updateCustomer'
@@ -43,6 +45,7 @@ const ajax = {
   getCourierById,
   getCouriers,
   getCustomerById,
+  getCourierCalendar,
   getCustomers,
   getDigestSession,
   getDimensions,
@@ -58,6 +61,7 @@ const ajax = {
   login,
   logout,
   registration,
+  setWorkingDays,
   updateAdmin,
   updateCourier,
   updateCustomer,

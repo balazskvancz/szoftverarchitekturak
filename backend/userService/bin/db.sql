@@ -29,7 +29,7 @@ CREATE TABLE courierWorkingDays (
   day         DATE      NOT NULL,
   createdAt   DATETIME  NOT NULL,
 
-  PRIMARY KEY (userId, day)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE customers (

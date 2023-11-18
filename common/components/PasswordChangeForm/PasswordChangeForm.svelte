@@ -16,7 +16,7 @@
 </script>
 
 <form on:submit={ onSubmit }>
-  <h3>Alapadatok</h3>
+  <h3>Jelszó megváltoztatás</h3>
 
   <div class="col-sm-12 col-md-6 mx-auto">
     <FormInput
