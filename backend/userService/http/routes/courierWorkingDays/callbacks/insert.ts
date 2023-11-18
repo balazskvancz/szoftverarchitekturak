@@ -7,19 +7,15 @@ import Error from '@userService/Error'
 import type { IService } from '@userService/getServices'
 
 import { EBindValue } from '@userService/definitions'
-import type { IUser, IBaseCourierWorkingDay } from '@userService/definitions'
-
-interface ISetWorkingDaysRequest {
-  readonly dates: string[]
-}
+import type { IUser, IBaseCourierWorkingDay, IInsertWorkingDaysRequest } from '@userService/definitions'
 
 /**
  * Egy új futár felvételét megvalósító végpont.
  * @param services - Services.
  */
-export default function setWorkingDays (services: IService): TCallbackFunction {
+export default function insert (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
-    const postData = ctx.getBody<ISetWorkingDaysRequest>()
+    const postData = ctx.getBody<IInsertWorkingDaysRequest>()
 
     if (!Validator.isDefined(postData)) {
       ctx.sendError({

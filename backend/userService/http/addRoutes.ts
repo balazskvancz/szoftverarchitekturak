@@ -7,6 +7,7 @@ import type { IService } from '../getServices'
 
 import adminsRoutes             from './routes/adminsRoutes'
 import couriersRoutes           from './routes/couriersRoutes'
+import courierWorkingDaysRoutes from './routes/courierWorkingDaysRoutes'
 import customerAddressessRoutes from './routes/customerAddressesRoutes'
 import customersRoutes          from './routes/customersRoutes'
 import usersRoutes              from './routes/usersRoutes'
@@ -21,6 +22,7 @@ export default function addRoutes (router: IRouter, services: IService): void {
 
   adminsRoutes(router, services)
   couriersRoutes(router, services)
+  courierWorkingDaysRoutes(router, services)
   customerAddressessRoutes(router, services)
   customersRoutes(router, services)
   usersRoutes(router, services)

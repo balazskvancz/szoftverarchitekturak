@@ -17,7 +17,7 @@ import type { IService } from '@backend/userService/getServices'
  * Egy adott korábban vállalt munkanap törlése.
  * @param services - Services.
  */
-export default function deleteWorkingDay (services: IService): TCallbackFunction {
+export default function deleteByDate (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const { date } = ctx.getRouteParams()
 
