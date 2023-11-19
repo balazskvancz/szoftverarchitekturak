@@ -11,7 +11,6 @@ export default class PackagesService extends BaseService {
     const values = [
       data.senderId, data.pickUpAddressId, data.destAddressId,
       data.dimensionId, data.weight,
-      data.expectedDelivery, data.suitableReceipt,
       data.receiverEmail, data.receiverName
     ]
 
@@ -22,8 +21,6 @@ export default class PackagesService extends BaseService {
         destAddressId     = ?,
         dimensionId       = ?,
         weight            = ?,
-        expectedDelivery  = ?,
-        suitableReceipt   = ?,
         receiverEmail     = ?,
         receiverName      = ?,
         createdAt         = NOW()
@@ -41,6 +38,17 @@ export default class PackagesService extends BaseService {
       ${ this.getBaseSql() }
       WHERE p.id = ?
     `, [ id ])
+  }
+
+  /**
+   * Csomagok lekérdezése azonosítók szerint.
+   * @param ids - A keresendő egyedek azonosítói.
+   */
+  public getByIds (ids: number[]): Promise<TPackages> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE p.id IN (${ ids.join(', ') })
+    `)
   }
 
   /**

@@ -3,7 +3,7 @@ import BaseService from '@common/backend/BaseService'
 import type {
   IAddress,
   TAddresses,
-  IBaseAddress
+  IInsertAddress
 
 } from '../definitions'
 
@@ -12,10 +12,11 @@ export default class AddressesService extends BaseService {
    * Beszúr egy új egyedet.
    * @param data - A beszúrandó adat.
    */
-  public async insert (data: IBaseAddress): Promise<number> {
+  public async insert (data: IInsertAddress): Promise<number> {
     const values = [
       data.country, data.postalCode,
-      data.city, data.street, data.house
+      data.city, data.street, data.house,
+      data.longitude, data.latitude
     ]
 
     const result = await this.db.exec(`
@@ -25,6 +26,8 @@ export default class AddressesService extends BaseService {
         city        = ?,
         street      = ?,
         house       = ?,
+        longitude   = ?,
+        latitude    = ?,
         createdAt   = NOW()
     `, values)
 
@@ -65,6 +68,8 @@ export default class AddressesService extends BaseService {
         city,
         street,
         house,
+        longitude,
+        latitude,
         createdAt
       FROM ${ this.tableName }
     `

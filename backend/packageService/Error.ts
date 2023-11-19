@@ -9,7 +9,8 @@ type TError = (
   'ERR_ADDRESS_NOT_EXISTS'          |
   'ERR_PACKAGE_NOT_EXISTS'          |
   'ERR_WRONG_PACKAGE_ACTION'        |
-  'ERR_NEXT_PACKAGE_ACTION_INVALID'
+  'ERR_NEXT_PACKAGE_ACTION_INVALID' |
+  'ERR_INVALID_ADDRESS'
 )
 
 const ERROR_CODES: TErrorCodes<TError> = {
@@ -17,8 +18,8 @@ const ERROR_CODES: TErrorCodes<TError> = {
   ERR_ADDRESS_NOT_EXISTS:           30101,
   ERR_PACKAGE_NOT_EXISTS:           30200,
   ERR_WRONG_PACKAGE_ACTION:         30201,
-  ERR_NEXT_PACKAGE_ACTION_INVALID:  30202
-
+  ERR_NEXT_PACKAGE_ACTION_INVALID:  30202,
+  ERR_INVALID_ADDRESS:              30203
 }
 
 const ERROR_MESSAGES: TErrorMessages<TError> = {
@@ -26,7 +27,8 @@ const ERROR_MESSAGES: TErrorMessages<TError> = {
   ERR_ADDRESS_NOT_EXISTS:           'A cím nem létezik!',
   ERR_PACKAGE_NOT_EXISTS:           'A csomag nem létezik!',
   ERR_WRONG_PACKAGE_ACTION:         'A csomag életciklus művelet nem érvényes!',
-  ERR_NEXT_PACKAGE_ACTION_INVALID:  'A csomag nem helyezhető a megadott állapotba!'
+  ERR_NEXT_PACKAGE_ACTION_INVALID:  'A csomag nem helyezhető a megadott állapotba!',
+  ERR_INVALID_ADDRESS:              'Helytelen cím!'
 }
 
 const Error: IError<TError | TCommonError> = {

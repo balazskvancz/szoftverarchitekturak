@@ -3,7 +3,8 @@ import BaseService from '@common/backend/BaseService'
 import type {
   IPackageLifeCycle,
   TPackageLifeCycles,
-  IBasePackageLifeCycle
+  IBasePackageLifeCycle,
+  TPackageLifeCycleAction
 } from '../definitions'
 
 type TOrder = 'asc' | 'desc'
@@ -65,6 +66,25 @@ export default class PackageLifeCyclesService extends BaseService {
       WHERE packageId IN (${ packageIds.join(', ') })
       ORDER BY packageId, createdAt DESC
     `)
+  }
+
+  /**
+   * Elkéri az összes olyan tevékenységek, ahol az utolsó action megadott.
+   * @param action - Action.
+   */
+  public getByLatestAction (action: TPackageLifeCycleAction): Promise<TPackageLifeCycles> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE id = (
+        SELECT
+          i.id
+        FROM ${ this.tableName } AS i
+        WHERE i.packageId = packageId
+        ORDER BY i.createdAt DESC
+        LIMIT 1
+      )
+      AND action = ?
+    `, [ action ])
   }
 
   /** Alap SQL lekérdezés. */

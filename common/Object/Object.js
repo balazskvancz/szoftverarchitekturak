@@ -1,11 +1,9 @@
 const { getEntries } = require('./utils/getEntries')
+const { getKeys }    = require('./utils/getKeys')
 
 const CustomObject = class CustomObject {}
 
 CustomObject.getEntries = getEntries
-
-CustomObject.defineProperties = Object.defineProperties
-CustomObject.defineProperty   = Object.defineProperty
-CustomObject.assign           = Object.assign
+CustomObject.getKeys    = getKeys
 
 module.exports.Object = CustomObject

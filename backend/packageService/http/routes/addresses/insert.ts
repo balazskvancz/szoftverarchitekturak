@@ -1,5 +1,7 @@
 import type { IContext, TCallbackFunction } from '@common/Router/definitions'
 
+import GeoApify from '@common/GeoApify/GeoApify'
+
 import Validator from '@common/Validator/Validator'
 
 import Error from '@packageService/Error'
@@ -38,7 +40,28 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    const insertedId = await services.addresses.insert(postData)
+    const addressDetails = await GeoApify.search({
+      city: postData.city,
+      country: postData.country,
+      housenumber: postData.house,
+      postcode: postData.postalCode,
+      street: postData.street
+    })
+
+    if (Validator.isNull(addressDetails)) {
+      ctx.sendError({
+        code: Error.codes.ERR_INVALID_ADDRESS,
+        message: Error.messages.ERR_INVALID_ADDRESS
+      })
+
+      return
+    }
+
+    const insertedId = await services.addresses.insert({
+      ...postData,
+      latitude: addressDetails.lat,
+      longitude: addressDetails.lon
+    })
 
     if (insertedId <= 0) {
       ctx.sendError({

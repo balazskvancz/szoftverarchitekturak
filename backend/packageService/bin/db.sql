@@ -5,13 +5,15 @@ CREATE DATABASE packageService CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE packageService;
 
 CREATE TABLE addresses (
-  id          INTEGER       AUTO_INCREMENT,
-  country     VARCHAR (255) NOT NULL,
-  postalCode  VARCHAR (10)  NOT NULL,
-  city        VARCHAR (255) NOT NULL,
-  street      VARCHAR (255) NOT NULL,
-  house       VARCHAR (10)  NOT NULL,
-  createdAt   DATETIME      NOT NULL,
+  id          INTEGER         AUTO_INCREMENT,
+  country     VARCHAR (255)   NOT NULL,
+  postalCode  VARCHAR (10)    NOT NULL,
+  city        VARCHAR (255)   NOT NULL,
+  street      VARCHAR (255)   NOT NULL,
+  house       VARCHAR (10)    NOT NULL,
+  longitude   DOUBLE (10, 7)  NOT NULL,
+  latitude    DOUBLE (10, 7)  NOT NULL,
+  createdAt   DATETIME        NOT NULL,
 
   PRIMARY KEY (id)
 );
@@ -36,8 +38,6 @@ CREATE TABLE packages (
   receiverName      VARCHAR (255) NOT NULL,
   dimensionId       INTEGER       NOT NULL,
   weight            DOUBLE (5, 2) NOT NULL,
-  expectedDelivery  DATE          DEFAULT NULL,
-  suitableReceipt   DATE          DEFAULT NULL,
   qrCode            VARCHAR (255) DEFAULT NULL,
   createdAt         DATETIME      NOT NULL,
 

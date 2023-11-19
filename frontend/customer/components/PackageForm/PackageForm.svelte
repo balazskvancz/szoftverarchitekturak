@@ -115,7 +115,7 @@
           autocomplete="off"
           label="Ország"
           name="country"
-          placeholder="pl. Magyarorszég"
+          placeholder="pl. Magyarország"
           type="text"
         />
       </div>
@@ -151,7 +151,7 @@
           autocomplete="off"
           label="Utca"
           name="street"
-          placeholder="pl. Váczi utca"
+          placeholder="pl. Váci utca"
           type="text"
         />
       </div>

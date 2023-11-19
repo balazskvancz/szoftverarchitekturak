@@ -25,6 +25,11 @@ export interface IBaseAddress {
 
 export interface IInsertAddressRequest extends IBaseAddress {}
 
+export interface IInsertAddress extends IBaseAddress {
+  readonly longitude: number
+  readonly latitude: number
+}
+
 export interface IAddress extends IBaseAddress {
   readonly id: number
   readonly createdAt: string
@@ -138,8 +143,6 @@ export interface IInsertPackageRequest extends IBasePackage {
 export interface IInsertPackage extends IBasePackage {
   readonly destAddressId: number
   readonly senderId: number
-  readonly expectedDelivery: string | null
-  readonly suitableReceipt: string | null
 }
 
 export interface IPackage extends IInsertPackage, IBaseDimension {
@@ -165,6 +168,11 @@ export interface IGetDigestPackages {
   readonly digestPackages: TDigestPackages
 }
 
+export interface IGetActionablePackagesResponse {
+  readonly packagesForDelivery: TDigestPackages
+  readonly packagesForPickUp: TDigestPackages
+}
+
 export enum EDimensionsRoute {
   DeleteById  = '/api/package/dimensions/:id',
   GetAll      = '/api/package/dimensions',
@@ -181,7 +189,8 @@ export enum EAddressesRoute {
 
 export enum EPackagesRoute {
   Get           = '/api/package/packages',
-  GetById       = '/api/package/packages/:id',
+  GetById       = '/api/package/packages/by-id/:id',
+  Actionable    = '/api/package/packages/actionable',
   Insert        = '/api/package/packages',
   GetLifeCycles = '/api/package/packages/:id/life-cycles'
 }
