@@ -1,14 +1,17 @@
 const mockServices = {
   users: {
     update: jest.fn(),
-    getByEmailAddress: jest.fn(),
+    getByEmailAddress: jest.fn()
+  },
+  couriers: {
+    update: jest.fn(),
     getById: jest.fn()
   }
 }
 
 const mockValidateUpdate = jest.fn()
 
-jest.mock('../../../utils/validateUpdate', () => mockValidateUpdate)
+jest.mock('../utils/validateUpdate', () => mockValidateUpdate)
 
 import Error from '@backend/userService/Error'
 
@@ -175,9 +178,10 @@ describe('update', () => {
     }
 
     mockValidateUpdate.mockReturnValueOnce(mockValidation)
-    mockServices.users.getById.mockResolvedValueOnce(mockGetUser)
+    mockServices.couriers.getById.mockResolvedValueOnce(mockGetUser)
     mockServices.users.getByEmailAddress.mockResolvedValueOnce(mockEmailValidation)
     mockServices.users.update.mockResolvedValueOnce(mockUpdateResult)
+    mockServices.couriers.update.mockResolvedValueOnce(true)
 
     const fn = update(mockServices as any)
 
