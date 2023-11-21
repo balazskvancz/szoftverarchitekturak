@@ -1,14 +1,17 @@
 const mockServices = {
   users: {
     update: jest.fn(),
-    getByEmailAddress: jest.fn(),
+    getByEmailAddress: jest.fn()
+  },
+  customers: {
+    update: jest.fn(),
     getById: jest.fn()
   }
 }
 
 const mockValidateUpdate = jest.fn()
 
-jest.mock('../../../utils/validateUpdate', () => mockValidateUpdate)
+jest.mock('../utils/validateUpdate', () => mockValidateUpdate)
 
 import Error from '@backend/userService/Error'
 
@@ -17,6 +20,7 @@ import update from '../update'
 interface ITestCase {
   readonly name: string
   readonly getParams: TAnyObject
+  readonly mockAuthorizedUser: TAnyObject | undefined
   readonly postData: TAnyObject | undefined
   readonly mockValidation: TAnyObject[]
   readonly mockEmailValidation: TAnyObject[] | null
@@ -34,6 +38,7 @@ describe('update', () => {
     {
       name: 'A függvény hibát dob, ha üres params.',
       getParams: {},
+      mockAuthorizedUser: [],
       postData: {},
       mockValidation: [],
       mockEmailValidation: [],
@@ -49,6 +54,7 @@ describe('update', () => {
       getParams: {
         id: 'mock-bad-id'
       },
+      mockAuthorizedUser: [],
       postData: {},
       mockValidation: [],
       mockEmailValidation: [],
@@ -60,10 +66,27 @@ describe('update', () => {
       }
     },
     {
+      name: 'A függvény hibát dob, ha hiányzik a felhasználó hitelesítése.',
+      getParams: {
+        id: 1
+      },
+      mockAuthorizedUser: undefined,
+      postData: [],
+      mockValidation: [],
+      mockEmailValidation: [],
+      mockGetUser: null,
+      mockUpdateResult: true,
+      expectedError: {
+        code: Error.codes.ERR_USER_NOT_AUTHENTICATED,
+        message: Error.messages.ERR_USER_NOT_AUTHENTICATED
+      }
+    },
+    {
       name: 'A függvény hibát dob, ha undefined a postData..',
       getParams: {
         id: 1
       },
+      mockAuthorizedUser: [],
       postData: undefined,
       mockValidation: [],
       mockEmailValidation: [],
@@ -79,6 +102,7 @@ describe('update', () => {
       getParams: {
         id: 1
       },
+      mockAuthorizedUser: [],
       postData: {},
       mockValidation: [
         {
@@ -104,6 +128,7 @@ describe('update', () => {
       getParams: {
         id: 1
       },
+      mockAuthorizedUser: [],
       postData: {},
       mockValidation: [],
       mockEmailValidation: [],
@@ -115,9 +140,53 @@ describe('update', () => {
       }
     },
     {
+      name: 'A függvény hibát dob, ha felhasználó nem admin.',
+      getParams: {
+        id: 1
+      },
+      mockAuthorizedUser: {
+        id: 1,
+        role: 'customer'
+      },
+      postData: [],
+      mockValidation: [],
+      mockEmailValidation: null,
+      mockGetUser: {},
+      mockUpdateResult: true,
+      expectedError: {
+        code: Error.codes.ERR_MISSING_PERMISSON,
+        message: Error.messages.ERR_MISSING_PERMISSON
+      }
+    },
+    {
+      name: 'A függvény hibát dob, ha felhasználó nem saját magán módosítana.',
+      getParams: {
+        id: 1
+      },
+      mockAuthorizedUser: {
+        id: 1,
+        role: 'customer'
+      },
+      postData: [],
+      mockValidation: [],
+      mockEmailValidation: [],
+      mockGetUser: {
+        id: 2,
+        role: 'customer'
+      },
+      mockUpdateResult: true,
+      expectedError: {
+        code: Error.codes.ERR_MISSING_PERMISSON,
+        message: Error.messages.ERR_MISSING_PERMISSON
+      }
+    },
+    {
       name: 'A függvény hibát dob, ha email változtatásnál foglalt az email.',
       getParams: {
         id: 1
+      },
+      mockAuthorizedUser: {
+        role: 'admin'
       },
       postData: {
         email: 'newPass'
@@ -141,6 +210,9 @@ describe('update', () => {
       getParams: {
         id: 1
       },
+      mockAuthorizedUser: {
+        role: 'admin'
+      },
       postData: {},
       mockValidation: [],
       mockEmailValidation: [],
@@ -156,6 +228,9 @@ describe('update', () => {
       getParams: {
         id: 1
       },
+      mockAuthorizedUser: {
+        role: 'admin'
+      },
       postData: {},
       mockValidation: [],
       mockEmailValidation: [],
@@ -165,19 +240,21 @@ describe('update', () => {
     }
   ]
 
-  test.each(tt)('$name', async ({ expectedError, mockUpdateResult, mockGetUser, mockEmailValidation, mockValidation, postData, getParams }) => {
+  test.each(tt)('$name', async ({ expectedError, mockUpdateResult, mockGetUser, mockEmailValidation, mockValidation, postData, mockAuthorizedUser, getParams }) => {
     const context = {
       getRouteParams: () => getParams,
       getBody: () => postData,
+      getBindedValue: () => mockAuthorizedUser,
 
       sendError: jest.fn(),
       sendOk: jest.fn()
     }
 
     mockValidateUpdate.mockReturnValueOnce(mockValidation)
-    mockServices.users.getById.mockResolvedValueOnce(mockGetUser)
+    mockServices.customers.getById.mockResolvedValueOnce(mockGetUser)
     mockServices.users.getByEmailAddress.mockResolvedValueOnce(mockEmailValidation)
     mockServices.users.update.mockResolvedValueOnce(mockUpdateResult)
+    mockServices.customers.update.mockResolvedValueOnce(true)
 
     const fn = update(mockServices as any)
 
