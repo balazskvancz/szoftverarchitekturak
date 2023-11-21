@@ -31,7 +31,7 @@
 
 <Modal
   bind:isOpened
-  title="Korrábi életciklus események"
+  title="Korábbi életciklus események"
 >
   <div slot="body">
     <Table

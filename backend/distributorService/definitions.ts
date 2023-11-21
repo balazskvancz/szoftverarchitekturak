@@ -1,9 +1,34 @@
+/* eslint-disable no-shadow */
+
+export { EBindValue  } from '@backend/definitions'
+
 export type {
+  IUser,
   IConfig,
-  IDatabaseConfig
+  IDatabaseConfig,
+  TPackageLifeCycleAction
 } from '@common/definitions'
 
-/* eslint-disable no-shadow */
-export enum EExampleResourcesRoute {
-  Todo = '/api/distributor/todo'
+import type {
+  TPackageLifeCycleAction
+} from '@common/definitions'
+
+export interface IBasePackageDistribution {
+  readonly packageId: number
+  readonly courierId: number
+  readonly action: TPackageLifeCycleAction
+}
+
+export interface IPackageDistribution extends IBasePackageDistribution {
+  readonly id: number
+  readonly doneAt: string | null
+  readonly createdAt: string
+}
+
+export interface IGetNextJobResponse {
+  readonly nextJob: IPackageDistribution | null
+}
+
+export enum EJobsRoute {
+  GetNextJob = '/api/distributor/jobs/get-next'
 }

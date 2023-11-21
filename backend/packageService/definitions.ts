@@ -190,7 +190,7 @@ export enum EAddressesRoute {
 export enum EPackagesRoute {
   Get           = '/api/package/packages',
   GetById       = '/api/package/packages/by-id/:id',
-  Actionable    = '/api/package/packages/actionable',
+  GetActionable = '/api/package/packages/actionable',
   Insert        = '/api/package/packages',
   GetLifeCycles = '/api/package/packages/:id/life-cycles'
 }

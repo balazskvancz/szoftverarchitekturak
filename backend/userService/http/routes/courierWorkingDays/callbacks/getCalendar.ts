@@ -12,6 +12,7 @@ import Error from '@userService/Error'
 import type { IService } from '@backend/userService/getServices'
 
 import { EBindValue } from '@userService/definitions'
+
 import type {
   IUser,
   TCourierCalendarWeek,
@@ -27,7 +28,7 @@ const FIRST_TWO_DIGIT_NUMBER  = 10
  * Visszadja az éppen bejelentkezett futárhoz tartozó adott havi naptárat.
  * @param services - Services.
  */
-export default function get (services: IService): TCallbackFunction {
+export default function getCalendar (services: IService): TCallbackFunction {
   return async (ctx: IContext): Promise<void> => {
     const user = ctx.getBindedValue<IUser>(EBindValue.User)
 
@@ -76,8 +77,8 @@ export default function get (services: IService): TCallbackFunction {
         // Kell a + 1 a végére, mert a times [0..n-1] között iterál.
         const dayNumber = ((weekIndex * NUMBER_OF_DAYS_IN_WEEK) + dayIndex - firstDayInMonth + 1)
 
-      // Ha nincs száma, vagy már túlmentünk
-      // az összes napok számán, akkor ez egy üres nap.
+        // Ha nincs száma, vagy már túlmentünk
+        // az összes napok számán, akkor ez egy üres nap.
         if (dayNumber <= 0 || dayNumber > daysInQueryMonth) {
           currentWeek.push({
             date: '',

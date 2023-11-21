@@ -7,6 +7,7 @@ import type { IService } from '../../getServices'
 import { EPackagesRoute } from '../../definitions'
 
 import get            from './packages/get'
+import getActionable  from './packages/getActionable'
 import getById        from './packages/getById'
 import getLifeCycles  from './packages/getLifeCycles'
 import insert         from './packages/insert'
@@ -19,6 +20,8 @@ import insert         from './packages/insert'
 export default function packagesRoutes (router: IRouter, services: IService): void {
   router.get(EPackagesRoute.Get, get(services))
     .registerMiddleware(attachUser)
+
+  router.get(EPackagesRoute.GetActionable, getActionable(services))
 
   router.get(EPackagesRoute.GetById, getById(services))
     .registerMiddleware(attachUser)

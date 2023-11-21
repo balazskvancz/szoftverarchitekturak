@@ -2,7 +2,6 @@
   lang="ts"
   strictEvents
 >
-
   import { onMount, onDestroy } from 'svelte'
 
   import { onSuccessOccured } from './store'

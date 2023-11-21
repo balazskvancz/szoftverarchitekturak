@@ -78,7 +78,3 @@
     <div class="modal-backdrop show" />
   {/if}
 {/if}
-
-<style>
-
-</style>
