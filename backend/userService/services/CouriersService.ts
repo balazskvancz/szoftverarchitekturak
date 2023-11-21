@@ -44,6 +44,17 @@ export default class CouriersService extends BaseService {
     `, [ id ])
   }
 
+  /**
+   * Futárok azonosítók szerinti lekérdezése.
+   * @param ids - Azonosítók.
+   */
+  public getByIds (ids: number[]): Promise<TCouriers> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      AND c.userId IN (${ ids.join(', ') })
+    `)
+  }
+
   /** Összes felvett futár lekérderdezése. */
   public getAll (): Promise<TCouriers> {
     return this.db.getArray(this.getBaseSql())
