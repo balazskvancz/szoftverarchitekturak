@@ -3,6 +3,8 @@ import healthCheckCallback  from '@common/backend/healthCheckCallback'
 
 import type { IRouter } from '@common/Router/definitions'
 
+import jobsRoutes from './routes/jobsRoutes'
+
 import type { IService } from '../getServices'
 
 /**
@@ -12,5 +14,6 @@ import type { IService } from '../getServices'
  */
 export default function addRoutes (router: IRouter, services: IService): void {
   router.get(EGatewayRoute.HealthCheck, healthCheckCallback)
-  // TODO:
+
+  jobsRoutes(router, services)
 }

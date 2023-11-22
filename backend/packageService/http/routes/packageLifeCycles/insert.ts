@@ -8,9 +8,9 @@ import Validator  from '@packageService/Validator'
 
 import type { IService } from '@backend/packageService/getServices'
 
-import { EBindValue, VALID_NEXT_ACTIONS } from '@packageService/definitions'
+import { VALID_NEXT_ACTIONS } from '@packageService/definitions'
 
-import type { IUser, IInsertPackageLifeCycleRequest } from '@packageService/definitions'
+import type { IInsertPackageLifeCycleRequest } from '@packageService/definitions'
 
 /**
  * Egy új csomag életciklus esemény beszúrása.
@@ -29,7 +29,7 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    const { action, packageId } = postData
+    const { action, packageId, userId } = postData
 
     if (!Validator.isPositiveNumber(packageId)) {
       ctx.sendError({
@@ -40,12 +40,10 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
-    const user = ctx.getBindedValue<IUser>(EBindValue.User)
-
-    if (!Validator.isDefined(user)) {
+    if (!Validator.isPositiveNumber(userId)) {
       ctx.sendError({
-        code: Error.codes.ERR_USER_NOT_AUTHENTICATED,
-        message: Error.messages.ERR_USER_NOT_AUTHENTICATED
+        code: Error.codes.ERR_WRONG_POSTDATA,
+        message: 'Helytelen felhasználó azonosító azonosító!'
       })
 
       return
@@ -97,7 +95,7 @@ export default function insert (services: IService): TCallbackFunction {
     const insertedId = await services.packageLifecycles.insert({
       action,
       packageId,
-      userId: user.id
+      userId
     })
 
     if (!Validator.isPositiveNumber(insertedId)) {

@@ -25,12 +25,14 @@ export interface IBaseAddress {
 
 export interface IInsertAddressRequest extends IBaseAddress {}
 
-export interface IInsertAddress extends IBaseAddress {
+export interface IAddressGeoDetails {
   readonly longitude: number
   readonly latitude: number
 }
 
-export interface IAddress extends IBaseAddress {
+export interface IInsertAddress extends IBaseAddress, IAddressGeoDetails {}
+
+export interface IAddress extends IInsertAddress {
   readonly id: number
   readonly createdAt: string
 }
@@ -110,6 +112,7 @@ export const VALID_NEXT_ACTIONS: Record<TPackageLifeCycleAction, TPackageLifeCyc
 export interface IInsertPackageLifeCycleRequest {
   readonly packageId: number
   readonly action: TPackageLifeCycleAction
+  readonly userId: number
 }
 
 export interface IBasePackageLifeCycle extends IInsertPackageLifeCycleRequest {
@@ -155,7 +158,8 @@ export type TPackages = readonly IPackage[]
 
 export interface IDigestPackage extends IPackage {
   readonly lifeCycles: TPackageLifeCycles
-  readonly destAddress: IAddress | null
+  readonly destAddress: IAddress
+  readonly pickUpAddress: IAddress
 }
 
 export type TDigestPackages = readonly IDigestPackage[]

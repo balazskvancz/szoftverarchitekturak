@@ -187,6 +187,7 @@ export enum ECourierRoute {
   GetById               = '/api/user/couriers/by-id/:id',
   GetCurrentlyWorking   = '/api/user/couriers/currently-working',
   Insert                = '/api/user/couriers',
+  IsWorkingDay          = '/api/user/couriers/is-working-day',
   Update                = '/api/user/couriers/:id'
 }
 

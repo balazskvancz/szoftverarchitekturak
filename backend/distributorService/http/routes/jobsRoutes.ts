@@ -8,6 +8,7 @@ import type { IService } from '../../getServices'
 import { EJobsRoute } from '../../definitions'
 
 import getNextJob from './jobs/callbacks/getNextJob'
+import setJobDone from './jobs/callbacks/setJobDone'
 
 /**
  * Felveszi az összes feladatokkal kapcsolatos route-okat.
@@ -16,6 +17,10 @@ import getNextJob from './jobs/callbacks/getNextJob'
  */
 export default function jobsRoutes (router: IRouter, services: IService): void {
   router.get(EJobsRoute.GetNextJob, getNextJob(services))
+    .registerMiddleware(attachUser)
+    .registerMiddleware(courier)
+
+  router.post(EJobsRoute.SetJobDone, setJobDone(services))
     .registerMiddleware(attachUser)
     .registerMiddleware(courier)
 }

@@ -1,6 +1,7 @@
 import BaseService from '@common/backend/BaseService'
 
 import type {
+  ICourierWorkingDay,
   TCourierWorkingDays,
   IBaseCourierWorkingDay
 } from '../definitions'
@@ -53,6 +54,19 @@ export default class CourierWorkingDaysService extends BaseService {
       ${ this.getBaseSql() }
       WHERE day = ?
     `, [ date ])
+  }
+
+  /**
+   * Dátum és futár szerinti lekérdezés.
+   * @param date      - Dátum.
+   * @param courierId - Futár azonosító.
+   */
+  public getByDateAndCourier (date: string, courierId: number): Promise<ICourierWorkingDay | null> {
+    return this.db.getRow(`
+      ${ this.getBaseSql() }
+      WHERE day       = ?
+      AND   courierId = ?
+    `, [ date, courierId ])
   }
 
   /**

@@ -56,6 +56,7 @@ export default function get (services: IService): TCallbackFunction {
 
     const { addressIds, packageIds } = packages.reduce((acc, curr) => {
       acc.addressIds.push(curr.destAddressId)
+      acc.addressIds.push(curr.pickUpAddressId)
       acc.packageIds.push(curr.id)
 
       return acc
@@ -69,14 +70,18 @@ export default function get (services: IService): TCallbackFunction {
     const digestPackages: IDigestPackage[] = packages.reduce((acc, curr) => {
       const attachedLifeCycles = lifeCycles.filter((e) => e.packageId === curr.id)
 
-      const destAddress = addresses.find((e) => e.id === curr.destAddressId)
+      const destAddress   = addresses.find((e) => e.id === curr.destAddressId)
+      const pickUpAddress = addresses.find((e) => e.id === curr.pickUpAddressId)
 
-      acc.push({
-        ...curr,
+      if (destAddress && pickUpAddress) {
+        acc.push({
+          ...curr,
 
-        lifeCycles: attachedLifeCycles,
-        destAddress: destAddress ?? null
-      })
+          lifeCycles: attachedLifeCycles,
+          destAddress: destAddress ?? null,
+          pickUpAddress: pickUpAddress ?? null
+        })
+      }
 
       return acc
     }, [] as IDigestPackage[])

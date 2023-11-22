@@ -95,6 +95,7 @@ export type {
   TDigestPackages,
   IPackageLifeCycle,
   TPackageLifeCycles,
+  IAddressGeoDetails,
   IInsertAddressRequest,
   IInsertPackageRequest,
   IGetPackageByIdResponse,

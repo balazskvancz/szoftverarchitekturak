@@ -1,5 +1,6 @@
 import type {
   IPackageDistribution,
+  TPackageDistributions,
   IBasePackageDistribution
 } from '../definitions'
 
@@ -23,15 +24,41 @@ export default class PackageDistributionsService extends BaseService {
   }
 
   /**
-   * Visszaadja a következő feladatot egy adott futárnak.
+   * Visszaadja az adott azonosítóval rendelkező feladatot.
+   * @param id - A keresendő egyed azonosítója.
+   */
+  public getById (id: number): Promise<IPackageDistribution | null> {
+    return this.db.getRow(`
+      ${ this.getBaseSql() }
+      WHERE id = ?
+    `, [ id ])
+  }
+
+  /**
+   * Visszaadja az éppen teljesítendő feladatot a futárnak.
    * @param courierId - Futár azonosító.
    */
-  public getNextByCourier (courierId: number): Promise<IPackageDistribution | null> {
+  public getCurrentlyWorking (courierId: number): Promise<IPackageDistribution | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
       WHERE courierId = ?
       AND doneAt IS NULL
       ORDER BY createdAt ASC
+      LIMIT 1
+    `, [ courierId ])
+  }
+
+  /**
+   * Visszaadja az utolsó, még az adott napon elvégzett feladatot.
+   * @param courierId - Futár azonosító.
+   * @param day       - Nap (dátum).
+   */
+  public getPreviousJobByDay (courierId: number, day: string): Promise<IPackageDistribution | null> {
+    return this.db.getRow(`
+      ${ this.getBaseSql() }
+      WHERE courierId = ?
+      AND doneAt LIKE '${ this.db.unQuotedEscape(day) }%'
+      ORDER BY doneAt DESC
       LIMIT 1
     `, [ courierId ])
   }
@@ -48,6 +75,23 @@ export default class PackageDistributionsService extends BaseService {
     `, [ id ])
 
     return this.db.hasAffectedRows(result)
+  }
+
+  /**
+   * Visszaadja az összes be nem fejezett, de kiosztott feladatot.
+   * @param courierId - Futár azonosító.
+   * @param day       - Nap.
+   */
+  public getAllNotFinished (
+    courierId: number,
+    day: string
+  ): Promise<TPackageDistributions> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE courierId = ?
+      AND   day LIKE '${ this.db.unQuotedEscape(day) } %'
+      AND   doneAt IS NULL
+    `, [ courierId ])
   }
 
   /** Alap SQL lekérdezés. */
