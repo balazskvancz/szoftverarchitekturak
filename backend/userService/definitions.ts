@@ -101,6 +101,8 @@ export interface IGetAllCouriersResponse {
   readonly couriers: TCouriers
 }
 
+export interface IGetCurrentlyWorkingCouriersResponse extends IGetAllCouriersResponse {}
+
 export interface IBaseCustomer extends IBaseCourier {}
 
 export interface IInsertCustomer extends IBaseCustomer, IPassword {}
@@ -181,10 +183,11 @@ export enum EAdminsRoute {
 }
 
 export enum ECourierRoute {
-  Get               = '/api/user/couriers',
-  GetById           = '/api/user/couriers/:id',
-  Insert            = '/api/user/couriers',
-  Update            = '/api/user/couriers/:id'
+  Get                   = '/api/user/couriers/all',
+  GetById               = '/api/user/couriers/by-id/:id',
+  GetCurrentlyWorking   = '/api/user/couriers/currently-working',
+  Insert                = '/api/user/couriers',
+  Update                = '/api/user/couriers/:id'
 }
 
 export enum ECourierWorkingDaysRoute {

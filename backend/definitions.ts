@@ -40,6 +40,7 @@ export type {
 
 /** PackageService. */
 export {
+  EPackagesRoute,
   EAddressesRoute
 } from './packageService/definitions'
 
@@ -47,15 +48,19 @@ export type {
   TAddresses,
   IInsertAddressRequest,
   IGetAddressesByIdsRequest,
-  IGetAddressesByIdsResponse
+  IGetAddressesByIdsResponse,
+  IGetActionablePackagesResponse
 } from './packageService/definitions'
 
 /** UserService. */
 export {
-  EUsersRoute
+  EUsersRoute,
+  ECourierRoute
 } from './userService/definitions'
 
 export type {
   IUser,
-  IGetUserResponse
+  TCouriers,
+  IGetUserResponse,
+  IGetCurrentlyWorkingCouriersResponse
 } from './userService/definitions'

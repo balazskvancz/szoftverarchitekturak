@@ -45,6 +45,17 @@ export default class CourierWorkingDaysService extends BaseService {
   }
 
   /**
+   * Dátum szerinti lekérdezés.
+   * @param date - Dátum.
+   */
+  public getByDate (date: string): Promise<TCourierWorkingDays> {
+    return this.db.getArray(`
+      ${ this.getBaseSql() }
+      WHERE day = ?
+    `, [ date ])
+  }
+
+  /**
    * Egy egyed törlése.
    * @param data - Adat.
    */
