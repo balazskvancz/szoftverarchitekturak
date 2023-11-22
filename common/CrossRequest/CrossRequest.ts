@@ -14,12 +14,14 @@ export default class CrossRequest extends Request {
   /**
    * Egy szerverek közötti http kérés.
    * @see {@link https://nodejs.org/api/http.html#httprequestoptions-callback}
-   * @param options - A beállítási lehetőségek.
-   * @param data    - Bármilyen adat, amit küldeni szeretnénk.
+   * @param options             - A beállítási lehetőségek.
+   * @param data                - Bármilyen adat, amit küldeni szeretnénk.
+   * @param needToParseResponse - Kell-e parseolni a választ.
    */
   public static send<T extends Object = TAnyObject> (
     options: http.RequestOptions,
-    data: TData = null
+    data: TData = null,
+    needToParseResponse = true
   ): Promise<ICrossResponse<T>> {
     return new Promise((resolve) => {
       const crossRequest = http.request(options, (res) => {
@@ -39,12 +41,19 @@ export default class CrossRequest extends Request {
             res.statusCode === HTTP_STATUS_OK ||
             res.statusCode === HTTP_STATUS_BAD_REQUEST
           ) {
-            resolve({
-              data: JSON.parse(body),
-              isSuccess: res.statusCode === HTTP_STATUS_OK
-            })
+            if (needToParseResponse) {
+              resolve({
+                data: JSON.parse(body),
+                isSuccess: res.statusCode === HTTP_STATUS_OK
+              })
 
-            return
+              return
+            }
+
+            resolve({
+              data: null,
+              isSuccess: true
+            })
           }
 
           resolve({

@@ -67,7 +67,8 @@ export default function getNexJob (services: IService): TCallbackFunction {
       const data: IGetNextJobResponse = {
         nextJob: {
           action: notFinishedJob.action,
-          package: packageToDealWith
+          package: packageToDealWith,
+          jobId: notFinishedJob.id
         }
       }
 
@@ -119,7 +120,7 @@ export default function getNexJob (services: IService): TCallbackFunction {
       }
 
       // Maguknál beszúrjuk a tényt.
-      await services.packageDistributions.insert({
+      const jobId = await services.packageDistributions.insert({
         action: job.action,
         courierId: user.id,
         packageId: job.package.id
@@ -136,7 +137,8 @@ export default function getNexJob (services: IService): TCallbackFunction {
       const data: IGetNextJobResponse = {
         nextJob: {
           action: job.action,
-          package: job.package
+          package: job.package,
+          jobId
         }
       }
 
@@ -178,7 +180,7 @@ export default function getNexJob (services: IService): TCallbackFunction {
       return
     }
 
-    await services.packageDistributions.insert({
+    const jobId = await services.packageDistributions.insert({
       action: suitableJob.action,
       courierId: user.id,
       packageId: suitableJob.package.id
@@ -193,7 +195,8 @@ export default function getNexJob (services: IService): TCallbackFunction {
     const data: IGetNextJobResponse = {
       nextJob: {
         action: suitableJob.action,
-        package: suitableJob.package
+        package: suitableJob.package,
+        jobId
       }
     }
 

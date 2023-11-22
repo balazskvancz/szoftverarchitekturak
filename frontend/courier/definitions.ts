@@ -4,7 +4,9 @@ export {
 
 export type {
   IUser,
+  TJobResult,
   TFormErrors,
+  ICurrentJob,
   ICourierCalendarDay,
   TCourierCalendarWeek
 } from '@common/definitions'

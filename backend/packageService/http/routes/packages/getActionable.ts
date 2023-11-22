@@ -34,11 +34,14 @@ export default function getActionable (services: IService): TCallbackFunction {
     ])
 
     const addressIds = [
+      ...toBePickedUp.map(({ pickUpAddressId }) => pickUpAddressId),
       ...toBePickedUp.map(({ destAddressId }) => destAddressId),
-      ...toBeDelivered.map(({ destAddressId }) => destAddressId)
+
+      ...toBeDelivered.map(({ destAddressId }) => destAddressId),
+      ...toBeDelivered.map(({ pickUpAddressId }) => pickUpAddressId)
     ]
 
-    if (Validator.isNonEmptyArray(addressIds)) {
+    if (!Validator.isNonEmptyArray(addressIds)) {
       const data: IGetActionablePackagesResponse = {
         packagesForDelivery: [],
         packagesForPickUp: []
@@ -51,29 +54,41 @@ export default function getActionable (services: IService): TCallbackFunction {
 
     const addresses = await services.addresses.getByIds(addressIds)
 
-    const packagesForPickUp: TDigestPackages = toBePickedUp.map((p) => {
-      const destAddress = addresses.find((e) => e.id === p.destAddressId)
+    const packagesForPickUp: TDigestPackages = toBePickedUp.reduce((acc, curr) => {
+      const destAddress   = addresses.find((e) => e.id === curr.destAddressId)
+      const pickUpAddress = addresses.find((e) => e.id === curr.pickUpAddressId)
 
-      return {
-        ...p,
+      if (destAddress && pickUpAddress) {
+        acc.push({
+          ...curr,
 
-        destAddress: destAddress ?? null,
+          destAddress,
+          pickUpAddress,
 
-        lifeCycles: [] // Nincs rá szükség.
+          lifeCycles: [] // Nincs rá szükség.
+        })
       }
-    })
 
-    const packagesForDelivery: TDigestPackages = toBeDelivered.map((p) => {
-      const destAddress = addresses.find((e) => e.id === p.destAddressId)
+      return acc
+    }, [] as TMutable<TDigestPackages>)
 
-      return {
-        ...p,
+    const packagesForDelivery: TDigestPackages = toBeDelivered.reduce((acc, curr) => {
+      const destAddress   = addresses.find((e) => e.id === curr.destAddressId)
+      const pickUpAddress = addresses.find((e) => e.id === curr.pickUpAddressId)
 
-        destAddress: destAddress ?? null,
+      if (destAddress && pickUpAddress) {
+        acc.push({
+          ...curr,
 
-        lifeCycles: [] // Nincs rá szükség.
+          destAddress,
+          pickUpAddress,
+
+          lifeCycles: [] // Nincs rá szükség.
+        })
       }
-    })
+
+      return acc
+    }, [] as TMutable<TDigestPackages>)
 
     const data: IGetActionablePackagesResponse = {
       packagesForDelivery,

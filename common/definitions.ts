@@ -75,6 +75,20 @@ export {
   EAuthRoute
 } from '../backend/authService/definitions'
 
+/** DistributorService. */
+export {
+  EJobsRoute
+} from '../backend/distributorService/definitions'
+
+export type {
+  INextJob,
+  TJobResult,
+  ICurrentJob,
+  ISetJobDoneRequest,
+  IGetNextJobResponse,
+  IGetCurrentJobResponse
+} from '../backend/distributorService/definitions'
+
 export type {
   ILogin,
   IDigestSession,

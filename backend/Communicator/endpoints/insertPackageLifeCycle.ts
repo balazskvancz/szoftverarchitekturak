@@ -14,7 +14,7 @@ import sendRequest from './utils/sendRequest'
 export default async function insertPackageLifeCycle (
   data: IInsertPackageLifeCycleRequest
 ): Promise<IGeneralError | null> {
-  const res = await sendRequest('POST', EPackageLifeCyclesRoute.Insert, data)
+  const res = await sendRequest('POST', EPackageLifeCyclesRoute.Insert, data, false)
 
   if (!res.isSuccess) {
     return res.data as IGeneralError

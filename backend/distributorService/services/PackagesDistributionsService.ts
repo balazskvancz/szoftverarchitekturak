@@ -69,7 +69,7 @@ export default class PackageDistributionsService extends BaseService {
    */
   public async setDone (id: number): Promise<boolean> {
     const result = await this.db.exec(`
-      UPDATE ${ this.tableName } SELECT
+      UPDATE ${ this.tableName } SET
         doneAt = NOW()
       WHERE id = ?
     `, [ id ])

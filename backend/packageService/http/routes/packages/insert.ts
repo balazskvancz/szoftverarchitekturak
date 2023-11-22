@@ -10,6 +10,7 @@ import { EBindValue } from '@packageService/definitions'
 import Error from '@packageService/Error'
 
 import validatePostData from './utils/validatePostData'
+import GeoApify from '@common/GeoApify/GeoApify'
 
 /**
  * Egy új csomag felvételét megvalósító végpont.
@@ -63,8 +64,30 @@ export default function insert (services: IService): TCallbackFunction {
       return
     }
 
+    const addressDetails = await GeoApify.search({
+      city: postData.dest.city,
+      country: postData.dest.country,
+      housenumber: postData.dest.house,
+      postcode: postData.dest.postalCode,
+      street: postData.dest.street
+    })
+
+    if (Validator.isNull(addressDetails)) {
+      ctx.sendError({
+        code: Error.codes.ERR_INVALID_ADDRESS,
+        message: Error.messages.ERR_INVALID_ADDRESS
+      })
+
+      return
+    }
+
     // Be kell szúrni az adatbázisba a cél címet.
-    const destAddressId = await services.addresses.insert(postData.dest)
+    const destAddressId = await services.addresses.insert({
+      ...postData.dest,
+
+      latitude: addressDetails.lat,
+      longitude: addressDetails.lon
+    })
 
     if (!Validator.isPositiveNumber(destAddressId)) {
       ctx.sendError({
@@ -90,9 +113,7 @@ export default function insert (services: IService): TCallbackFunction {
     const insertedId = await services.packages.insert({
       ...postData,
       senderId: user.id,
-      destAddressId, // Az újonnan beszúrt szállítási cím azonosítója.
-      expectedDelivery: null,
-      suitableReceipt: null
+      destAddressId // Az újonnan beszúrt szállítási cím azonosítója.
     })
 
     if (insertedId <= 0) {

@@ -9,11 +9,13 @@ import getAdmins              from './endpoints/getAdmins'
 import getCourierById         from './endpoints/getCourierById'
 import getCourierCalendar     from './endpoints/getCourierCalendar'
 import getCouriers            from './endpoints/getCouriers'
+import getCurrentJob          from './endpoints/getCurrentJob'
 import getCustomerById        from './endpoints/getCustomerById'
 import getCustomers           from './endpoints/getCustomers'
 import getDigestSession       from './endpoints/getDigestSession'
 import getDimensionById       from './endpoints/getDimensionById'
 import getDimensions          from './endpoints/getDimensions'
+import getNextJob             from './endpoints/getNextJob'
 import getPackageById         from './endpoints/getPackageById'
 import getPackageLifeCycles   from './endpoints/getPackageLifeCycles'
 import getPackagesByUser      from './endpoints/getPackagesByUser'
@@ -23,9 +25,11 @@ import insertCustomer         from './endpoints/insertCustomer'
 import insertCustomerAddress  from './endpoints/insertCustomerAddress'
 import insertDimension        from './endpoints/insertDimension'
 import insertPackage          from './endpoints/insertPackage'
+import isWorkingDay           from './endpoints/isWorkingDay'
 import login                  from './endpoints/login'
 import logout                 from './endpoints/logout'
 import registration           from './endpoints/registration'
+import setJobDone             from './endpoints/setJobDone'
 import setWorkingDays         from './endpoints/setWorkingDays'
 import updateAdmin            from './endpoints/updateAdmin'
 import updateCourier          from './endpoints/updateCourier'
@@ -44,11 +48,13 @@ const ajax = {
   getAdmins,
   getCourierById,
   getCouriers,
+  getCurrentJob,
   getCustomerById,
   getCourierCalendar,
   getCustomers,
   getDigestSession,
   getDimensions,
+  getNextJob,
   getPackageById,
   getPackageLifeCycles,
   getPackagesByUser,
@@ -58,9 +64,11 @@ const ajax = {
   insertCustomerAddress,
   insertDimension,
   insertPackage,
+  isWorkingDay,
   login,
   logout,
   registration,
+  setJobDone,
   setWorkingDays,
   updateAdmin,
   updateCourier,

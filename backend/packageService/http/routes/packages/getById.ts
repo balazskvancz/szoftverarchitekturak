@@ -38,10 +38,15 @@ export default function getById (services: IService): TCallbackFunction {
       return
     }
 
-    const [ lifeCycles, destAddress ] = await Promise.all([
+    const [ lifeCycles, destAddress, pickUpAddress ] = await Promise.all([
       services.packageLifecycles.getAll(id, 'desc'),
-      services.addresses.getById(packageEntity.destAddressId)
+      services.addresses.getById(packageEntity.destAddressId),
+      services.addresses.getById(packageEntity.pickUpAddressId)
     ])
+
+    if (!destAddress || !pickUpAddress) {
+      return
+    }
 
     const data: IGetPackageByIdResponse = {
       digestPackage: {
@@ -49,7 +54,8 @@ export default function getById (services: IService): TCallbackFunction {
 
         lifeCycles,
 
-        destAddress
+        destAddress,
+        pickUpAddress
       }
     }
 

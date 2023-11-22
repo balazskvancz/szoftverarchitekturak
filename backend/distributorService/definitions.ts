@@ -37,10 +37,17 @@ export type TPackageDistributions = readonly IPackageDistribution[]
 export interface INextJob {
   readonly package: IDigestPackage
   readonly action: TPackageLifeCycleAction
+  readonly jobId: number
 }
+
+export interface ICurrentJob extends INextJob {}
 
 export interface IGetNextJobResponse {
   readonly nextJob: INextJob | null
+}
+
+export interface IGetCurrentJobResponse {
+  readonly currentJob: ICurrentJob | null
 }
 
 export const JOB_RESULTS = [ 'success', 'fail' ] as const
@@ -77,6 +84,7 @@ export const NEXT_ACTIONS_ON_RESULT: Record<TJobResult, TNextAction> = {
 }
 
 export enum EJobsRoute {
+  GetCurrent = '/api/distributor/jobs/get-current',
   GetNextJob = '/api/distributor/jobs/get-next',
   SetJobDone = '/api/distributor/jobs/:id'
 }

@@ -7,6 +7,7 @@ import type { IService } from '../../getServices'
 
 import { EJobsRoute } from '../../definitions'
 
+import getCurrent from './jobs/callbacks/getCurrent'
 import getNextJob from './jobs/callbacks/getNextJob'
 import setJobDone from './jobs/callbacks/setJobDone'
 
@@ -16,6 +17,10 @@ import setJobDone from './jobs/callbacks/setJobDone'
  * @param services  - Services.
  */
 export default function jobsRoutes (router: IRouter, services: IService): void {
+  router.get(EJobsRoute.GetCurrent, getCurrent(services))
+    .registerMiddleware(attachUser)
+    .registerMiddleware(courier)
+
   router.get(EJobsRoute.GetNextJob, getNextJob(services))
     .registerMiddleware(attachUser)
     .registerMiddleware(courier)

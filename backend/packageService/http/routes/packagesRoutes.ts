@@ -24,7 +24,6 @@ export default function packagesRoutes (router: IRouter, services: IService): vo
   router.get(EPackagesRoute.GetActionable, getActionable(services))
 
   router.get(EPackagesRoute.GetById, getById(services))
-    .registerMiddleware(attachUser)
 
   router.get(EPackagesRoute.GetLifeCycles, getLifeCycles(services))
     .registerMiddleware(attachUser)

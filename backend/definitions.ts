@@ -50,6 +50,16 @@ export type {
   IGetSessionByHashResponse
 } from './authService/definitions'
 
+/** DistributorService. */
+export {
+  EJobsRoute
+} from './distributorService/definitions'
+
+export type {
+  ICurrentJob,
+  IGetCurrentJobResponse
+} from './distributorService/definitions'
+
 /** PackageService. */
 export {
   EPackagesRoute,

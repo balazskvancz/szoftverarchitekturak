@@ -5,6 +5,8 @@ import type {
 
 import Validator from '@common/Validator/Validator'
 
+import Communicator from '@backend/Communicator/Communicator'
+
 import Error from '@distributorService/Error'
 
 import type {
@@ -20,7 +22,6 @@ import {
 } from '@distributorService/definitions'
 
 import type { IService } from '@backend/distributorService/getServices'
-import Communicator from '@backend/Communicator/Communicator'
 
 /**
  * Egy adott feladat végét beállító végpont.

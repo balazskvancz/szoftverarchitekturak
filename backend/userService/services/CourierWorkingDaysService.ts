@@ -64,8 +64,8 @@ export default class CourierWorkingDaysService extends BaseService {
   public getByDateAndCourier (date: string, courierId: number): Promise<ICourierWorkingDay | null> {
     return this.db.getRow(`
       ${ this.getBaseSql() }
-      WHERE day       = ?
-      AND   courierId = ?
+      WHERE day    = ?
+      AND   userId = ?
     `, [ date, courierId ])
   }
 

@@ -77,16 +77,6 @@ export default function set (services: IService): TCallbackFunction {
       return
     }
 
-    // Csak futárok!
-    if (user.role !== 'customer') {
-      ctx.sendError({
-        code: Error.codes.ERR_MISSING_PERMISSON,
-        message: Error.messages.ERR_MISSING_PERMISSON
-      })
-
-      return
-    }
-
     const year  = new Date().getFullYear()
     const month = new Date().getMonth() + 1 // Trükkös, de sajnos ilyen! :)
 
