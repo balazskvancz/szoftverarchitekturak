@@ -8,6 +8,7 @@
   import CouriersPage   from './components/CouriersPage/CouriersPage.svelte'
   import CustomersPage  from './components/CustomersPage/CustomersPage.svelte'
   import DimensionsPage from './components/DimensionsPage/DimensionsPage.svelte'
+  import SettingsPage   from './components/SettingsPage/SettingsPage.svelte'
 
   import { PAGE_LINKS } from './definitions'
 
@@ -28,5 +29,9 @@
 
   <Route path={ PAGE_LINKS.couriers.url }>
     <CouriersPage />
+  </Route>
+
+  <Route path={ PAGE_LINKS.settings.url }>
+    <SettingsPage />
   </Route>
 </Router>

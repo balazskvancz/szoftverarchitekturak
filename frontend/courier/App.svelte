@@ -30,8 +30,6 @@
       isSuccessOccured  = true
       toastMessage      = v
     }
-
-    onSuccessOccured.set(null)
   })
 
   onDestroy(() => {

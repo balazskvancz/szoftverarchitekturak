@@ -28,7 +28,7 @@
 
   const dimension = `${ data.width }cm x ${ data.length }cm x ${ data.depth }cm`
 
-  const { action, createdAt } = data.lifeCycles[data.lifeCycles.length - 1]
+  const { action, createdAt } = data.lifeCycles[0]
 
   const stateName = PACKAGE_LIFE_CYCLE_ACTION_NAMES[action]
 </script>

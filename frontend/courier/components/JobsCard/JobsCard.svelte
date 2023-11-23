@@ -33,6 +33,11 @@
     currentJob = await ajax.getCurrentJob()
   }
 
+  /** Visszaállítja alaphelyzetbe. */
+  function onFinished (): void {
+    currentJob = null
+  }
+
   /**
    * Visszaigazoló modal bezárás kezelője.
    * @param isConfirmed - Vissza lett-e igazolva.
@@ -84,7 +89,10 @@
         </div>
       </div>
     {:else}
-      <CurrentJobCard bind:data={ currentJob } />
+      <CurrentJobCard
+        bind:data={ currentJob }
+        { onFinished }
+      />
     {/if}
 
   {:else}

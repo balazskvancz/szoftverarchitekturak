@@ -2,17 +2,27 @@
   lang="ts"
   strictEvents
 >
-  import type { TJobResult, ICurrentJob } from '../../definitions'
+  import Validator from '@common/Validator/Validator'
 
+  import Alert        from '@common/components/Alert/Alert.svelte'
   import Button       from '@common/components/Button/Button.svelte'
   import Card         from '@common/components/Card/Card.svelte'
   import ConfirmModal from '@common/components/ConfirmModal/ConfirmModal.svelte'
 
+  import type { TJobResult, ICurrentJob } from '../../definitions'
+
+  import {
+    onSuccessOccured
+  } from '../../store'
+
   import ajax from '../../ajax'
 
   export let data: ICurrentJob
+  export let onFinished: () => void
 
   let selectedResult: TJobResult | null = null
+
+  let errorMessage: string | null = null
 
   let isConfirmModalOpened = false
 
@@ -47,9 +57,20 @@
       return
     }
 
-    await ajax.setJobDone(data.jobId, {
+    const error = await ajax.setJobDone(data.jobId, {
       result
     })
+
+    if (error) {
+      errorMessage = error.message ?? 'Ismeretlen hiba!'
+
+      return
+    }
+
+    onSuccessOccured.set('Sikeres művelet!')
+    onSuccessOccured.set(null)
+
+    onFinished()
   }
 </script>
 
@@ -58,6 +79,17 @@
   onClose={ onConfirmModalClosed }
   title="Biztosan?"
 />
+
+{#if Validator.isNonEmptyString(errorMessage)}
+  <div class="row">
+    <div class="col-sm-12 col-md-6 mx-auto p-2">
+      <Alert alertType="danger">
+        {errorMessage}
+      </Alert>
+    </div>
+  </div>
+
+{/if}
 
 <Card>
   <div
@@ -89,7 +121,12 @@
     <h4>Cím adatok</h4>
 
     <div class="row">
-      <div class="col-sm-12 col-md-6 text-lg-end">Címzett: </div>
+      <div class="col-sm-12 col-md-6 text-lg-end">Címzett név:</div>
+      <div class="col-sm-12 col-md-6">{data.package.receiverName}</div>
+
+      <div class="col-sm-12 col-md-6 text-lg-end">Címtett e-mail:</div>
+      <div class="col-sm-12 col-md-6">{data.package.receiverEmail}</div>
+
     </div>
 
     <div class="row">

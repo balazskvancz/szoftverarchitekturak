@@ -108,6 +108,7 @@
   /** Sikeres művelet kezlő. */
   function handleSuccess (): void {
     onSuccessOccured.set('Sikeres művelet!')
+    onSuccessOccured.set(null)
 
     reset()
   }

@@ -36,6 +36,8 @@
       date: data.date,
       isSelected
     })
+
+    onCalendarDayChange.set(null)
   }
 </script>
 

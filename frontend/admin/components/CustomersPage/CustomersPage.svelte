@@ -113,6 +113,7 @@
   /** Sikeres művelet kezlő. */
   function handleSuccess (): void {
     onSuccessOccured.set('Sikeres művelet!')
+    onSuccessOccured.set(null)
 
     reset()
   }
@@ -151,7 +152,7 @@
       const res = await ajax.updateCustomer(idToEdit, {
         email,
         name,
-        telephone: telephone
+        telephone
       })
 
       formErrors = res ? res.formErrors ?? [] : []
@@ -170,7 +171,7 @@
       name,
       password,
       passwordRepeat,
-      telephone: telephone
+      telephone
     })
 
     formErrors = res ? res.formErrors ?? [] : []

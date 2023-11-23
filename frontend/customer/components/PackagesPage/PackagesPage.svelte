@@ -90,6 +90,7 @@
   /** Sikeres művelet kezelője. */
   function handleSuccess (): void {
     onSuccessOccured.set('Sikeres művelet!')
+    onSuccessOccured.set(null)
 
     reset()
   }

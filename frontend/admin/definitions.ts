@@ -52,7 +52,7 @@ export const PAGE_LINKS: Record<TPage, IPage> = {
   },
   settings: {
     displayName: 'Beállítások',
-    url: '/beallatasok',
+    url: '/beallitasok',
     icon: 'bi bi-person-fill-gear'
   }
 
